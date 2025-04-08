@@ -11,7 +11,8 @@ export default defineConfig({
       { 
         text: '模块', 
         items: [
-          { text: 'moon-utils', link: '/modules/moon-utils/' }
+          { text: 'moon-utils', link: '/modules/moon-utils/' },
+          { text: 'npm插件', link: '/modules/plugins/' }
           // 这里可以添加更多模块
         ]
       },
@@ -65,6 +66,34 @@ export default defineConfig({
           items: [
             { text: 'addUrlParams', link: '/modules/moon-utils/api/addUrlParams' },
             { text: 'getUrlParams', link: '/modules/moon-utils/api/getUrlParams' }
+          ]
+        }
+      ],
+      '/modules/plugins/': [
+        {
+          text: 'npm插件',
+          items: [
+            { text: '概述', link: '/modules/plugins/' }
+          ]
+        },
+        {
+          text: '命令行工具',
+          items: [
+            { text: 'creo-bin', link: '/modules/plugins/creo-bin/' }
+          ]
+        },
+        {
+          text: 'Vite插件',
+          items: [
+            { text: 'vite-plugin-mixin-code', link: '/modules/plugins/vite-plugin-mixin-code/' },
+            { text: 'vite-plugin-moon-svg', link: '/modules/plugins/vite-plugin-moon-svg/' },
+            { text: 'vite-plugin-version-evn', link: '/modules/plugins/vite-plugin-version-evn/' }
+          ]
+        },
+        {
+          text: 'Vue CLI插件',
+          items: [
+            { text: 'vue-cli-version-static-plugin', link: '/modules/plugins/vue-cli-version-static-plugin/' }
           ]
         }
       ]

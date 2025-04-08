@@ -6,3 +6,5 @@
 /temp/
 /.vscode/
 /.DS_Store
+/cache/
+/docs/.vitepress/cache/

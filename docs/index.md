@@ -23,6 +23,12 @@ features:
     link: /modules/moon-utils/
     linkText: 了解更多
   
+  - icon: 🔌
+    title: 插件集合
+    details: 实用的构建工具插件，包括 Vite 和 Vue CLI 插件，提供版本控制、SVG处理、代码混入等功能
+    link: /modules/plugins/
+    linkText: 了解更多
+  
   # 以下是未来可能添加的其他模块示例
   - icon: 📦
     title: moon-components
