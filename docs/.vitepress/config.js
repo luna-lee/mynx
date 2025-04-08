@@ -87,7 +87,7 @@ export default defineConfig({
           items: [
             { text: 'vite-plugin-mixin-code', link: '/modules/plugins/vite-plugin-mixin-code/' },
             { text: 'vite-plugin-moon-svg', link: '/modules/plugins/vite-plugin-moon-svg/' },
-            { text: 'vite-plugin-version-evn', link: '/modules/plugins/vite-plugin-version-evn/' }
+            { text: 'vite-plugin-version-env', link: '/modules/plugins/vite-plugin-version-env/' }
           ]
         },
         {

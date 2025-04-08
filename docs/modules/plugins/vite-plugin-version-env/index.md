@@ -1,6 +1,6 @@
-# vite-plugin-version-evn
+# vite-plugin-version-env
 
-vite-plugin-version-evn 是一个专为 Vite 构建工具设计的插件，提供版本控制和全局环境参数配置功能。
+vite-plugin-version-env 是一个专为 Vite 构建工具设计的插件，提供版本控制和全局环境参数配置功能。
 
 ## 功能特点
 
