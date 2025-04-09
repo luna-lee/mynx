@@ -112,7 +112,6 @@ import githubLightTheme from "shiki/themes/github-light.mjs";
 const files = import.meta.glob("../../../example/**/*.vue");
 const filesRaw = import.meta.glob("../../../example/**/*.vue", {
   as: "raw",
-  eager: true,
 });
 const props = defineProps({
   path: {
@@ -243,7 +242,7 @@ onMounted(async () => {
     try {
       const filePath = `../../../example/${importPath}.vue`;
       if (filesRaw[filePath]) {
-        sourceCode.value = filesRaw[filePath];
+        sourceCode.value = await filesRaw[filePath]();
       }
     } catch (error) {
       console.warn("源代码获取过程出错:", error);
