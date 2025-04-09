@@ -7,14 +7,14 @@ const demoPlugin = (md) => {
     const [tokens, idx] = args
     const token = tokens[idx]
     const info = token.info.trim()
-    
+
     // 检查是否匹配我们的自定义语法
     if (info.startsWith('demo')) {
       const path = token.content.trim()
       // 返回自定义组件的渲染代码
       return `<Demo path="${path}" />`
     }
-    
+
     // 否则使用默认的fence渲染器
     return fence(...args)
   }
@@ -33,102 +33,103 @@ export default defineConfig({
     logo: '/logo.png',
     nav: [
       { text: '首页', link: '/' },
-      { 
-        text: '模块', 
+      { text: '组件', link: '/components/' },
+      {
+        text: '资源',
         items: [
-          { text: 'moon-utils', link: '/modules/moon-utils/' },
-          { text: 'npm插件', link: '/modules/plugins/' },
-          { text: '组件', link: '/modules/components/' }
+          { text: 'moon-utils', link: '/resource/moon-utils/' },
+          { text: 'npm插件', link: '/resource/plugins/' },
+
           // 这里可以添加更多模块
         ]
       },
       { text: '关于', link: '/about' }
     ],
     sidebar: {
-      '/modules/moon-utils/': [
+      '/resource/moon-utils/': [
         {
           text: 'moon-utils',
           items: [
-            { text: '简介', link: '/modules/moon-utils/' },
-            { text: '安装', link: '/modules/moon-utils/guide/installation' }
+            { text: '简介', link: '/resource/moon-utils/' },
+            { text: '安装', link: '/resource/moon-utils/guide/installation' }
           ]
         },
         {
           text: '类型工具',
           items: [
-            { text: 'isType', link: '/modules/moon-utils/api/isType' }
+            { text: 'isType', link: '/resource/moon-utils/api/isType' }
           ]
         },
         {
           text: '通用工具',
           items: [
-            { text: 'getUUID', link: '/modules/moon-utils/api/getUUID' },
-            { text: 'setEventListenerVue2', link: '/modules/moon-utils/api/setEventListenerVue2' },
-            { text: 'mergeObject', link: '/modules/moon-utils/api/mergeObject' },
-            { text: 'asyncLoadElement', link: '/modules/moon-utils/api/asyncLoadElement' }
+            { text: 'getUUID', link: '/resource/moon-utils/api/getUUID' },
+            { text: 'setEventListenerVue2', link: '/resource/moon-utils/api/setEventListenerVue2' },
+            { text: 'mergeObject', link: '/resource/moon-utils/api/mergeObject' },
+            { text: 'asyncLoadElement', link: '/resource/moon-utils/api/asyncLoadElement' }
           ]
         },
         {
           text: '验证工具',
           items: [
-            { text: 'InstanceValidate', link: '/modules/moon-utils/api/InstanceValidate' }
+            { text: 'InstanceValidate', link: '/resource/moon-utils/api/InstanceValidate' }
           ]
         },
         {
           text: '树形结构工具',
           items: [
-            { text: 'treeToFlat', link: '/modules/moon-utils/api/treeToFlat' },
-            { text: 'treeDataFactory', link: '/modules/moon-utils/api/treeDataFactory' }
+            { text: 'treeToFlat', link: '/resource/moon-utils/api/treeToFlat' },
+            { text: 'treeDataFactory', link: '/resource/moon-utils/api/treeDataFactory' }
           ]
         },
         {
           text: '数组工具',
           items: [
-            { text: 'arrayRemoveItem', link: '/modules/moon-utils/api/arrayRemoveItem' }
+            { text: 'arrayRemoveItem', link: '/resource/moon-utils/api/arrayRemoveItem' }
           ]
         },
         {
           text: 'URL工具',
           items: [
-            { text: 'addUrlParams', link: '/modules/moon-utils/api/addUrlParams' },
-            { text: 'getUrlParams', link: '/modules/moon-utils/api/getUrlParams' }
+            { text: 'addUrlParams', link: '/resource/moon-utils/api/addUrlParams' },
+            { text: 'getUrlParams', link: '/resource/moon-utils/api/getUrlParams' }
           ]
         }
       ],
-      '/modules/plugins/': [
+      '/resource/plugins/': [
         {
           text: 'npm插件',
           items: [
-            { text: '概述', link: '/modules/plugins/' }
+            { text: '概述', link: '/resource/plugins/' }
           ]
         },
         {
           text: '命令行工具',
           items: [
-            { text: 'creo-bin', link: '/modules/plugins/creo-bin/' }
+            { text: 'creo-bin', link: '/resource/plugins/creo-bin/' }
           ]
         },
         {
           text: 'Vite插件',
           items: [
-            { text: 'vite-plugin-mixin-code', link: '/modules/plugins/vite-plugin-mixin-code/' },
-            { text: 'vite-plugin-moon-svg', link: '/modules/plugins/vite-plugin-moon-svg/' },
-            { text: 'vite-plugin-version-env', link: '/modules/plugins/vite-plugin-version-env/' }
+            { text: 'vite-plugin-mixin-code', link: '/resource/plugins/vite-plugin-mixin-code/' },
+            { text: 'vite-plugin-moon-svg', link: '/resource/plugins/vite-plugin-moon-svg/' },
+            { text: 'vite-plugin-version-env', link: '/resource/plugins/vite-plugin-version-env/' }
           ]
         },
         {
           text: 'Vue CLI插件',
           items: [
-            { text: 'vue-cli-version-static-plugin', link: '/modules/plugins/vue-cli-version-static-plugin/' }
+            { text: 'vue-cli-version-static-plugin', link: '/resource/plugins/vue-cli-version-static-plugin/' }
           ]
         }
       ],
-      '/modules/components/': [
+      '/components/': [
         {
           text: '组件',
           items: [
-            { text: '概述', link: '/modules/components/' },
-            { text: 'Demo组件', link: '/modules/components/demo' }
+            { text: '概述', link: '/components/' },
+            { text: 'Demo组件', link: '/components/demo' }
           ]
         }
       ]
