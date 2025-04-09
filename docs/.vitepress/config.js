@@ -21,8 +21,12 @@ const demoPlugin = (md) => {
 }
 
 export default defineConfig({
-  title: 'Moon工具库',
-  description: '功能丰富的JavaScript工具库集合',
+  title: 'Moon Sir',
+  description: '开发技术分享',
+
+  head: [
+    ['link', { rel: 'icon', href: '/logo.webp' }]
+  ],
   lang: 'zh-CN',
   markdown: {
     config: (md) => {
@@ -30,10 +34,9 @@ export default defineConfig({
     }
   },
   themeConfig: {
-    logo: '/logo.png',
     nav: [
       { text: '首页', link: '/' },
-      { text: '组件', link: '/components/' },
+      { text: '组件', link: '/moon-ui/' },
       {
         text: '资源',
         items: [
@@ -124,19 +127,19 @@ export default defineConfig({
           ]
         }
       ],
-      '/components/': [
+      '/moon-ui/': [
         {
           text: '组件',
           items: [
-            { text: '概述', link: '/components/' },
-            { text: 'Demo组件', link: '/components/demo' }
+            { text: '概述', link: '/moon-ui/' },
+            { text: 'Demo组件', link: '/moon-ui/demo' }
           ]
         }
       ]
       // 这里可以为其他模块添加侧边栏配置
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/luna-lee/moon-utils' }
+      { icon: 'github', link: 'https://github.com/luna-lee' }
     ],
     footer: {
       message: '基于MIT许可证发布',
