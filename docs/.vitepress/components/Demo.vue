@@ -111,7 +111,8 @@ import { createHighlighter } from "shiki";
 import githubLightTheme from "shiki/themes/github-light.mjs";
 const files = import.meta.glob("../../../example/**/*.vue");
 const filesRaw = import.meta.glob("../../../example/**/*.vue", {
-  as: "raw",
+  query: "?raw",
+  import: "default",
 });
 const props = defineProps({
   path: {
