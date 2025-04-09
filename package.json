@@ -8,10 +8,18 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
-  "keywords": ["moon", "documentation", "tools", "utils"],
+  "keywords": [
+    "moon",
+    "documentation",
+    "tools",
+    "utils"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "vitepress": "^1.6.3"
+  },
+  "dependencies": {
+    "shiki": "^3.2.1"
   }
 }

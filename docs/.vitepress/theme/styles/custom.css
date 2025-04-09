@@ -1,0 +1,17 @@
+/* .vitepress/theme/styles/custom.css */
+
+/* Demo container styling */
+.demo-container {
+  padding: 20px;
+  margin: 16px 0;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background-color: var(--vp-c-bg-soft);
+  transition: background-color 0.5s;
+}
+
+/* Dark mode support */
+.dark .demo-container {
+  border-color: var(--vp-c-divider);
+  background-color: var(--vp-c-bg-alt);
+} 

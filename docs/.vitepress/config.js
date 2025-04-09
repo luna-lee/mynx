@@ -1,9 +1,34 @@
 import { defineConfig } from 'vitepress'
 
+// 自定义容器解析
+const demoPlugin = (md) => {
+  const fence = md.renderer.rules.fence
+  md.renderer.rules.fence = (...args) => {
+    const [tokens, idx] = args
+    const token = tokens[idx]
+    const info = token.info.trim()
+    
+    // 检查是否匹配我们的自定义语法
+    if (info.startsWith('demo')) {
+      const path = token.content.trim()
+      // 返回自定义组件的渲染代码
+      return `<Demo path="${path}" />`
+    }
+    
+    // 否则使用默认的fence渲染器
+    return fence(...args)
+  }
+}
+
 export default defineConfig({
   title: 'Moon工具库',
   description: '功能丰富的JavaScript工具库集合',
   lang: 'zh-CN',
+  markdown: {
+    config: (md) => {
+      md.use(demoPlugin)
+    }
+  },
   themeConfig: {
     logo: '/logo.png',
     nav: [
@@ -12,7 +37,8 @@ export default defineConfig({
         text: '模块', 
         items: [
           { text: 'moon-utils', link: '/modules/moon-utils/' },
-          { text: 'npm插件', link: '/modules/plugins/' }
+          { text: 'npm插件', link: '/modules/plugins/' },
+          { text: '组件', link: '/modules/components/' }
           // 这里可以添加更多模块
         ]
       },
@@ -94,6 +120,15 @@ export default defineConfig({
           text: 'Vue CLI插件',
           items: [
             { text: 'vue-cli-version-static-plugin', link: '/modules/plugins/vue-cli-version-static-plugin/' }
+          ]
+        }
+      ],
+      '/modules/components/': [
+        {
+          text: '组件',
+          items: [
+            { text: '概述', link: '/modules/components/' },
+            { text: 'Demo组件', link: '/modules/components/demo' }
           ]
         }
       ]
