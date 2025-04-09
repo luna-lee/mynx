@@ -17,6 +17,16 @@ hero:
   #     link: hhttps://github.com/luna-lee
 
 features:
+  - icon: 📚
+    title: Blog
+    details: 编程技术分享
+    link: /resource/moon-hooks/
+    linkText: 敬请期待
+  - icon: 📦
+    title: moon-ui
+    details: 基于ElementUI/AntDesignUI二次封装的Vue组件库
+    link: /moon-ui/
+    linkText: 了解更多
   - icon: 🛠️
     title: moon-utils
     details: JavaScript实用工具函数库，提供类型检查、UUID生成、树形数据操作等功能
@@ -29,16 +39,5 @@ features:
     link: /resource/plugins/
     linkText: 了解更多
   
-  # 以下是未来可能添加的其他模块示例
-  - icon: 📦
-    title: moon-ui
-    details: 基于ElementUI/AntDesignUI二次封装的Vue组件库
-    link: /moon-ui/
-    linkText: 了解更多
-  
-  - icon: 🔄
-    title: moon-hooks
-    details: 适用于Vue和React的自定义Hooks集合，简化状态管理和副作用处理
-    link: /resource/moon-hooks/
-    linkText: 敬请期待
+
 --- 

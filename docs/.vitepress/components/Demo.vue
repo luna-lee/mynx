@@ -109,6 +109,9 @@
 import { ref, defineProps, onMounted, watch, markRaw } from "vue";
 import { createHighlighter } from "shiki";
 import githubLightTheme from "shiki/themes/github-light.mjs";
+import githubDarkTheme from "shiki/themes/github-dark.mjs";
+import { useData } from "vitepress";
+const { isDark } = useData();
 const files = import.meta.glob("../../../example/**/*.vue");
 const filesRaw = import.meta.glob("../../../example/**/*.vue", {
   query: "?raw",
@@ -154,7 +157,7 @@ const initHighlighter = async () => {
 
     if (!highlighter.value) {
       highlighter.value = await createHighlighter({
-        themes: [githubLightTheme],
+        themes: [githubLightTheme, githubDarkTheme],
         langs: ["vue", "typescript", "scss"],
       });
       // 缓存高亮器实例以供复用
@@ -191,12 +194,19 @@ const updateHighlightedCode = async () => {
   if (!sourceCode.value || !highlighter.value) return;
 
   try {
-    highlightedCode.value = highlighter.value.codeToHtml(sourceCode.value, {
+    // 尝试格式化代码
+    let formattedCode = formatSourceCode(sourceCode.value);
+
+    // 根据当前主题选择合适的代码高亮主题
+    const theme = isDark.value ? "github-dark" : "github-light";
+
+    highlightedCode.value = highlighter.value.codeToHtml(formattedCode, {
       lang: "vue",
-      theme: githubLightTheme.name,
+      theme: theme,
     });
   } catch (error) {
-    console.warn("Failed to highlight code:", error);
+    console.error("高亮代码失败:", error);
+    // 降级处理，直接显示未处理的代码
     highlightedCode.value = `<pre><code>${sourceCode.value}</code></pre>`;
   }
 };
@@ -207,6 +217,13 @@ watch(sourceCode, async () => {
     if (!highlighter.value) {
       await initHighlighter();
     }
+    await updateHighlightedCode();
+  }
+});
+
+// 监听主题变化
+watch(isDark, async () => {
+  if (sourceCode.value && highlighter.value) {
     await updateHighlightedCode();
   }
 });
