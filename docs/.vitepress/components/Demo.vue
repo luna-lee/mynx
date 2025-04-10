@@ -106,7 +106,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, onMounted, watch, markRaw } from "vue";
+import { ref, onMounted, watch, markRaw } from "vue";
 import { createHighlighter } from "shiki";
 import githubLightTheme from "shiki/themes/github-light.mjs";
 import githubDarkTheme from "shiki/themes/github-dark.mjs";
