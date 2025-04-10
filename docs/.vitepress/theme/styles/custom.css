@@ -2,16 +2,68 @@
 
 /* Demo container styling */
 .demo-container {
-  padding: 20px;
-  margin: 16px 0;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
+  padding         : 20px;
+  margin          : 16px 0;
+  border          : 1px solid var(--vp-c-divider);
+  border-radius   : 8px;
   background-color: var(--vp-c-bg-soft);
-  transition: background-color 0.5s;
+  transition      : background-color 0.5s;
 }
 
 /* Dark mode support */
 .dark .demo-container {
-  border-color: var(--vp-c-divider);
+  border-color    : var(--vp-c-divider);
   background-color: var(--vp-c-bg-alt);
-} 
+}
+
+/* 自定义搜索结果样式 - 使用更通用的选择器 */
+.VPLocalSearch mark,
+.DocSearch-Hit mark,
+.vp-local-search mark,
+.search-result mark,
+mark.highlight,
+.search-box mark,
+.vp-search mark,
+.modal-container mark {
+  background-color: transparent !important;
+  color           : #3eaf7c !important;
+  /* 使用VitePress主题绿色 */
+  font-weight     : 600 !important;
+  text-decoration : none !important;
+  border-bottom   : 1px solid #3eaf7c !important;
+  padding-bottom  : 1px !important;
+  box-shadow      : none !important;
+}
+
+.dark .VPLocalSearch mark,
+.dark .DocSearch-Hit mark,
+.dark .vp-local-search mark,
+.dark .search-result mark,
+.dark mark.highlight,
+.dark .search-box mark,
+.dark .vp-search mark,
+.dark .modal-container mark {
+  color        : #42d392 !important;
+  /* 深色模式下使用更亮的绿色 */
+  border-bottom: 1px solid #42d392 !important;
+}
+
+/* 覆盖内置搜索结果样式 */
+.VPLocalSearchResult .result {
+  border-radius   : 6px;
+  background-color: transparent !important;
+}
+
+.VPLocalSearchResult .result.focus {
+  background-color: var(--vp-c-bg-soft) !important;
+}
+
+.VPNavBarSearch {
+  text-align     : right;
+  display        : flex;
+  justify-content: flex-end;
+}
+
+.DocSearch-Button {
+  background-color: transparent !important;
+}
