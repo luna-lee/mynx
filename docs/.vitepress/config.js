@@ -25,7 +25,7 @@ export default defineConfig({
   description: '开发技术分享',
   title: 'Moon Sir',
   head: [
-    ['link', { rel: 'icon', href: ':base'+'logo.webp' }],
+    ['link', { rel: 'icon', href:  '/docs/logo.webp' }],
   ],
   lang: 'zh-CN',
   markdown: {
