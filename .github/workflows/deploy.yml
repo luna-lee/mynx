@@ -16,6 +16,7 @@ permissions:
 # 环境设置
 env:
   NODE_VERSION: 20 # 使用 Node.js 20
+  PNPM_VERSION: 8 # 使用 pnpm 8
 
 # 并发控制 - 同一分支只运行最新的工作流
 concurrency:
@@ -41,37 +42,45 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
 
-      # 3. 设置 PNPM (如果使用 PNPM)
-      # - name: Setup PNPM
-      #   uses: pnpm/action-setup@v2
-      #   with:
-      #     version: 8
-      #     run_install: false
+      # 3. 设置 PNPM
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          run_install: false
 
-      # 4. 安装依赖
+      # 4. 启用 PNPM 缓存
+      - name: PNPM Store Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      # 5. 安装依赖 (使用 pnpm install)
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install --no-frozen-lockfile
 
-      # 5. 构建 VitePress 项目
+      # 6. 构建 VitePress 项目
       - name: Build
-        run: npm run docs:build
+        run: pnpm run docs:build
         env:
           NODE_OPTIONS: --max-old-space-size=4096 # 增加内存限制，防止大型项目构建失败
 
-      # 6. 设置 GitHub Pages 环境
+      # 7. 设置 GitHub Pages 环境
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      # 7. 上传构建产物
+      # 8. 上传构建产物
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist
           retention-days: 7 # 设置制品保留时间
 
-      # 8. 部署到 GitHub Pages
+      # 9. 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
