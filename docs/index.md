@@ -20,7 +20,7 @@ features:
   - icon: 📚
     title: Blog
     details: 编程技术分享
-    link: /resource/moon-hooks/
+    link: /
     linkText: 敬请期待
   - icon: 📦
     title: moon-ui

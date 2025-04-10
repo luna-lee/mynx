@@ -1,6 +1,6 @@
 import DefaultTheme from 'vitepress/theme'
 import './styles/custom.css'
-import Demo from '../components/demo.vue'
+import Demo from '../components/Demo.vue'
 export default {
   ...DefaultTheme,
   enhanceApp({ app, router, siteData, head }) {

@@ -26,7 +26,7 @@ export default defineConfig({
   description: '开发技术分享',
 
   head: [
-    ['link', { rel: 'icon', href: '/logo.webp' }]
+    ['link', { rel: 'icon', href: '/docs/logo.webp' }]
   ],
   lang: 'zh-CN',
   markdown: {
