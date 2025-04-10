@@ -1,0 +1,79 @@
+name: Deploy Docs to GitHub Pages
+
+# 触发条件：推送至 main 分支时运行
+on:
+  push:
+    branches: [main]
+  # 允许手动触发工作流
+  workflow_dispatch:
+
+# 权限设置（必要，用于部署到 gh-pages）
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 环境设置
+env:
+  NODE_VERSION: 20 # 使用 Node.js 20
+
+# 并发控制 - 同一分支只运行最新的工作流
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
+    steps:
+      # 1. 检出代码
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 获取完整历史记录，以便获取所有 Git 信息
+
+      # 2. 设置 Node.js 环境
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      # 3. 设置 PNPM (如果使用 PNPM)
+      # - name: Setup PNPM
+      #   uses: pnpm/action-setup@v2
+      #   with:
+      #     version: 8
+      #     run_install: false
+
+      # 4. 安装依赖
+      - name: Install Dependencies
+        run: npm ci
+
+      # 5. 构建 VitePress 项目
+      - name: Build
+        run: npm run docs:build
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096 # 增加内存限制，防止大型项目构建失败
+
+      # 6. 设置 GitHub Pages 环境
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # 7. 上传构建产物
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+          retention-days: 7 # 设置制品保留时间
+
+      # 8. 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          timeout: 600000 # 10分钟超时，适用于大型站点
