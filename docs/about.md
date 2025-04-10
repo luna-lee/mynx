@@ -8,11 +8,11 @@ Moon 工具库目前包含以下模块：
 
 ### moon-utils
 
-[moon-utils](/modules/moon-utils/) 是一个全面的 JavaScript 工具函数库，包含类型检查、UUID 生成、树形数据处理等实用工具。
+[moon-utils](/resource/moon-utils/) 是一个全面的 JavaScript 工具函数库，包含类型检查、UUID 生成、树形数据处理等实用工具。
 
 ### 插件集合
 
-[插件集合](/modules/plugins/) 包含了一系列实用的构建工具插件，主要包括：
+[插件集合](/resource/plugins/) 包含了一系列实用的构建工具插件，主要包括：
 
 - **vite-plugin-mixin-code**: 用于 Vue 文件的代码混入和自动添加组件名
 - **vite-plugin-moon-svg**: 提供多种方式使用 SVG 图标的 Vite 插件

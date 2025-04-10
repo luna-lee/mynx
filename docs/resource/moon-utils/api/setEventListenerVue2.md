@@ -1,28 +1,35 @@
 # setEventListenerVue2
 
-为 Vue 2 组件添加 DOM 事件监听器，自动在组件销毁时移除事件。
+为 Vue 2 组件添加 DOM 事件监听器，并在组件的不同生命周期阶段自动管理事件。
 
 ## 类型签名
 
 ```typescript
-(vm: Vue, eventName: string, element: Element | Window, callback: EventListener, options?: boolean | AddEventListenerOptions) => void
+(binder: any, vm: any, evtName: string, listener: (...arg: any[]) => void, options?: any) => (() => void) | undefined
 ```
 
 ## 参数
 
+- `binder` (Window | Document | Element): 事件绑定的目标元素，如 window 或 document
 - `vm` (Vue): Vue 2 组件实例
-- `eventName` (string): 要监听的事件名称，如 'click', 'resize' 等
-- `element` (Element | Window): 要添加事件监听器的 DOM 元素或窗口对象
-- `callback` (EventListener): 事件触发时调用的回调函数
+- `evtName` (string): 要监听的事件名称，如 'click', 'resize' 等
+- `listener` (Function): 事件触发时调用的回调函数
 - `options` (boolean | AddEventListenerOptions, 可选): 事件监听器选项，与标准 addEventListener() 的选项相同
 
 ## 返回值
 
-- (void): 此函数不返回任何值
+- `Function | undefined`: 返回一个用于手动移除事件监听的函数，如果参数不完整则返回 undefined
 
 ## 描述
 
-`setEventListenerVue2` 函数为 Vue 2 组件添加 DOM 事件监听器，并确保在组件销毁时自动移除这些事件监听器，防止内存泄漏。这对于手动添加的全局事件（如窗口大小调整、滚动事件等）特别有用，这些事件无法通过 Vue 的模板语法直接绑定。
+`setEventListenerVue2` 函数用于在 Vue 2 组件中设置 DOM 事件监听器（主要针对 window 或 document），并在组件的不同生命周期阶段（mounted, activated, deactivated, beforeDestroy）自动管理事件的添加和移除，防止内存泄漏和无效事件监听。
+
+该函数具有以下特性：
+
+1. 只有在组件可见（宽高不为0）时才触发事件回调
+2. 自动在组件销毁前移除事件监听
+3. 根据组件的生命周期自动处理事件监听的添加和移除
+4. 提供手动移除事件监听的方法
 
 ## 示例
 
@@ -35,17 +42,17 @@ export default {
   mounted() {
     // 为窗口添加 resize 事件
     setEventListenerVue2(
+      window,
       this,
       'resize',
-      window,
       this.handleResize
     );
     
     // 为文档添加点击事件
     setEventListenerVue2(
+      document,
       this,
       'click',
-      document,
       this.handleDocumentClick
     );
   },
@@ -71,71 +78,80 @@ export default {
   mounted() {
     // 添加带选项的滚动事件
     setEventListenerVue2(
+      window,
       this,
       'scroll',
-      window,
       this.handleScroll,
       { passive: true, capture: false }
-    );
-    
-    // 使用事件捕获
-    const menuElement = this.$refs.menu;
-    setEventListenerVue2(
-      this,
-      'click',
-      menuElement,
-      this.handleMenuClick,
-      true  // 使用捕获阶段
     );
   },
   
   methods: {
     handleScroll(event) {
       console.log('页面滚动:', window.scrollY);
-    },
-    
-    handleMenuClick(event) {
-      console.log('菜单被点击:', event.target);
     }
   }
 };
 ```
 
-### 使用组件引用的元素
+### 手动移除事件监听
 
 ```js
 import { setEventListenerVue2 } from 'moon-utils';
 
 export default {
+  data() {
+    return {
+      removeClickListener: null
+    };
+  },
+  
   mounted() {
-    // 确保引用存在
-    if (this.$refs.customInput) {
-      // 为自定义输入框添加焦点和失焦事件
-      setEventListenerVue2(
-        this,
-        'focus',
-        this.$refs.customInput,
-        this.handleFocus
-      );
-      
-      setEventListenerVue2(
-        this,
-        'blur',
-        this.$refs.customInput,
-        this.handleBlur
-      );
-    }
+    // 保存返回的移除函数
+    this.removeClickListener = setEventListenerVue2(
+      document,
+      this,
+      'click',
+      this.handleClick
+    );
   },
   
   methods: {
-    handleFocus(event) {
-      console.log('输入框获得焦点');
-      this.isFocused = true;
+    handleClick(event) {
+      console.log('文档被点击:', event.target);
     },
     
-    handleBlur(event) {
-      console.log('输入框失去焦点');
-      this.isFocused = false;
+    stopListening() {
+      // 在需要时手动移除监听
+      if (this.removeClickListener) {
+        this.removeClickListener();
+        this.removeClickListener = null;
+      }
+    }
+  }
+};
+```
+
+### 配合 keep-alive 组件使用
+
+```js
+import { setEventListenerVue2 } from 'moon-utils';
+
+export default {
+  // keep-alive 缓存的组件会触发 activated 和 deactivated 钩子
+  mounted() {
+    setEventListenerVue2(
+      window,
+      this,
+      'resize',
+      this.handleResize
+    );
+    // 函数会自动处理 activated 和 deactivated 生命周期
+  },
+  
+  methods: {
+    handleResize(event) {
+      console.log('组件可见且窗口大小改变时触发');
     }
   }
 };
@@ -159,9 +175,9 @@ export default {
   mounted() {
     // 添加文档点击事件来检测外部点击
     setEventListenerVue2(
+      document,
       this,
       'click',
-      document,
       this.handleClickOutside
     );
   },
@@ -180,4 +196,11 @@ export default {
     return this.$slots.default[0];
   }
 };
-``` 
+```
+
+## 注意事项
+
+1. 事件监听器包装了一个验证函数，只有当组件可见（宽高不为0）时才会触发原始的事件回调
+2. 参数顺序与原生 addEventListener 不同，请注意正确传入参数
+3. 该函数会自动处理组件的 mounted、activated、deactivated 和 beforeDestroy 生命周期钩子
+4. 如果缺少任何必要的参数（binder、vm、evtName 或 listener），函数将直接返回而不添加事件监听器 

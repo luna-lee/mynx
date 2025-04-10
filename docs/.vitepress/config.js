@@ -21,6 +21,7 @@ const demoPlugin = (md) => {
 }
 
 export default defineConfig({
+  outDir: '../dist',
   title: 'Moon Sir',
   description: '开发技术分享',
 
