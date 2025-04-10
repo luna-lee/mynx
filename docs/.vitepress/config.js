@@ -22,11 +22,10 @@ const demoPlugin = (md) => {
 
 export default defineConfig({
   base: '/docs/',
-  title: 'Moon Sir',
   description: '开发技术分享',
-
+  title: 'Moon Sir',
   head: [
-    ['link', { rel: 'icon', href: '/docs/logo.webp' }]
+    ['link', { rel: 'icon', href: ':base'+'logo.webp' }],
   ],
   lang: 'zh-CN',
   markdown: {
@@ -35,6 +34,31 @@ export default defineConfig({
     }
   },
   themeConfig: {
+    logo: '/logo.webp',
+    search: {
+      provider: 'local',
+      options: {
+        locales: {
+          root: {
+            translations: {
+              button: {
+                buttonText: '搜索文档',
+                buttonAriaLabel: '搜索文档'
+              },
+              modal: {
+                noResultsText: '无法找到相关结果',
+                resetButtonTitle: '清除查询条件',
+                footer: {
+                  selectText: '选择',
+                  navigateText: '切换',
+                  closeText: '关闭'
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     nav: [
       { text: '首页', link: '/' },
       { text: '组件', link: '/moon-ui/' },
