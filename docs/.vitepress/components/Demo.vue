@@ -14,7 +14,7 @@
       <div class="control-buttons">
         <!-- 显示/隐藏代码按钮 -->
         <a
-          href="#"
+          href="javascript:void(0)"
           class="control-button"
           @click.prevent="showCode = !showCode"
           @mouseenter="codeTooltipVisible = true"
