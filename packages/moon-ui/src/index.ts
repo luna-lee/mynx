@@ -22,6 +22,6 @@ export const MoonUI = {
 
 // Export components individually
 // export { MHierarchy };
-
+export { MDemo };
 // For backward compatibility
 export default MoonUI;

@@ -30,7 +30,7 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "rm -rf dist types && vite build && npm run build:types",
-    "build:types": "vue-tsc --emitDeclarationOnly &&  node --loader ts-node/esm scripts/generateTypes.mts",
+    "build:types": "vue-tsc --emitDeclarationOnly &&   tsx scripts/generateTypes.mts",
     "typecheck": "vue-tsc --noEmit",
     "clean": "rm -rf dist types"
   },
@@ -44,6 +44,7 @@
     "prettier": "^3.5.3",
     "sass": "^1.87.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.3.3",
     "unocss": "66.1.0-beta.12",
     "vite": "^5.1.4",
