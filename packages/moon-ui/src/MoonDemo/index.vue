@@ -9,7 +9,7 @@
   defineProps<{
     name: string;
   }>();
-  const count = ref<number>(0);
+  const count = ref<number>(10);
 </script>
 
 <style scoped>
