@@ -167,8 +167,8 @@ export default defineConfig({
           text: '组件',
           items: [
             { text: '概述', link: '/moon-ui/' },
-            { text: 'MCurtain', link: '/moon-ui/MCurtain' },
-            { text: 'MList', link: '/moon-ui/MList' }
+            { text: '窗帘', link: '/moon-ui/MCurtain' },
+            { text: '清單', link: '/moon-ui/MList' }
           ]
         }
       ]
