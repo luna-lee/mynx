@@ -1,23 +1,23 @@
 <template>
-  <div class="moon-curtain" :class="{ 'moon-curtain-is-open': isOpen }" :style="isOpen ? openStyle : foldStyle">
-    <div class="moon-curtain-content">
+  <div class="m-curtain" :class="{ 'm-curtain-is-open': isOpen }" :style="isOpen ? openStyle : foldStyle">
+    <div class="m-curtain-content">
       <slot></slot>
     </div>
     <slot name="trigger" :isOpen="isOpen">
       <div
-        class="moon-curtain-toggle"
+        class="m-curtain-toggle"
         :class="{
-          'moon-curtain-toggle-position-right': triggerPosition == 'right',
-          'moon-curtain-toggle-position-left': triggerPosition == 'left',
-          'moon-curtain-toggle-position-bottom': triggerPosition == 'bottom',
-          'moon-curtain-toggle-position-top': triggerPosition == 'top',
+          'm-curtain-toggle-position-right': triggerPosition == 'right',
+          'm-curtain-toggle-position-left': triggerPosition == 'left',
+          'm-curtain-toggle-position-bottom': triggerPosition == 'bottom',
+          'm-curtain-toggle-position-top': triggerPosition == 'top',
         }"
         @click="toggle"
       >
         <slot name="trigger-content" :isOpen="isOpen">
           <svg
-            class="moon-curtain-toggle-icon"
-            :class="{ 'moon-curtain-toggle-icon-open': isOpen }"
+            class="m-curtain-toggle-icon"
+            :class="{ 'm-curtain-toggle-icon-open': isOpen }"
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
             height="1em"
@@ -102,25 +102,25 @@
 </script>
 
 <style lang="scss" scoped>
-  .moon-curtain {
+  .m-curtain {
     position: relative;
     transition: all 0.5s ease-in-out;
-    .moon-curtain-content {
+    .m-curtain-content {
       width: 100%;
       height: 100%;
       overflow: hidden;
       white-space: nowrap;
     }
-    .moon-curtain-toggle {
+    .m-curtain-toggle {
       position: absolute;
       cursor: pointer;
       z-index: 100;
 
-      .moon-curtain-toggle-icon {
+      .m-curtain-toggle-icon {
         transition: all 0.5s ease-in-out;
       }
       // 左中
-      &.moon-curtain-toggle-position-left {
+      &.m-curtain-toggle-position-left {
         left: 0;
         top: 0;
         height: 100%;
@@ -129,16 +129,16 @@
         justify-content: center;
         transform: translateX(-100%);
 
-        .moon-curtain-toggle-icon {
+        .m-curtain-toggle-icon {
           transform: rotate(180deg);
 
-          &.moon-curtain-toggle-icon-open {
+          &.m-curtain-toggle-icon-open {
             transform: rotate(0deg);
           }
         }
       }
       // 右中
-      &.moon-curtain-toggle-position-right {
+      &.m-curtain-toggle-position-right {
         right: 0;
         top: 0;
         height: 100%;
@@ -146,12 +146,12 @@
         align-items: center;
         justify-content: center;
         transform: translateX(100%);
-        .moon-curtain-toggle-icon-open {
+        .m-curtain-toggle-icon-open {
           transform: rotate(180deg);
         }
       }
       // 上中
-      &.moon-curtain-toggle-position-top {
+      &.m-curtain-toggle-position-top {
         top: 0;
         left: 0;
         width: 100%;
@@ -159,16 +159,16 @@
         align-items: center;
         justify-content: center;
         transform: translateY(-100%);
-        .moon-curtain-toggle-icon {
+        .m-curtain-toggle-icon {
           transform: rotate(-90deg);
 
-          &.moon-curtain-toggle-icon-open {
+          &.m-curtain-toggle-icon-open {
             transform: rotate(90deg);
           }
         }
       }
       // 下中
-      &.moon-curtain-toggle-position-bottom {
+      &.m-curtain-toggle-position-bottom {
         bottom: 0;
         left: 0;
         width: 100%;
@@ -176,10 +176,10 @@
         align-items: center;
         justify-content: center;
         transform: translateY(100%);
-        .moon-curtain-toggle-icon {
+        .m-curtain-toggle-icon {
           transform: rotate(90deg);
 
-          &.moon-curtain-toggle-icon-open {
+          &.m-curtain-toggle-icon-open {
             transform: rotate(-90deg);
           }
         }

@@ -9,10 +9,34 @@
 
 ### 用法示例
 
+#### 默认插槽内容
+```demo
+MCurtain/default-slot
+```
 
 #### 自定义触发器插槽
 ```demo
 MCurtain/trigger
+```
+
+#### 自定义触发器内容插槽
+```demo
+MCurtain/trigger-content
+```
+
+#### modelValue 双向绑定
+```demo
+MCurtain/model-value
+```
+
+#### 触发器位置设置
+```demo
+MCurtain/trigger-position
+```
+
+#### 自定义折叠/展开样式
+```demo
+MCurtain/fold-open-style
 ```
 
 ### Props
