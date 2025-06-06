@@ -122,7 +122,6 @@
     <div class="demo-item">
       <h4>图标式更多按钮</h4>
       <div class="container-wrapper">
-        {{ selectedValue4 }}
         <MList
           v-model="selectedValue4"
           :showMoreBtn="true"
