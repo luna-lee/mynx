@@ -1,13 +1,15 @@
 import DefaultTheme from 'vitepress/theme'
 import './styles/custom.css'
 import Demo from '../components/Demo.vue'
-
+import { components } from '../../../packages/moon-ui/src/index'
 export default {
   ...DefaultTheme,
   enhanceApp({ app, router, siteData, head }) {
     // 注册全局组件
     app.component('Demo', Demo)
-    
+    Object.entries(components).forEach(([name, component]) => {
+      app.component(name, component);
+    });
     // 添加全局样式，确保搜索高亮生效
     if (typeof document !== 'undefined') {
       const style = document.createElement('style')

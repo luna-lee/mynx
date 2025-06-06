@@ -9,7 +9,7 @@ const demoPlugin = (md) => {
     const info = token.info.trim()
 
     // 检查是否匹配我们的自定义语法
-    if (info.startsWith('demo')) {
+    if (info.startsWith('demo') || info.startsWith('Demo')) {
       const path = token.content.trim()
       // 返回自定义组件的渲染代码
       return `<Demo path="${path}" />`
@@ -25,7 +25,7 @@ export default defineConfig({
   description: '开发技术分享',
   title: 'Moon Sir',
   head: [
-    ['link', { rel: 'icon', href:  '/docs/logo.webp' }],
+    ['link', { rel: 'icon', href: '/docs/logo.webp' }],
   ],
   lang: 'zh-CN',
   markdown: {
@@ -157,7 +157,7 @@ export default defineConfig({
           text: '组件',
           items: [
             { text: '概述', link: '/moon-ui/' },
-            { text: 'Demo组件', link: '/moon-ui/demo' }
+            { text: 'MCurtain', link: '/moon-ui/MCurtain' }
           ]
         }
       ]

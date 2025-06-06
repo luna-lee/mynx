@@ -2,10 +2,10 @@ import type { App } from 'vue';
 
 // Import components
 // import MHierarchy from "./MoonHierarchy/index.vue";
-import MDemo from './MoonDemo/index.vue';
+import MCurtain from './MCurtain/index.vue';
 // Create component map
-const components = {
-  MDemo,
+export const components: Record<string, any> = {
+  MCurtain,
 };
 
 // Plugin installation
@@ -22,6 +22,6 @@ export const MoonUI = {
 
 // Export components individually
 // export { MHierarchy };
-export { MDemo };
+export { MCurtain };
 // For backward compatibility
 export default MoonUI;
