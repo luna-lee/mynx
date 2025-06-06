@@ -21,10 +21,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@vitejs/plugin-vue-jsx": "^4.1.2",
     "vitepress": "^1.6.3"
   },
   "dependencies": {
-    "shiki": "^3.2.1",
-    "moon-ui": "workspace:*"
+    "moon-ui": "workspace:*",
+    "shiki": "^3.2.1"
   }
 }

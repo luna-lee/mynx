@@ -3,9 +3,11 @@ import type { App } from 'vue';
 // Import components
 // import MHierarchy from "./MoonHierarchy/index.vue";
 import MCurtain from './MCurtain/index.vue';
+import MList from './MList/index.vue';
 // Create component map
 export const components: Record<string, any> = {
   MCurtain,
+  MList,
 };
 
 // Plugin installation

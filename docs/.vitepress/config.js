@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // 自定义容器解析
 const demoPlugin = (md) => {
@@ -32,6 +33,15 @@ export default defineConfig({
     config: (md) => {
       md.use(demoPlugin)
     }
+  },
+  vite: {
+    plugins: [
+      vueJsx({
+        // JSX配置选项
+        transformOn: true,
+        mergeProps: true
+      })
+    ]
   },
   themeConfig: {
     logo: '/logo.webp',
@@ -157,7 +167,8 @@ export default defineConfig({
           text: '组件',
           items: [
             { text: '概述', link: '/moon-ui/' },
-            { text: 'MCurtain', link: '/moon-ui/MCurtain' }
+            { text: 'MCurtain', link: '/moon-ui/MCurtain' },
+            { text: 'MList', link: '/moon-ui/MList' }
           ]
         }
       ]
