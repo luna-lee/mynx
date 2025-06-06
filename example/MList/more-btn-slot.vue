@@ -55,14 +55,12 @@
                 >
               </button>
               <div v-show="showDropdown" class="dropdown-content">
-                <div
-                  v-for="(item, index) in vnodeList"
-                  :key="item.key || index"
-                  class="dropdown-item"
+                <component
+                  :is="item"
+                  v-for="item in vnodeList"
+                  :key="item.key"
                   @click="handleDropdownItemClick(item.key)"
-                >
-                  {{ getItemText(item) }}
-                </div>
+                />
               </div>
             </div>
           </template>

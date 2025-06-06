@@ -96,18 +96,7 @@
       },
       sliceLength: {
         handler(val) {
-          if (val === 0) {
-            this.$emit('sliceIndex', this.slotDefault().length);
-            this.$emit('moreVnodeList', []);
-          }
-          if (val > 0) {
-            this.$emit('sliceIndex', val);
-            this.$emit('moreVnodeList', this.slotDefault().slice(this.sliceLength));
-          }
-          if (val < 0) {
-            this.$emit('sliceIndex', 1);
-            this.$emit('moreVnodeList', this.slotDefault().slice(1));
-          }
+          this.emitMoreVnodeList();
         },
         immediate: true,
       },
@@ -184,6 +173,7 @@
           if (item.key)
             return h(item, {
               onClick: () => {
+                console.log(item.key);
                 item.props?.onClick?.();
                 this.onItemClick(item.key);
               },
@@ -218,6 +208,8 @@
           this.current = key;
           this.$emit('update:modelValue', key);
         }
+        // 更新更多按钮的vnodeList
+        this.emitMoreVnodeList();
       },
       /**
        * 设置CSS类名
@@ -285,6 +277,23 @@
         });
         // 开始观察目标元素
         this.resizeObserver.observe(body);
+      },
+      /**
+       * 更新更多按钮的vnodeList
+       */
+      emitMoreVnodeList() {
+        if (this.sliceLength === 0) {
+          this.$emit('sliceIndex', this.slotDefault().length);
+          this.$emit('moreVnodeList', []);
+        }
+        if (this.sliceLength > 0) {
+          this.$emit('sliceIndex', this.sliceLength);
+          this.$emit('moreVnodeList', this.setChildrenEvent(this.slotDefault().slice(this.sliceLength)));
+        }
+        if (this.sliceLength < 0) {
+          this.$emit('sliceIndex', 1);
+          this.$emit('moreVnodeList', this.setChildrenEvent(this.slotDefault().slice(1)));
+        }
       },
     },
   };
