@@ -172,7 +172,8 @@ export default defineConfig({
           text: '组件',
           items: [
             { text: '窗帘MCurtain', link: '/moon-ui/MCurtain' },
-            { text: '清单MList', link: '/moon-ui/MList' }
+            { text: '清单MList', link: '/moon-ui/MList' },
+            { text: '可拖拽容器MDiv', link: '/moon-ui/MDiv' }
           ]
         }
       ]

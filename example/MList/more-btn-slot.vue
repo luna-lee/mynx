@@ -2,42 +2,46 @@
   <div class="demo-container">
     <div class="demo-item">
       <div class="container-wrapper">
-        <MList
-          v-model="selectedValue4"
-          :showMoreBtn="true"
-          :overflowX="true"
-          class="overflow-container"
+        <MDiv
+          style="width: 300px; height: 190px; border: 1px solid #409eff"
         >
-          <div
-            key="action1"
-            class="action-item"
-            @click="handleIconMenuClick('action1')"
+          <MList
+            v-model="selectedValue4"
+            :showMoreBtn="true"
+            :overflowX="true"
+            class="overflow-container"
           >
-            <span>📁</span> 文件
-          </div>
-          <div key="action2" class="action-item"><span>✏️</span> 编辑</div>
-          <div key="action3" class="action-item"><span>🗑️</span> 删除</div>
-          <div key="action4" class="action-item"><span>📤</span> 分享</div>
-          <div key="action5" class="action-item"><span>⚙️</span> 设置</div>
-
-          <template #moreBtn="{ vnodeList }">
-            <div class="icon-more" @click="showIconMenu = !showIconMenu">
-              <button class="icon-more-btn">
-                <span class="dots">⋯</span>
-              </button>
-              <div v-show="showIconMenu" class="icon-menu">
-                <component
-                  :is="item"
-                  v-for="item in vnodeList"
-                  :key="item.key"
-                  class="icon-menu-item"
-                  :vnode="item"
-                >
-                </component>
-              </div>
+            <div
+              key="action1"
+              class="action-item"
+              @click="handleIconMenuClick('action1')"
+            >
+              <span>📁</span> 文件
             </div>
-          </template>
-        </MList>
+            <div key="action2" class="action-item"><span>✏️</span> 编辑</div>
+            <div key="action3" class="action-item"><span>🗑️</span> 删除</div>
+            <div key="action4" class="action-item"><span>📤</span> 分享</div>
+            <div key="action5" class="action-item"><span>⚙️</span> 设置</div>
+
+            <template #moreBtn="{ vnodeList }">
+              <div class="icon-more" @click="showIconMenu = !showIconMenu">
+                <button class="icon-more-btn">
+                  <span class="dots">⋯</span>
+                </button>
+                <div v-show="showIconMenu" class="icon-menu">
+                  <component
+                    :is="item"
+                    v-for="item in vnodeList"
+                    :key="item.key"
+                    class="icon-menu-item"
+                    :vnode="item"
+                  >
+                  </component>
+                </div>
+              </div>
+            </template>
+          </MList>
+        </MDiv>
       </div>
       <p>当前选中：{{ selectedValue4 }}</p>
     </div>
@@ -61,7 +65,6 @@ const handleIconMenuClick = (key: string) => {
 }
 
 .container-wrapper {
-  width: 300px;
   border: 2px dashed #ccc;
   padding: 10px;
   border-radius: 6px;

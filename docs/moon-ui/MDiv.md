@@ -1,0 +1,87 @@
+# MDiv 可拖拽容器
+
+MDiv 是一个支持拖拽调整大小的容器组件，用户可以通过拖拽边框和角落来调整容器的尺寸。
+
+## 基础用法
+
+最简单的用法是直接使用 MDiv 包裹内容，默认支持所有方向的拖拽。
+
+```demo
+MDiv/default-slot.vue
+```
+
+## 拖拽位置配置
+
+通过 `dragPosition` 属性可以控制哪些位置可以拖拽。
+
+```demo
+MDiv/drag-position.vue
+```
+
+## 自定义拖拽条
+
+可以通过插槽自定义拖拽条的样式和内容。
+
+```demo
+MDiv/bar-slot.vue
+```
+
+## 自定义角落
+
+可以通过插槽自定义角落拖拽区域的样式和内容。
+
+```demo
+MDiv/corner-slot.vue
+```
+
+## API
+
+### Props
+
+| 参数 | 说明 | 类型 | 可选值 | 默认值 |
+|------|------|------|--------|--------|
+| dragPosition | 可拖拽的位置 | Array | `['top', 'left', 'right', 'bottom', 'tl', 'tr', 'bl', 'br']` | `['top', 'left', 'right', 'bottom', 'tl', 'tr', 'bl', 'br']` |
+
+#### dragPosition 说明
+
+- `top`: 顶部边框
+- `left`: 左侧边框  
+- `right`: 右侧边框
+- `bottom`: 底部边框
+- `tl`: 左上角
+- `tr`: 右上角
+- `bl`: 左下角
+- `br`: 右下角
+
+### Slots
+
+| 插槽名 | 说明 |
+|--------|------|
+| default | 默认插槽，容器内容 |
+| bar | 通用拖拽条插槽，当没有指定具体方向的插槽时使用 |
+| bar-top | 顶部拖拽条插槽 |
+| bar-left | 左侧拖拽条插槽 |
+| bar-right | 右侧拖拽条插槽 |
+| bar-bottom | 底部拖拽条插槽 |
+| corner | 通用角落插槽，当没有指定具体角落的插槽时使用 |
+| corner-tl | 左上角插槽 |
+| corner-tr | 右上角插槽 |
+| corner-bl | 左下角插槽 |
+| corner-br | 右下角插槽 |
+
+### CSS 变量
+
+组件提供了以下 CSS 变量用于自定义样式：
+
+| 变量名 | 说明 | 默认值 |
+|--------|------|--------|
+| --moon-div-bar-color | 拖拽条悬停时的背景色 | `rgba(144, 147, 153, 0.3)` |
+| --moon-div-bar-size | 拖拽条的尺寸 | `5px` |
+| --moon-div-corner-size | 角落拖拽区域的尺寸 | `10px` |
+
+## 注意事项
+
+1. 组件会自动设置容器的 `position: relative` 和 `overflow: hidden` 样式
+2. 拖拽功能基于原生的鼠标事件实现
+3. 建议为容器设置初始的宽度和高度
+4. 拖拽时会直接修改元素的 style 属性 

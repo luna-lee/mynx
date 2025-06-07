@@ -5,11 +5,14 @@ import type { App } from 'vue';
 import MCurtain from './MCurtain/index.vue';
 // @ts-ignore
 import MList from './MList/index.vue';
+// @ts-ignore
+import MDiv from './MDiv/index.vue';
 
 // Create component map
 export const components: Record<string, any> = {
   MCurtain,
   MList,
+  MDiv,
 };
 
 // Plugin installation
@@ -28,6 +31,7 @@ export const MoonUI = {
 // export { MHierarchy };
 export { MCurtain };
 export { MList };
+export { MDiv };
 
 // For backward compatibility
 export default MoonUI;
