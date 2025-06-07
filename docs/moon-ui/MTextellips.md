@@ -22,6 +22,14 @@ MTextellips/default-slot.vue
 MTextellips/fold-btn-slot.vue
 ```
 
+## 与 Element Plus 结合使用
+
+MTextellips 组件可以与 Element Plus 完美结合，创建更丰富的交互体验。
+
+```demo
+MTextellips/element-plus-demo.vue
+```
+
 ## API
 
 ### Props

@@ -26,7 +26,9 @@
     "vitepress": "^1.6.3"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "@vueuse/core": "^13.3.0",
+    "element-plus": "^2.10.1",
     "moon-ui": "workspace:*",
     "shiki": "^3.2.1"
   }

@@ -46,7 +46,13 @@ export default defineConfig({
           filesystem: ["**/*.md", ".vitepress/**/*.{js,ts,vue}", "**/*.{vue,ts}"],
         },
       })
-    ]
+    ],
+    optimizeDeps: {
+      include: ['element-plus', '@element-plus/icons-vue']
+    },
+    ssr: {
+      noExternal: ['element-plus']
+    }
   },
   themeConfig: {
     logo: '/logo.webp',
@@ -194,7 +200,7 @@ export default defineConfig({
       next: '下一页'
     },
     outline: {
-      level: [ 3, 4], // 显示 h2 和 h3 标题
+      level: [3, 4], // 显示 h2 和 h3 标题
       label: '页面导航'
     },
     lastUpdated: {
