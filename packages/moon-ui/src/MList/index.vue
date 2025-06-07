@@ -321,7 +321,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .moon-list-more-btn {
+  .m-list-more-btn {
     white-space: nowrap;
   }
 </style>
