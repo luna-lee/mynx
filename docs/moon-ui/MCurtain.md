@@ -1,6 +1,6 @@
 # MCurtain 组件
 
-### 作者：闰月飞鸟；时间：2024/07/09
+## 作者：闰月飞鸟；时间：2024/07/09
 
 ### 开发目的
 
@@ -48,13 +48,13 @@ MCurtain/fold-open-style
 | openStyle       | 展开时的样式      | Object  | -                        | \{ width: '500px', height: 'auto' \} |
 | triggerPosition | 触发按钮的位置    | string  | top、right、bottom、left | right                                |
 
-### Slot
+### Slots
 
 - 默认插槽：窗帘内容区域
 - trigger：自定义触发器插槽，参数 { isOpen }
 - trigger-content:自定义触发器内容区域插槽，参数 { isOpen }
 
-### 事件
+### Events
 
 | 事件名 | 说明            | 回调参数        |
 | ------ | --------------- | --------------- |

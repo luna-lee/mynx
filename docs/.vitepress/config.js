@@ -190,7 +190,7 @@ export default defineConfig({
       next: '下一页'
     },
     outline: {
-      level: [2, 3], // 显示 h2 和 h3 标题
+      level: [ 3, 4], // 显示 h2 和 h3 标题
       label: '页面导航'
     },
     lastUpdated: {
