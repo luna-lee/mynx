@@ -177,12 +177,12 @@ export default defineConfig({
         {
           text: '组件',
           items: [
-            { text: '窗帘MCurtain', link: '/moon-ui/MCurtain' },
-            { text: '清单MList', link: '/moon-ui/MList' },
-            { text: '可拖拽容器MDiv', link: '/moon-ui/MDiv' },
-            { text: '缩放容器MScale', link: '/moon-ui/MScale' },
-            { text: '文本省略MTextellips', link: '/moon-ui/MTextellips' },
-            { text: '条件渲染MIfShow', link: '/moon-ui/MIfShow' }
+            { text: 'MCurtain 窗帘', link: '/moon-ui/MCurtain' },
+            { text: 'MList 清单', link: '/moon-ui/MList' },
+            { text: 'MDiv 可拖拽容器', link: '/moon-ui/MDiv' },
+            { text: 'MScale 缩放容器', link: '/moon-ui/MScale' },
+            { text: 'MTextellips 文本省略', link: '/moon-ui/MTextellips' },
+            { text: 'MIfShow 条件渲染', link: '/moon-ui/MIfShow' }
           ]
         }
       ]
