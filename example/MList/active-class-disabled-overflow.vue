@@ -84,7 +84,7 @@
 
       <div class="overflow-container-x">
         <MList
-          :key="enableOverflowX"
+          :key="enableOverflowX + ''"
           v-model="selectedValue3"
           :overflowX="enableOverflowX"
           :overflowY="false"
@@ -129,7 +129,7 @@
       <div class="overflow-container-y">
         <MList
           v-model="selectedValue4"
-          :key="enableOverflowY"
+          :key="enableOverflowY + ''"
           :overflowX="false"
           :overflowY="enableOverflowY"
           :showMoreBtn="showMoreBtnY"
@@ -145,7 +145,10 @@
           <div key="row7" class="overflow-row">行 7</div>
 
           <template #moreBtn="{ vnodeList }">
-            <div class="overflow-more-dropdown" @click="toggleOverflowDropdown">
+            <div
+              class="overflow-more-dropdown"
+              @click="showOverflowDropdown = !showOverflowDropdown"
+            >
               <div class="overflow-more-btn-y">
                 <span class="more-text">查看更多</span>
                 <span class="more-count">{{ vnodeList.length }}</span>
@@ -231,7 +234,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
 const selectedValue1 = ref<string | null>(null);
 const selectedValue2 = ref<string | null>(null);
@@ -317,15 +320,6 @@ const removeCard = () => {
 const handleOverflowYMoreVnode = (vnodeList: any[]) => {
   overflowYHiddenItems.value = vnodeList;
 };
-
-/**
- * 处理溢出下拉菜单中的项目点击
- */
-const handleOverflowDropdownItemClick = (key: string | number) => {
-  selectedValue4.value = String(key);
-  showOverflowDropdown.value = false;
-};
-
 /**
  * 切换溢出下拉菜单的显示状态
  */

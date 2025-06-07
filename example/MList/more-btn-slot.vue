@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="tsx">
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
 const selectedValue4 = ref<string | null>(null);
 const showIconMenu = ref(false);

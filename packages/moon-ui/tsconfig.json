@@ -23,6 +23,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     // 类型声明相关配置
     "declaration": true,
     "declarationDir": "./types",

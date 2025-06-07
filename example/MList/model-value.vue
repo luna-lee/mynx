@@ -4,14 +4,14 @@
       <h4>同步多个组件</h4>
       <div class="control-panel">
         <label>共享值：</label>
-        <input 
-          v-model="sharedValue" 
+        <input
+          v-model="sharedValue"
           placeholder="输入要选中的值"
-          style="width: 150px; margin-right: 10px;"
+          style="width: 150px; margin-right: 10px"
         />
         <button @click="sharedValue = null">重置</button>
       </div>
-      
+
       <div class="sync-container">
         <div class="sync-group">
           <h5>列表 A</h5>
@@ -21,7 +21,7 @@
             <div key="green" class="color-item green">绿色</div>
           </MList>
         </div>
-        
+
         <div class="sync-group">
           <h5>列表 B</h5>
           <MList v-model="sharedValue" class="list-container">
@@ -32,8 +32,10 @@
           </MList>
         </div>
       </div>
-      
-      <p>共享选中值：<strong>{{ sharedValue || '未选择' }}</strong></p>
+
+      <p>
+        共享选中值：<strong>{{ sharedValue || "未选择" }}</strong>
+      </p>
     </div>
 
     <div class="demo-item">
@@ -42,20 +44,24 @@
         <button @click="addOption">添加选项</button>
         <button @click="removeOption">移除选项</button>
         <button @click="randomSelect">随机选择</button>
-        <span style="margin-left: 10px;">选项数：{{ dynamicOptions.length }}</span>
+        <span style="margin-left: 10px"
+          >选项数：{{ dynamicOptions.length }}</span
+        >
       </div>
-      
+
       <MList v-model="dynamicValue" class="list-container">
-        <div 
-          v-for="option in dynamicOptions" 
-          :key="option.id" 
+        <div
+          v-for="option in dynamicOptions"
+          :key="option.id"
           class="dynamic-item"
         >
           {{ option.label }}
         </div>
       </MList>
-      
-      <p>当前选中：<strong>{{ getCurrentLabel() || '未选择' }}</strong></p>
+
+      <p>
+        当前选中：<strong>{{ getCurrentLabel() || "未选择" }}</strong>
+      </p>
     </div>
 
     <div class="demo-item">
@@ -65,7 +71,7 @@
           <label>姓名：</label>
           <input v-model="formData.name" placeholder="请输入姓名" />
         </div>
-        
+
         <div class="form-group">
           <label>性别：</label>
           <MList v-model="formData.gender" class="gender-list">
@@ -79,7 +85,7 @@
             </div>
           </MList>
         </div>
-        
+
         <div class="form-group">
           <label>爱好：</label>
           <MList v-model="formData.hobby" class="hobby-list">
@@ -89,10 +95,10 @@
             <div key="travel" class="hobby-item">✈️ 旅行</div>
           </MList>
         </div>
-        
+
         <button type="submit" class="submit-btn">提交表单</button>
       </form>
-      
+
       <div class="form-data">
         <h5>表单数据：</h5>
         <pre>{{ JSON.stringify(formData, null, 2) }}</pre>
@@ -102,25 +108,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
-const selectedValue1 = ref<string | null>(null);
-const selectedValue2 = ref<number | null>(null);
 const sharedValue = ref<string | null>(null);
 const dynamicValue = ref<string | null>(null);
 
 // 动态选项
 const dynamicOptions = ref([
-  { id: 'item1', label: '动态选项 1' },
-  { id: 'item2', label: '动态选项 2' },
-  { id: 'item3', label: '动态选项 3' }
+  { id: "item1", label: "动态选项 1" },
+  { id: "item2", label: "动态选项 2" },
+  { id: "item3", label: "动态选项 3" },
 ]);
 
 // 表单数据
 const formData = ref({
-  name: '',
+  name: "",
   gender: null as string | null,
-  hobby: null as string | null
+  hobby: null as string | null,
 });
 
 /**
@@ -130,7 +134,7 @@ const addOption = () => {
   const newId = `item${dynamicOptions.value.length + 1}`;
   dynamicOptions.value.push({
     id: newId,
-    label: `动态选项 ${dynamicOptions.value.length + 1}`
+    label: `动态选项 ${dynamicOptions.value.length + 1}`,
   });
 };
 
@@ -161,7 +165,9 @@ const randomSelect = () => {
  * 获取当前选中的标签
  */
 const getCurrentLabel = () => {
-  const current = dynamicOptions.value.find(opt => opt.id === dynamicValue.value);
+  const current = dynamicOptions.value.find(
+    (opt) => opt.id === dynamicValue.value
+  );
   return current?.label;
 };
 
@@ -183,7 +189,7 @@ const handleSubmit = () => {
   border: 1px solid #eee;
   padding: 20px;
   border-radius: 8px;
-  
+
   h4 {
     margin-top: 0;
     margin-bottom: 15px;
@@ -191,7 +197,7 @@ const handleSubmit = () => {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
   }
-  
+
   p {
     margin-top: 15px;
     color: #333;
@@ -208,19 +214,20 @@ const handleSubmit = () => {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  
+
   label {
     font-weight: 600;
     color: #333;
   }
-  
-  select, input {
+
+  select,
+  input {
     padding: 6px 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 14px;
   }
-  
+
   button {
     padding: 6px 12px;
     background: #409eff;
@@ -230,7 +237,7 @@ const handleSubmit = () => {
     cursor: pointer;
     font-size: 14px;
     transition: background 0.3s;
-    
+
     &:hover {
       background: #337ecc;
     }
@@ -248,19 +255,21 @@ const handleSubmit = () => {
   min-height: 60px;
 }
 
-.list-item, .number-item, .dynamic-item {
+.list-item,
+.number-item,
+.dynamic-item {
   padding: 10px 15px;
   background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
-  
+
   &:hover {
     background: #f0f8ff;
     border-color: #409eff;
   }
-  
+
   &.active {
     background: #409eff;
     color: white;
@@ -277,46 +286,45 @@ const handleSubmit = () => {
   color: white;
   font-weight: 600;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  
+
   &.red {
     background: #e74c3c;
     border-color: #c0392b;
   }
-  
+
   &.blue {
     background: #3498db;
     border-color: #2980b9;
   }
-  
+
   &.green {
     background: #2ecc71;
     border-color: #27ae60;
   }
-  
+
   &.yellow {
     background: #f1c40f;
     border-color: #f39c12;
     color: #333;
     text-shadow: none;
   }
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-  
+
   &.active {
     transform: scale(1.1);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
   }
-
 }
 
 .sync-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  
+
   .sync-group {
     h5 {
       margin: 0 0 10px 0;
@@ -330,24 +338,24 @@ const handleSubmit = () => {
   background: #f8f9fa;
   padding: 20px;
   border-radius: 8px;
-  
+
   .form-group {
     margin-bottom: 20px;
-    
+
     label {
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
       color: #333;
     }
-    
+
     input {
       width: 100%;
       padding: 10px 12px;
       border: 1px solid #ddd;
       border-radius: 4px;
       font-size: 14px;
-      
+
       &:focus {
         outline: none;
         border-color: #409eff;
@@ -355,7 +363,7 @@ const handleSubmit = () => {
       }
     }
   }
-  
+
   .submit-btn {
     width: 100%;
     padding: 12px;
@@ -367,7 +375,7 @@ const handleSubmit = () => {
     font-weight: 600;
     cursor: pointer;
     transition: background 0.3s;
-    
+
     &:hover {
       background: #5daf34;
     }
@@ -377,7 +385,7 @@ const handleSubmit = () => {
 .gender-list {
   display: flex;
   gap: 15px;
-  
+
   .gender-item {
     display: flex;
     align-items: center;
@@ -388,16 +396,16 @@ const handleSubmit = () => {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    
+
     .icon {
       font-size: 20px;
     }
-    
+
     &:hover {
       border-color: #409eff;
       transform: scale(1.05);
     }
-    
+
     &.active {
       background: #409eff;
       color: white;
@@ -410,7 +418,7 @@ const handleSubmit = () => {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  
+
   .hobby-item {
     padding: 10px 15px;
     background: white;
@@ -419,13 +427,13 @@ const handleSubmit = () => {
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 14px;
-    
+
     &:hover {
       background: #f0f8ff;
       border-color: #409eff;
       transform: translateY(-2px);
     }
-    
+
     &.active {
       background: #409eff;
       color: white;
@@ -436,12 +444,12 @@ const handleSubmit = () => {
 
 .form-data {
   margin-top: 20px;
-  
+
   h5 {
     margin: 0 0 10px 0;
     color: #666;
   }
-  
+
   pre {
     background: #f4f4f4;
     padding: 15px;
@@ -452,4 +460,4 @@ const handleSubmit = () => {
     overflow-x: auto;
   }
 }
-</style> 
+</style>

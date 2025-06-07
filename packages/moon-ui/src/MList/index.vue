@@ -1,13 +1,27 @@
-<script lang="jsx">
-  import { Fragment, h } from 'vue';
-  export default {
+<script lang="tsx">
+  import { Fragment, h, defineComponent, VNode, PropType } from 'vue';
+
+  interface MListData {
+    resizeObserver: ResizeObserver | null;
+    current: string | number | null;
+    sliceLength: number;
+    moreLength: number;
+    bodyWidth: number;
+    bodyHeight: number;
+  }
+
+  interface MoreBtnData {
+    vnodeList: VNode[];
+  }
+
+  export default defineComponent({
     name: 'MoonList',
     props: {
       /**
        * 双向绑定的值，控制当前选中项
        */
       modelValue: {
-        type: [Number, String],
+        type: [Number, String] as PropType<number | string | null>,
         default: null,
       },
       /**
@@ -53,20 +67,29 @@
         default: false,
       },
     },
-    emits: [
+    emits: {
       /**
        * 更新modelValue的事件
+       * @param value - 新的值
        */
-      'update:modelValue',
+      'update:modelValue': (value: string | number | null) => {
+        return value === null || typeof value === 'string' || typeof value === 'number';
+      },
       /**
        * 切片索引变化事件
+       * @param index - 切片索引
        */
-      'sliceIndex',
+      sliceIndex: (index: number) => {
+        return typeof index === 'number' && index >= 0;
+      },
       /**
        * 更多节点列表事件
+       * @param vnodeList - 虚拟节点列表
        */
-      'moreVnodeList',
-    ],
+      moreVnodeList: (vnodeList: VNode[]) => {
+        return Array.isArray(vnodeList);
+      },
+    },
     render() {
       return (
         <div ref="body">
@@ -75,7 +98,7 @@
         </div>
       );
     },
-    data() {
+    data(): MListData {
       return {
         resizeObserver: null,
         current: null,
@@ -95,7 +118,7 @@
         immediate: true,
       },
       sliceLength: {
-        handler(val) {
+        handler() {
           this.emitMoreVnodeList();
         },
         immediate: true,
@@ -128,9 +151,9 @@
       /**
        * 获取更多按钮插槽内容
        */
-      slotMoreBtn() {
+      slotMoreBtn(): VNode {
         const moreBtnSlot = this.$slots.moreBtn;
-        const moreBtnData = {
+        const moreBtnData: MoreBtnData = {
           vnodeList: [],
         };
         if (this.sliceLength === 0) {
@@ -147,10 +170,12 @@
       /**
        * 获取默认插槽内容
        */
-      slotDefault() {
-        return (this.$slots.default?.() || []).reduce((acc, item) => {
-          if (item.type == Fragment) {
-            acc.push(...item.children);
+      slotDefault(): VNode[] {
+        return (this.$slots.default?.() || []).reduce((acc: VNode[], item: VNode) => {
+          if (item.type === Fragment) {
+            if (Array.isArray(item.children)) {
+              acc.push(...(item.children as VNode[]));
+            }
           } else {
             acc.push(item);
           }
@@ -160,7 +185,7 @@
       /**
        * 获取切片后的默认插槽内容
        */
-      slotDefaultSlice() {
+      slotDefaultSlice(): VNode[] {
         // 当sliceLength > 0 时，展示sliceLength个item
         if (this.sliceLength > 0) {
           return this.slotDefault().slice(0, this.sliceLength);
@@ -175,41 +200,30 @@
       /**
        * 为子元素设置事件处理
        */
-      setChildrenEvent(vnodeList) {
-        return vnodeList.map((item) => {
-          if (item.key)
+      setChildrenEvent(vnodeList: VNode[]): VNode[] {
+        return vnodeList.map((item: VNode) => {
+          if (item.key && (typeof item.key === 'string' || typeof item.key === 'number')) {
             return h(item, {
               onClick: () => {
-                item.props?.onClick?.();
-                this.onItemClick(item.key);
+                const onClick = item.props?.onClick;
+                if (typeof onClick === 'function') {
+                  onClick();
+                }
+                this.onItemClick(item.key as string | number);
               },
               class: this.setClass(item),
             });
-          if (Array.isArray(item.children)) item.children = this.setChildrenEvent(item.children);
+          }
+          if (Array.isArray(item.children)) {
+            item.children = this.setChildrenEvent(item.children as VNode[]);
+          }
           return item;
         });
-        // vue2
-        // return vnodeList.map((item) => {
-        //   if (this.isTruely(item.key)) {
-        //     // Vue 3中使用props而不是data
-        //     item.props = item.props || {};
-        //     const originClick = item.props.onClick;
-        //     item.props.onClick = () => {
-        //       this.onItemClick(item.key);
-        //       originClick && originClick();
-        //     };
-        //     item.props.class = this.setClass(item);
-        //   }
-        //   if (Array.isArray(item.children)) {
-        //     item.children = this.setChildrenEvent(item.children);
-        //   }
-        //   return item;
-        // });
       },
       /**
        * 处理项目点击事件
        */
-      onItemClick(key) {
+      onItemClick(key: string | number): void {
         if (this.isTruely(key) && !this.disabled) {
           this.current = key;
           this.$emit('update:modelValue', key);
@@ -220,10 +234,11 @@
       /**
        * 设置CSS类名
        */
-      setClass(item) {
-        if (this.isTruely(this.current) && this.isTruely(item.key)) {
-          if (this.current === item.key) return this.activeClass;
-          else if (typeof this.current == 'string' && this.current.includes(item.key)) {
+      setClass(item: VNode): string {
+        if (this.isTruely(this.current) && item.key && (typeof item.key === 'string' || typeof item.key === 'number')) {
+          const itemKey = item.key as string | number;
+          if (this.current === itemKey) return this.activeClass;
+          else if (typeof this.current === 'string' && typeof itemKey === 'string' && this.current.includes(itemKey)) {
             return this.activeClassHalf;
           }
         }
@@ -232,14 +247,14 @@
       /**
        * 检查值是否为真值
        */
-      isTruely(key) {
+      isTruely(key: string | number | null | undefined): boolean {
         return Boolean(key) || key === 0;
       },
       /**
        * 匹配切片长度
        */
-      matchSliceLength() {
-        const body = this.$refs.body;
+      matchSliceLength(): void {
+        const body = this.$refs.body as HTMLElement;
         if (!body) return;
 
         /*
@@ -269,11 +284,11 @@
       /**
        * 初始化ResizeObserver
        */
-      initResizeObserver() {
-        const body = this.$refs.body;
+      initResizeObserver(): void {
+        const body = this.$refs.body as HTMLElement;
         if (!body) return;
 
-        this.resizeObserver = new ResizeObserver((entries) => {
+        this.resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
           for (const entry of entries) {
             const { width, height } = entry.contentRect;
             // 宽度改变可能导致高度改变，但高度改变不会导致宽度改变
@@ -287,7 +302,7 @@
       /**
        * 更新更多按钮的vnodeList
        */
-      emitMoreVnodeList() {
+      emitMoreVnodeList(): void {
         if (this.sliceLength === 0) {
           this.$emit('sliceIndex', this.slotDefault().length);
           this.$emit('moreVnodeList', []);
@@ -302,7 +317,7 @@
         }
       },
     },
-  };
+  });
 </script>
 
 <style lang="scss" scoped>
