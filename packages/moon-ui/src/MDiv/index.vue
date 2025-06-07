@@ -292,6 +292,8 @@
       align-items: center;
       justify-content: center;
       font-size: 20px;
+      z-index: 1;
+
       &:hover {
         background-color: var(--m-div-bar-color);
       }

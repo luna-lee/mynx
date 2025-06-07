@@ -200,30 +200,32 @@
       </div>
 
       <div class="responsive-container">
-        <MList
-          v-model="selectedCard"
-          :disabled="responsiveDisabled"
-          :overflowX="true"
-          :overflowY="false"
-          :showMoreBtn="true"
-          activeClass="card-selected"
-          activeClassHalf="card-partial"
-          class="responsive-list"
-          :key="cards.length"
-        >
-          <div v-for="card in cards" :key="card.id" class="responsive-card">
-            <div class="card-header">{{ card.title }}</div>
-            <div class="card-content">{{ card.content }}</div>
-            <div class="card-footer">{{ card.date }}</div>
-          </div>
-
-          <template #moreBtn="{ vnodeList }">
-            <div class="responsive-more">
-              <div class="more-icon">⋯</div>
-              <div class="more-count">{{ vnodeList.length }}</div>
+        <MDiv style="width: 300px; border: 1px solid #409eff">
+          <MList
+            v-model="selectedCard"
+            :disabled="responsiveDisabled"
+            :overflowX="true"
+            :overflowY="false"
+            :showMoreBtn="true"
+            activeClass="card-selected"
+            activeClassHalf="card-partial"
+            class="responsive-list"
+            :key="cards.length"
+          >
+            <div v-for="card in cards" :key="card.id" class="responsive-card">
+              <div class="card-header">{{ card.title }}</div>
+              <div class="card-content">{{ card.content }}</div>
+              <div class="card-footer">{{ card.date }}</div>
             </div>
-          </template>
-        </MList>
+
+            <template #moreBtn="{ vnodeList }">
+              <div class="responsive-more">
+                <div class="more-icon">⋯</div>
+                <div class="more-count">{{ vnodeList.length }}</div>
+              </div>
+            </template>
+          </MList>
+        </MDiv>
       </div>
 
       <p>
@@ -716,9 +718,6 @@ if (typeof window !== "undefined") {
 .responsive-list {
   display: flex;
   gap: 15px;
-  overflow: hidden;
-  width: 400px;
-  border: 1px solid red;
 }
 
 .responsive-card {

@@ -2,9 +2,7 @@
   <div class="demo-container">
     <div class="demo-item">
       <div class="container-wrapper">
-        <MDiv
-          style="width: 300px; height: 190px; border: 1px solid #409eff"
-        >
+        <MDiv style="width: 300px; border: 1px solid #409eff">
           <MList
             v-model="selectedValue4"
             :showMoreBtn="true"
