@@ -26,6 +26,7 @@
     "vitepress": "^1.6.3"
   },
   "dependencies": {
+    "@vueuse/core": "^13.3.0",
     "moon-ui": "workspace:*",
     "shiki": "^3.2.1"
   }

@@ -173,7 +173,10 @@ export default defineConfig({
           items: [
             { text: '窗帘MCurtain', link: '/moon-ui/MCurtain' },
             { text: '清单MList', link: '/moon-ui/MList' },
-            { text: '可拖拽容器MDiv', link: '/moon-ui/MDiv' }
+            { text: '可拖拽容器MDiv', link: '/moon-ui/MDiv' },
+            { text: '缩放容器MScale', link: '/moon-ui/MScale' },
+            { text: '文本省略MTextellips', link: '/moon-ui/MTextellips' },
+            { text: '条件渲染MIfShow', link: '/moon-ui/MIfShow' }
           ]
         }
       ]

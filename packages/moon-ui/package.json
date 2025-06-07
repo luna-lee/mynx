@@ -61,6 +61,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@vueuse/core": "^13.3.0",
     "lodash-es": "^4.17.21",
     "moon-utils": "^2.0.2"
   }
