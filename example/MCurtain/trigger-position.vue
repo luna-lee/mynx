@@ -1,7 +1,5 @@
 <template>
   <div class="demo-container">
-    <h3>触发器位置示例</h3>
-
     <div class="demo-grid">
       <div class="demo-item">
         <h4>左侧触发器</h4>
