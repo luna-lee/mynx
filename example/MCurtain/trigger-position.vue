@@ -1,18 +1,21 @@
 <template>
   <div class="demo-container">
     <h3>触发器位置示例</h3>
-    
+
     <div class="demo-grid">
       <div class="demo-item">
         <h4>左侧触发器</h4>
-        <MCurtain
-          v-model="isOpenLeft"
-          :foldStyle="{ width: '0', height: '120px' }"
-          :openStyle="{ width: '250px', height: '120px' }"
-          triggerPosition="left"
-        >
-          <div class="content">左侧触发器示例</div>
-        </MCurtain>
+        <div class="relative">
+          <MCurtain
+            class="absolute! right-0 top-0"
+            v-model="isOpenLeft"
+            :foldStyle="{ width: '0', height: '120px' }"
+            :openStyle="{ width: '250px', height: '120px' }"
+            triggerPosition="left"
+          >
+            <div class="content">左侧触发器示例</div>
+          </MCurtain>
+        </div>
       </div>
 
       <div class="demo-item">
@@ -56,10 +59,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-const isOpenLeft = ref(false);
-const isOpenRight = ref(false);
-const isOpenTop = ref(false);
-const isOpenBottom = ref(false);
+const isOpenLeft = ref(true);
+const isOpenRight = ref(true);
+const isOpenTop = ref(true);
+const isOpenBottom = ref(true);
 </script>
 
 <style scoped lang="scss">
@@ -78,10 +81,6 @@ const isOpenBottom = ref(false);
   border: 1px solid #eee;
   padding: 20px;
   border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
   h4 {
     margin-top: 0;
     margin-bottom: 20px;
@@ -102,4 +101,4 @@ const isOpenBottom = ref(false);
   width: 100%;
   height: 100%;
 }
-</style> 
+</style>

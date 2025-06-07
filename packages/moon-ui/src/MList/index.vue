@@ -1,5 +1,5 @@
 <script lang="jsx">
-  import { h } from 'vue';
+  import { Fragment, h } from 'vue';
   export default {
     name: 'MoonList',
     props: {
@@ -148,7 +148,14 @@
        * 获取默认插槽内容
        */
       slotDefault() {
-        return this.$slots.default?.() || [];
+        return (this.$slots.default?.() || []).reduce((acc, item) => {
+          if (item.type == Fragment) {
+            acc.push(...item.children);
+          } else {
+            acc.push(item);
+          }
+          return acc;
+        }, []);
       },
       /**
        * 获取切片后的默认插槽内容
@@ -173,7 +180,6 @@
           if (item.key)
             return h(item, {
               onClick: () => {
-                console.log(item.key);
                 item.props?.onClick?.();
                 this.onItemClick(item.key);
               },

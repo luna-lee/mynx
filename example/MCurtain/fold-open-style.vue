@@ -1,12 +1,11 @@
 <template>
   <div class="demo-container">
-    <h3>自定义折叠/展开样式示例</h3>
     <div class="demo-item">
       <h4>水平展开（宽度变化）</h4>
       <MCurtain
         v-model="isOpen1"
-        :foldStyle="{ width: '50px', height: '150px' }"
-        :openStyle="{ width: '400px', height: '150px' }"
+        :foldStyle="{ width: '50px', height: '100%' }"
+        :openStyle="{ width: '400px', height: '100%' }"
         triggerPosition="right"
       >
         <div class="content">
@@ -19,8 +18,8 @@
       <h4>垂直展开（高度变化）</h4>
       <MCurtain
         v-model="isOpen2"
-        :foldStyle="{ width: '300px', height: '30px' }"
-        :openStyle="{ width: '300px', height: '200px' }"
+        :foldStyle="{ width: '100%', height: '30px' }"
+        :openStyle="{ width: '100%', height: '200px' }"
         triggerPosition="bottom"
       >
         <div class="content">
@@ -75,6 +74,7 @@ const isOpen3 = ref(false);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border-radius: 4px;
+  height: 100%;
   
   p {
     margin: 0 0 10px 0;

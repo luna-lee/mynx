@@ -1,55 +1,5 @@
 <template>
   <div class="demo-container">
-    <h3>MList modelValue 双向绑定示例</h3>
-    
-    <div class="demo-item">
-      <h4>基础双向绑定</h4>
-      <div class="control-panel">
-        <label>外部控制：</label>
-        <select v-model="selectedValue1">
-          <option :value="null">请选择</option>
-          <option value="option1">选项 1</option>
-          <option value="option2">选项 2</option>
-          <option value="option3">选项 3</option>
-          <option value="option4">选项 4</option>
-        </select>
-        <button @click="selectedValue1 = null">清空选择</button>
-      </div>
-      
-      <MList v-model="selectedValue1" class="list-container">
-        <div key="option1" class="list-item">选项 1</div>
-        <div key="option2" class="list-item">选项 2</div>
-        <div key="option3" class="list-item">选项 3</div>
-        <div key="option4" class="list-item">选项 4</div>
-      </MList>
-      
-      <p>当前选中：<strong>{{ selectedValue1 || '未选择' }}</strong></p>
-    </div>
-
-    <div class="demo-item">
-      <h4>数字类型值</h4>
-      <div class="control-panel">
-        <label>外部控制：</label>
-        <input 
-          type="number" 
-          v-model.number="selectedValue2" 
-          placeholder="输入数字ID"
-          style="width: 120px; margin-right: 10px;"
-        />
-        <button @click="selectedValue2 = null">清空</button>
-      </div>
-      
-      <MList v-model="selectedValue2" class="list-container">
-        <div key="1" class="number-item">ID: 1</div>
-        <div key="2" class="number-item">ID: 2</div>
-        <div key="3" class="number-item">ID: 3</div>
-        <div key="4" class="number-item">ID: 4</div>
-        <div key="5" class="number-item">ID: 5</div>
-      </MList>
-      
-      <p>当前选中ID：<strong>{{ selectedValue2 !== null ? selectedValue2 : '未选择' }}</strong></p>
-    </div>
-
     <div class="demo-item">
       <h4>同步多个组件</h4>
       <div class="control-panel">
@@ -359,6 +309,7 @@ const handleSubmit = () => {
     transform: scale(1.1);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
   }
+
 }
 
 .sync-container {

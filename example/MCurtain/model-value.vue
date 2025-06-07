@@ -1,22 +1,19 @@
 <template>
   <div class="demo-container">
-    <h3>modelValue 双向绑定示例</h3>
-    
     <div class="control-panel">
       <h4>外部控制</h4>
-      <div class="buttons">
+      <div class="buttons mt-10px">
         <button @click="isOpen = true" :disabled="isOpen">展开窗帘</button>
         <button @click="isOpen = false" :disabled="!isOpen">收起窗帘</button>
         <button @click="toggleCurtain">切换状态</button>
       </div>
       <p>当前状态：<strong>{{ isOpen ? '展开' : '收起' }}</strong></p>
     </div>
-
     <div class="demo-item">
       <MCurtain
         v-model="isOpen"
-        :foldStyle="{ width: '0', height: '200px' }"
-        :openStyle="{ width: '400px', height: '200px' }"
+        :foldStyle="{ width: '0', height: '100%' }"
+        :openStyle="{ width: '100%', height: '100%' }"
         triggerPosition="right"
       >
         <div class="content">
@@ -56,8 +53,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const isOpen = ref(false);
-const syncState = ref(false);
+const isOpen = ref(true);
+const syncState = ref(true);
 
 const toggleCurtain = () => {
   isOpen.value = !isOpen.value;
@@ -70,7 +67,6 @@ const toggleCurtain = () => {
 }
 
 .control-panel {
-  margin-bottom: 30px;
   padding: 20px;
   background: #f8f9fa;
   border-radius: 8px;

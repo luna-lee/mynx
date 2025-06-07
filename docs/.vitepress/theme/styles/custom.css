@@ -1,14 +1,16 @@
-/* .vitepress/theme/styles/custom.css */
+:root {
+  --vp-sidebar-bg-color: white;
+}
 
+/* 导入 UnoCSS 虚拟模块 */
 /* Demo container styling */
-.demo-container {
+/* .demo-container {
   padding         : 20px;
-  margin          : 16px 0;
   border          : 1px solid var(--vp-c-divider);
   border-radius   : 8px;
   background-color: var(--vp-c-bg-soft);
   transition      : background-color 0.5s;
-}
+} */
 
 /* Dark mode support */
 .dark .demo-container {
@@ -66,4 +68,8 @@ mark.highlight,
 
 .DocSearch-Button {
   background-color: transparent !important;
+}
+
+.VPDoc {
+  padding: 0 !important;
 }

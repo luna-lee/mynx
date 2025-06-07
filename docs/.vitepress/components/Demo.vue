@@ -1,13 +1,11 @@
 <template>
   <div class="demo-block">
     <!-- 组件展示区域 -->
-    <div class="source">
-      <component v-if="dynamicComponent" :is="dynamicComponent" />
-      <div v-else-if="loadError" class="demo-error">
-        <p>加载组件失败: {{ loadError }}</p>
-      </div>
-      <div v-else class="demo-loading">加载组件中...</div>
+    <component v-if="dynamicComponent" :is="dynamicComponent" />
+    <div v-else-if="loadError" class="demo-error">
+      <p>加载组件失败: {{ loadError }}</p>
     </div>
+    <div v-else class="demo-loading">加载组件中...</div>
 
     <!-- 代码控制条 -->
     <div class="demo-block-control">
@@ -295,15 +293,11 @@ onMounted(async () => {
 }
 
 .demo-block:hover {
-  box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+  box-shadow:
+    0 0 8px 0 rgba(232, 237, 250, 0.6),
     0 2px 4px 0 rgba(232, 237, 250, 0.5);
 }
 
-.source {
-  padding: 1.5rem;
-  background-color: var(--vp-c-bg);
-  overflow: hidden;
-}
 
 .demo-block-control {
   position: relative;

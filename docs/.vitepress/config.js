@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-
+import UnoCSS from 'unocss/vite'
 // 自定义容器解析
 const demoPlugin = (md) => {
   const fence = md.renderer.rules.fence
@@ -40,6 +40,11 @@ export default defineConfig({
         // JSX配置选项
         transformOn: true,
         mergeProps: true
+      }),
+      UnoCSS({
+        content: {
+          filesystem: ["**/*.md", ".vitepress/**/*.{js,ts,vue}", "**/*.{vue,ts}"],
+        },
       })
     ]
   },
@@ -166,9 +171,8 @@ export default defineConfig({
         {
           text: '组件',
           items: [
-            { text: '概述', link: '/moon-ui/' },
-            { text: '窗帘', link: '/moon-ui/MCurtain' },
-            { text: '清單', link: '/moon-ui/MList' }
+            { text: '窗帘MCurtain', link: '/moon-ui/MCurtain' },
+            { text: '清单MList', link: '/moon-ui/MList' }
           ]
         }
       ]
@@ -186,6 +190,7 @@ export default defineConfig({
       next: '下一页'
     },
     outline: {
+      level: [2, 3], // 显示 h2 和 h3 标题
       label: '页面导航'
     },
     lastUpdated: {

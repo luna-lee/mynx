@@ -1,4 +1,5 @@
 import DefaultTheme from 'vitepress/theme'
+import 'virtual:uno.css' 
 import './styles/custom.css'
 import Demo from '../components/Demo.vue'
 import { components } from '../../../packages/moon-ui/src/index'

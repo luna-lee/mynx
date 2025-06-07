@@ -155,7 +155,10 @@
                   >↓</span
                 >
               </div>
-              <div class="overflow-dropdown-content">
+              <div
+                class="overflow-dropdown-content"
+                v-if="showOverflowDropdown"
+              >
                 <div class="overflow-dropdown-header">
                   <span>隐藏的 {{ overflowYHiddenItems.length }} 个项目：</span>
                 </div>
@@ -203,6 +206,7 @@
           activeClass="card-selected"
           activeClassHalf="card-partial"
           class="responsive-list"
+          :key="cards.length"
         >
           <div v-for="card in cards" :key="card.id" class="responsive-card">
             <div class="card-header">{{ card.title }}</div>
@@ -312,7 +316,6 @@ const removeCard = () => {
  */
 const handleOverflowYMoreVnode = (vnodeList: any[]) => {
   overflowYHiddenItems.value = vnodeList;
-  console.log(overflowYHiddenItems.value);
 };
 
 /**
@@ -720,6 +723,8 @@ if (typeof window !== "undefined") {
   display: flex;
   gap: 15px;
   overflow: hidden;
+  width: 400px;
+  border: 1px solid red;
 }
 
 .responsive-card {
