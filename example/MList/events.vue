@@ -40,26 +40,28 @@
 
       <div class="overflow-demo">
         <div class="container-wrapper">
-          <MList
-            v-model="selectedValue2"
-            :showMoreBtn="true"
-            :overflowX="true"
-            @sliceIndex="handleSliceIndex"
-            class="slice-list"
-          >
-            <div key="item1" class="slice-item">项目 1</div>
-            <div key="item2" class="slice-item">项目 2</div>
-            <div key="item3" class="slice-item">项目 3</div>
-            <div key="item4" class="slice-item">项目 4</div>
-            <div key="item5" class="slice-item">项目 5</div>
-            <div key="item6" class="slice-item">项目 6</div>
-            <div key="item7" class="slice-item">项目 7</div>
-            <div key="item8" class="slice-item">项目 8</div>
+          <MDiv style="width: 260px; border: 1px solid #409eff">
+            <MList
+              v-model="selectedValue2"
+              :showMoreBtn="true"
+              :overflowX="true"
+              @sliceIndex="handleSliceIndex"
+              class="slice-list"
+            >
+              <div key="item1" class="slice-item">项目 1</div>
+              <div key="item2" class="slice-item">项目 2</div>
+              <div key="item3" class="slice-item">项目 3</div>
+              <div key="item4" class="slice-item">项目 4</div>
+              <div key="item5" class="slice-item">项目 5</div>
+              <div key="item6" class="slice-item">项目 6</div>
+              <div key="item7" class="slice-item">项目 7</div>
+              <div key="item8" class="slice-item">项目 8</div>
 
-            <template #moreBtn="{ vnodeList }">
-              <button class="slice-more-btn">+{{ vnodeList.length }}</button>
-            </template>
-          </MList>
+              <template #moreBtn="{ vnodeList }">
+                <button class="slice-more-btn">+{{ vnodeList.length }}</button>
+              </template>
+            </MList>
+          </MDiv>
         </div>
 
         <div class="slice-info">
@@ -454,7 +456,6 @@ const handleComprehensiveMoreVnode = (vnodeList: any[]) => {
 .comprehensive-list {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 6px;
