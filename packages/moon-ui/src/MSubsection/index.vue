@@ -28,6 +28,7 @@
 <script setup lang="ts">
   import { ref, computed, watch, nextTick, onMounted } from 'vue';
   import { useResizeObserver } from '@vueuse/core';
+  import MScroll from '../MScroll/index.vue';
 
   /**
    * 标签页数据接口

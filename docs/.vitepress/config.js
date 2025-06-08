@@ -183,7 +183,9 @@ export default defineConfig({
             { text: 'MScale 缩放容器', link: '/moon-ui/MScale' },
             { text: 'MTextellips 文本省略', link: '/moon-ui/MTextellips' },
             { text: 'MIfShow 条件渲染', link: '/moon-ui/MIfShow' },
-            { text: 'MValidator 表单验证', link: '/moon-ui/MValidator' }
+            { text: 'MValidator 表单验证', link: '/moon-ui/MValidator' },
+            { text: 'MScroll 滚动容器', link: '/moon-ui/MScroll' },
+            { text: 'MSubsection 标签页', link: '/moon-ui/MSubsection' }
           ]
         }
       ]

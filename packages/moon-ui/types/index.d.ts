@@ -6,6 +6,8 @@ import MScale from './MScale/index.vue';
 import MTextellips from './MTextellips/index.vue';
 import MIfShow from './MIfShow/index.vue';
 import MValidator from './MValidator/index.vue';
+import MScroll from './MScroll/index.vue';
+import MSubsection from './MSubsection/index.vue';
 export declare const components: Record<string, any>;
 export declare const MoonUI: {
     install(app: App): App<any>;
@@ -17,4 +19,6 @@ export { MScale };
 export { MTextellips };
 export { MIfShow };
 export { MValidator };
+export { MScroll };
+export { MSubsection };
 export default MoonUI;
