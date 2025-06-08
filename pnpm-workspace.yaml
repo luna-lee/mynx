@@ -1,2 +1,3 @@
 packages:
   - 'packages/moon-ui'
+  - 'packages/moon-utils'

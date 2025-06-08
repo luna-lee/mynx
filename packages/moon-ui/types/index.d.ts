@@ -2,6 +2,9 @@ import type { App } from 'vue';
 import MCurtain from './MCurtain/index.vue';
 import MList from './MList/index.vue';
 import MDiv from './MDiv/index.vue';
+import MScale from './MScale/index.vue';
+import MTextellips from './MTextellips/index.vue';
+import MIfShow from './MIfShow/index.vue';
 export declare const components: Record<string, any>;
 export declare const MoonUI: {
     install(app: App): App<any>;
@@ -9,4 +12,7 @@ export declare const MoonUI: {
 export { MCurtain };
 export { MList };
 export { MDiv };
+export { MScale };
+export { MTextellips };
+export { MIfShow };
 export default MoonUI;

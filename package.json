@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "pnpm -r --filter=./packages/* run dev",
     "build": "pnpm -r --filter=./packages run build",
+    "build:utils": "pnpm --filter=moon-utils run build",
+    "build:ui": "pnpm --filter=moon-ui run build",
+    "build:ordered": "pnpm run build:utils && pnpm run build:ui",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "format": "prettier --write \"**/*.{vue,ts,js,json,md}\"",
     "docs:dev": "vitepress dev docs",
@@ -30,6 +33,7 @@
     "@vueuse/core": "^13.3.0",
     "element-plus": "^2.10.1",
     "moon-ui": "workspace:*",
+    "moon-utils": "workspace:*",
     "shiki": "^3.2.1"
   }
 }
