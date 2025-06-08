@@ -7,3 +7,6 @@
 然后在@docs/moon-ui中 仿照@docs/moon-ui/MCurtain.md 编写该组件的使用说明文档。注意，md文档中的使用到{}对象符号的，需要加上\进行转义。排除``` ..```中的内容
 在packages/moon-ui/src/index.ts文件中引入组件，并在components对象中添加该组件,同时export  { 当前组件 } 
 在docs/.vitepress/config.js文件中'/moon-ui/'数组中，第一个对象中的items里添加该组件
+
+
+- 转换成vue3 script setup lang='ts' 编码，同时优化变量命名
