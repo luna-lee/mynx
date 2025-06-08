@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <MDiv style="border: 1px solid #ddd; margin: 20px 0">
+    <MDiv style="border: 1px solid #ddd; margin: 20px 0" class="p-10px">
       <h4>产品列表滚动</h4>
       <MScroll :scrollBtnShow="true" :scrollStep="scrollStep">
         <div style="display: flex; gap: 20px; padding: 20px;">
