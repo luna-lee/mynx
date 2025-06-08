@@ -67,7 +67,7 @@ jobs:
       - name: Build
         run: pnpm run docs:build
         env:
-          NODE_OPTIONS: --max-old-space-size=8192 # 增加内存限制，防止大型项目构建失败
+          NODE_OPTIONS: --max-old-space-size=4096 # 增加内存限制，防止大型项目构建失败
 
       # 7. 设置 GitHub Pages 环境
       - name: Setup Pages
