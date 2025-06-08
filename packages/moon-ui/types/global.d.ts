@@ -1,5 +1,5 @@
 import type { DefineComponent } from 'vue';
-import type { MCurtain, MList, MDiv, MScale, MTextellips, MIfShow } from './index';
+import type { MCurtain, MList, MDiv, MScale, MTextellips, MIfShow, MValidator } from './index';
 
 // 全局组件类型声明
 declare module 'vue' {
@@ -10,6 +10,7 @@ declare module 'vue' {
     MScale: typeof MScale
     MTextellips: typeof MTextellips
     MIfShow: typeof MIfShow
+    MValidator: typeof MValidator
   }
 }
 export {};

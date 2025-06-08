@@ -431,7 +431,6 @@
   }
 
   :deep(.m-validator-error-element) {
-    border: 1px solid red;
-    border-radius: 5px;
+    border: 1px solid red !important;
   }
 </style>

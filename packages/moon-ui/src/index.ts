@@ -13,6 +13,8 @@ import MScale from './MScale/index.vue';
 import MTextellips from './MTextellips/index.vue';
 // @ts-ignore
 import MIfShow from './MIfShow/index.vue';
+// @ts-ignore
+import MValidator from './MValidator/index.vue';
 
 // Create component map
 export const components: Record<string, any> = {
@@ -22,6 +24,7 @@ export const components: Record<string, any> = {
   MScale,
   MTextellips,
   MIfShow,
+  MValidator,
 };
 
 // Plugin installation
@@ -44,6 +47,7 @@ export { MDiv };
 export { MScale };
 export { MTextellips };
 export { MIfShow };
+export { MValidator };
 
 // For backward compatibility
 export default MoonUI;

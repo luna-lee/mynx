@@ -182,7 +182,8 @@ export default defineConfig({
             { text: 'MDiv 可拖拽容器', link: '/moon-ui/MDiv' },
             { text: 'MScale 缩放容器', link: '/moon-ui/MScale' },
             { text: 'MTextellips 文本省略', link: '/moon-ui/MTextellips' },
-            { text: 'MIfShow 条件渲染', link: '/moon-ui/MIfShow' }
+            { text: 'MIfShow 条件渲染', link: '/moon-ui/MIfShow' },
+            { text: 'MValidator 表单验证', link: '/moon-ui/MValidator' }
           ]
         }
       ]
