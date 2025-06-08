@@ -63,11 +63,11 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --no-frozen-lockfile
 
-      # 6. 构建包（必须在构建文档之前）
-      - name: Build Packages
-        run: pnpm run build
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
+      # # 6. 构建包（必须在构建文档之前）
+      # - name: Build Packages
+      #   run: pnpm run build
+      #   env:
+      #     NODE_OPTIONS: --max-old-space-size=4096
 
       # 7. 构建 VitePress 项目
       - name: Build Docs
