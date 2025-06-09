@@ -16,11 +16,11 @@
       </div>
     </MScroll>
     <div class="m-subsection__tab-content">
-      <transition-group name="m-subsection__tab-transition" mode="out-in">
-        <div v-for="(tab, index) in tabs" :key="index + tab.title" class="m-subsection__tab-pane" v-show="currentActiveTabIndex === index">
-          <slot :name="'tab-content-' + index"></slot>
+      <transition name="m-subsection__tab-transition" mode="out-in">
+        <div :key="currentActiveTabIndex" class="m-subsection__tab-pane">
+          <slot :name="'tab-content-' + currentActiveTabIndex"></slot>
         </div>
-      </transition-group>
+      </transition>
     </div>
   </div>
 </template>
@@ -201,7 +201,7 @@
 <style>
   :root {
     --m-subsection-radius: 100px;
-    --m-subsection-tab-item-height: 50px;
+    --m-subsection-tab-item-height: 40px;
     --m-subsection-tab-item-font-size: 18px;
     --m-subsection-tab-item-color: #3d3d3d;
     --m-subsection-tab-item-active-color: #fff;
@@ -266,17 +266,28 @@
     &__tab-transition-enter-active,
     &__tab-transition-leave-active {
       transition:
-        opacity 0.3s,
-        transform 0.3s;
+        opacity 0.3s ease,
+        transform 0.3s ease;
     }
 
-    &__tab-transition-enter {
+    &__tab-transition-enter-from {
       opacity: 0;
       transform: translateX(10px);
     }
 
+    &__tab-transition-enter-to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    &__tab-transition-leave-from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
     &__tab-transition-leave-to {
-      display: none;
+      opacity: 0;
+      transform: translateX(-10px);
     }
   }
 </style>
