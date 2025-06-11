@@ -1,6 +1,5 @@
 <template>
   <div class="demo-container">
-    <h3>MValidator Mode 对象模式示例</h3>
     <p>使用对象模式进行表单验证</p>
 
     <MValidator

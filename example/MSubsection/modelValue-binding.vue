@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>modelValue 双向绑定示例</h3>
     <div style="margin-bottom: 20px">
       <button @click="setActiveTab(0)" :class="{ active: activeIndex === 0 }">
         切换到第一个

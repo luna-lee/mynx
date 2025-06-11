@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>tab-title 插槽自定义示例</h3>
     <p>通过 tab-title-{index} 插槽可以自定义每个标签页的标题内容。</p>
     
     <MSubsection 

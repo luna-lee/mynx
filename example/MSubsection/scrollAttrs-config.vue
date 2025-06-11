@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>scrollAttrs 滚动配置示例</h3>
     <div style="margin-bottom: 20px">
       <label>
         <input type="checkbox" v-model="showScrollBtn" />

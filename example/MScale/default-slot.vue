@@ -1,6 +1,5 @@
 <template>
   <div class="demo-container">
-    <h4>默认插槽内容</h4>
     <div class="scale-wrapper">
       <MDiv style="width: 600px; height: 400px; border: 1px solid #ddd;">
         <MScale :designWidth="400" :designHeight="300" style="border: 2px solid #409eff;">

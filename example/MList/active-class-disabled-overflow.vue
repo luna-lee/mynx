@@ -1,7 +1,5 @@
 <template>
   <div class="demo-container">
-    <h3>MList Props 综合示例</h3>
-
     <div class="demo-item">
       <h4>自定义选中状态样式 (activeClass & activeClassHalf)</h4>
       <div class="control-panel">

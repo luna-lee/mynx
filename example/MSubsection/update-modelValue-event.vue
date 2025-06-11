@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>update:modelValue 事件监听示例</h3>
     <p>展示如何监听标签页切换事件并执行相应的逻辑处理。</p>
     
     <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">

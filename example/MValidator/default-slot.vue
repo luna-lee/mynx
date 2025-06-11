@@ -1,6 +1,5 @@
 <template>
   <div class="demo-container">
-    <h3>MValidator 默认插槽示例</h3>
     <p>在默认插槽中放置需要验证的表单元素</p>
     
     <MValidator 

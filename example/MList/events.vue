@@ -1,7 +1,5 @@
 <template>
   <div class="demo-container">
-    <h3>MList Events 事件示例</h3>
-
     <div class="demo-item">
       <h4>update:modelValue 事件</h4>
       <p class="description">双向绑定值变化时触发</p>

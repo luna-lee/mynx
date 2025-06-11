@@ -1,6 +1,5 @@
 <template>
   <div class="demo-container">
-    <h3>MValidator Mode 数组模式示例</h3>
     <p>使用数组模式进行动态列表验证</p>
     
     <MValidator 

@@ -1,6 +1,5 @@
 <template>
   <div class="demo-container">
-    <h3>MValidator showErrorMsgTip 属性示例</h3>
     <p>控制是否显示错误提示信息</p>
     
     <div class="toggle-section">

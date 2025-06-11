@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>基础标签页示例</h3>
     <MSubsection 
       :tabs="tabs"
       v-model="activeIndex"
