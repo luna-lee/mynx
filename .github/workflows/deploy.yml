@@ -63,24 +63,28 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --no-frozen-lockfile
 
-      # 6. 构建 VitePress 项目
-      - name: Build
+      # 6. 构建所有包
+      - name: Build All Packages
+        run: pnpm run build
+
+      # 7. 构建 VitePress 项目
+      - name: Build Docs
         run: pnpm run docs:build
         env:
           NODE_OPTIONS: --max-old-space-size=4096 # 增加内存限制，防止大型项目构建失败
 
-      # 7. 设置 GitHub Pages 环境
+      # 8. 设置 GitHub Pages 环境
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      # 8. 上传构建产物
+      # 9. 上传构建产物
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist
           retention-days: 7 # 设置制品保留时间
 
-      # 9. 部署到 GitHub Pages
+      # 10. 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
