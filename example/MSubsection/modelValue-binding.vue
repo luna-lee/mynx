@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-20px">
     <div style="margin-bottom: 20px">
       <button @click="setActiveTab(0)" :class="{ active: activeIndex === 0 }">
         切换到第一个
@@ -13,27 +13,27 @@
     </div>
 
     <MSubsection
-      class="w-full h-full"
+      class="w-full h-full mt-20px mb-20px"
       :tabs="tabs"
       v-model="activeIndex"
       @update:modelValue="handleTabChange"
     >
       <template #tab-content-0>
-        <div style="padding: 20px; background: #f0f9ff">
+        <div class="mt-20px" style="padding: 20px; background: #f0f9ff">
           <h4>内容区域 1</h4>
           <p>通过外部按钮控制标签页切换，展示 v-model 双向绑定功能。</p>
           <p>当前激活索引: {{ activeIndex }}</p>
         </div>
       </template>
       <template #tab-content-1>
-        <div style="padding: 20px; background: #f0fdf4">
+        <div class="mt-20px" style="padding: 20px; background: #f0fdf4">
           <h4>内容区域 2</h4>
           <p>点击标签页或外部按钮都会同步更新 modelValue。</p>
           <p>当前激活索引: {{ activeIndex }}</p>
         </div>
       </template>
       <template #tab-content-2>
-        <div style="padding: 20px; background: #fefce8">
+        <div class="mt-20px" style="padding: 20px; background: #fefce8">
           <h4>内容区域 3</h4>
           <p>支持监听 update:modelValue 事件来响应标签页变化。</p>
           <p>当前激活索引: {{ activeIndex }}</p>
@@ -41,7 +41,7 @@
       </template>
     </MSubsection>
 
-    <div style="margin-top: 20px; padding: 10px; background: #f5f5f5">
+    <div  style="margin-top: 20px; padding: 10px; background: #f5f5f5">
       <p>外部控制的激活索引: {{ activeIndex }}</p>
       <p>最后一次切换时间: {{ lastChangeTime }}</p>
     </div>

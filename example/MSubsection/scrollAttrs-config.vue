@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-20px">
     <div style="margin-bottom: 20px">
       <label>
         <input type="checkbox" v-model="showScrollBtn" />

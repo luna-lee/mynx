@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-20px">
     <p>展示如何监听标签页切换事件并执行相应的逻辑处理。</p>
     
     <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
@@ -16,7 +16,7 @@
       @update:modelValue="handleTabSwitch"
     >
       <template #tab-content-0>
-        <div style="padding: 20px; background: #e8f5e8;">
+        <div class="mt-20px" style="padding: 20px; background: #e8f5e8;">
           <h4>标签页 A - 数据展示</h4>
           <p>这是第一个标签页，每次切换到这里都会触发数据加载。</p>
           <div v-if="tabData.A.loading" style="color: #666;">
@@ -31,7 +31,7 @@
       </template>
 
       <template #tab-content-1>
-        <div style="padding: 20px; background: #e8f0ff;">
+        <div class="mt-20px" style="padding: 20px; background: #e8f0ff;">
           <h4>标签页 B - 用户操作</h4>
           <p>每次切换到这个标签页时会记录用户行为。</p>
           <div style="margin-top: 15px;">

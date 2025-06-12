@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-20px">
     <p>通过 tab-content-{index} 插槽可以为每个标签页定义不同的内容区域。</p>
     
     <MSubsection 

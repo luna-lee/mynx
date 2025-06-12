@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-20px">
     <MSubsection 
       :tabs="tabs"
       v-model="activeIndex"
