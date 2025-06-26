@@ -1,7 +1,7 @@
 import type { App } from 'vue';
 
 // Import components
-// import MHierarchy from "./MoonHierarchy/index.vue";
+import MHierarchy from './MHierarchy/index.vue';
 import MCurtain from './MCurtain/index.vue';
 // @ts-ignore
 import MList from './MList/index.vue';
@@ -22,6 +22,7 @@ import MSubsection from './MSubsection/index.vue';
 
 // Create component map
 export const components: Record<string, any> = {
+  MHierarchy,
   MCurtain,
   MList,
   MDiv,
@@ -46,7 +47,7 @@ export const MoonUI = {
 };
 
 // Export components individually
-// export { MHierarchy };
+export { MHierarchy };
 export { MCurtain };
 export { MList };
 export { MDiv };
