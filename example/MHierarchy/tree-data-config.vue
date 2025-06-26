@@ -70,7 +70,7 @@ const negativeIds = computed(() => {
 const config1 = computed(() => ({
   node: {
     on: {
-      clickFetchChildren: async (data: any, node: any, svg: any) => {
+      clickFetchChildren: async (data: any, node: any, svg: any): Promise<any[]> => {
         console.log("异步加载子节点:", data);
         return new Promise((resolve) => {
           setTimeout(() => {
@@ -93,7 +93,7 @@ const config1 = computed(() => ({
         svg.selectAll(".active-node").classed("active-node", false);
         el.classed("active-node", true);
         console.log("节点点击:", d.data);
-        hierarchyRef.value?.hideCustomView();
+        hierarchyRef.value?.hiddenCustomView();
       },
       contextmenu: (e: any, d: any, node: any, svg: any) => {
         e.preventDefault();
@@ -145,7 +145,7 @@ const config1 = computed(() => ({
 const config2 = computed(() => ({
   node: {
     on: {
-      clickFetchChildren: async (data: any, node: any, svg: any) => {
+      clickFetchChildren: async (data: any, node: any, svg: any): Promise<any[]> => {
         console.log("技术栈异步加载:", data);
         return new Promise((resolve) => {
           setTimeout(() => {
@@ -163,7 +163,7 @@ const config2 = computed(() => ({
         svg.selectAll(".active-node").classed("active-node", false);
         el.classed("active-node", true);
         console.log("技术节点点击:", d.data);
-        hierarchyRef.value?.hideCustomView();
+        hierarchyRef.value?.hiddenCustomView();
       },
       contextmenu: (e: any, d: any, node: any, svg: any) => {
         e.preventDefault();
@@ -238,7 +238,7 @@ const fetchTreeData = async () => {
 
 const onDrawDone = ({ svg, container }: any) => {
   svg.on("click", () => {
-    hierarchyRef.value?.hideCustomView();
+    hierarchyRef.value?.hiddenCustomView();
   });
 };
 
@@ -271,12 +271,12 @@ const onAdd = () => {
     ],
     -1
   );
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 
 const onRemove = () => {
   hierarchyRef.value?.removeNodeById(currentNode.value[treeOptions.value.id]);
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 
 const onUpdate = () => {
@@ -285,7 +285,7 @@ const onUpdate = () => {
     name: currentNode.value.name + "(已更新)",
     children: [],
   });
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 </script>
 

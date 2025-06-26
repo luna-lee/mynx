@@ -1,44 +1,45 @@
 import * as d3 from 'd3';
 import { arrayRemoveItem, treeDataFactory } from 'moon-utils';
-function isNonEmptyArray(arr) {
-  return arr && arr.length;
+import type { TreeNodeData, TreeOptions, HierarchyConfig } from './types';
+function isNonEmptyArray(arr: any[]): boolean {
+  return arr && !!arr.length;
 }
 export default {
   props: {
     treeData: {
-      type: Array,
-      default: () => [],
+      type: Array as () => TreeNodeData[],
+      default: () => [] as TreeNodeData[],
     },
     treeOptions: {
-      type: Object,
-      default: () => ({}),
+      type: Object as () => TreeOptions,
+      default: () => ({}) as TreeOptions,
     },
     defaultOpenLevel: {
       type: Number,
       default: 2,
     },
     duration: {
-      type: Number,
+      type: Number as () => number,
       default: 400,
     },
     //蝴蝶模型，指定负向数据对应的id 必须是根节点的直接子节点
     negativeIds: {
-      type: Array,
-      default: () => [],
+      type: Array as () => string[],
+      default: () => [] as string[],
     },
     config: {
-      type: Object,
-      default: () => ({}),
+      type: Object as () => HierarchyConfig,
+      default: () => ({}) as HierarchyConfig,
     },
     canExpendFold: {
       type: [Boolean, Function],
       default: true,
     },
     expendShape: {
-      type: String,
+      type: String as () => string,
     },
     foldShape: {
-      type: String,
+      type: String as () => string,
     },
   },
   mounted() {
@@ -572,12 +573,11 @@ export default {
       }
     },
     async onNodeExpendOrFold(node, expend = false) {
-      if (typeof this.canExpendFold == 'boolean' && !this.canExpendFold) return;
-      if (typeof this.canExpendFold == 'function' && !this.canExpendFold(sourceData)) return;
-
       const symbolKey = this.symbolKey;
       this.lastClickNode = node;
       const sourceData = this.treeDataFactory.objById[this.lastClickNode.data[symbolKey]];
+      if (typeof this.canExpendFold == 'boolean' && !this.canExpendFold) return;
+      if (typeof this.canExpendFold == 'function' && !this.canExpendFold(sourceData)) return;
 
       if (expend) {
         // 展开
@@ -673,7 +673,9 @@ export default {
         copySourceData.children = [];
         list.push(copySourceData);
         // 重新构建一个树结构数据。
-        let { objById, flatData } = flatToTree(list, this.symbolKey, this.inner_treeOptions.pId);
+        let { objById, flatData } = treeDataFactory({ source: list, id: this.symbolKey, pId: this.inner_treeOptions.pId }, (item) => {
+          Object.assign(item, item.data);
+        });
 
         let sutTree = objById[sourceData[this.symbolKey]].children;
         if (sourceData._exChildren?.length) {
@@ -736,7 +738,10 @@ export default {
             if (rootIndex != -1) list.splice(rootIndex, 1);
 
             list.push(sourceData);
-            let { objById, flatData } = flatToTree(list, this.symbolKey, this.inner_treeOptions.pId);
+            let { objById, flatData } = treeDataFactory({ source: list, id: this.symbolKey, pId: this.inner_treeOptions.pId }, (item) => {
+              Object.assign(item, item.data);
+            });
+
             sourceData.children = objById[sourceData[this.symbolKey]].children;
             // 将新数据插入treeDataFactory中
             flatData
@@ -836,7 +841,7 @@ export default {
       const inverseScale = 1 / this.currentScale;
       let _x = this.centerPosition.x * inverseScale - x;
       let _y = this.centerPosition.y * inverseScale - y;
-      let xw = d3.zoomIdentity.scale(this.currentScale).translate(_x, _y);
+      let xw = d3.zoomIdentity.scale(this.currentScale).translate(_x, _y) as any;
       xw.d = d; //duration
       this.svg.call(this.zoom.transform, xw);
     },
@@ -1026,7 +1031,7 @@ export default {
       let foldTargetNode = [];
 
       this.treeDataFactory.flatData.forEach((item) => {
-        let obj = {};
+        let obj: any = {};
         if (this.defaultOpenLevel > 0) {
           if (item.level >= this.defaultOpenLevel) {
             if (item.children) {

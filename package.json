@@ -33,6 +33,7 @@
     "@vueuse/core": "^13.3.0",
     "element-plus": "^2.10.1",
     "shiki": "^3.2.1",
-    "moon-utils": "workspace:*"
+    "moon-utils": "workspace:*",
+    "moon-ui": "workspace:*"
   }
 }

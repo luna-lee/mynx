@@ -1,11 +1,5 @@
 <template>
   <div style="position: relative; width: 100%; height: 700px">
-    <div class="document">
-      <a href="https://github.com/luna-lee/moon-hierarchy" target="_blank"
-        >github地址</a
-      >
-    </div>
-
     <div class="pannel">
       <div class="button-group">
         <button @click="addNew">新增根节点</button>
@@ -78,10 +72,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
+import type { LayoutDirection } from "moon-ui/types/MHierarchy/types";
 
 const hierarchyRef = ref();
 const mode = ref<"h" | "v">("v");
-const layout = ref("bf");
+const layout = ref<LayoutDirection>("bf");
 const currentNode = ref<any>({});
 
 const treeOptions = ref({ id: "code", pId: "pcode", name: "name" });
@@ -92,7 +87,7 @@ const treeData = ref([]);
 const config = computed(() => ({
   node: {
     on: {
-      clickFetchChildren: (data: any, node: any, svg: any) => {
+      clickFetchChildren: (data: any, node: any, svg: any): Promise<any[]> => {
         console.log("异步加载子节点:", data, node, svg);
         return new Promise((resolve) => {
           setTimeout(() => {
@@ -110,7 +105,8 @@ const config = computed(() => ({
         svg.selectAll(".active-node").classed("active-node", false);
         el.classed("active-node", true);
         console.log("节点点击:", d.data);
-        hierarchyRef.value?.hideCustomView();
+        console.log(hierarchyRef.value,hierarchyRef.value?.hiddenCustomView);
+        hierarchyRef.value?.hiddenCustomView();
       },
       contextmenu: (e: any, d: any, node: any, svg: any) => {
         e.preventDefault();
@@ -153,7 +149,7 @@ const fetchTreeData = async () => {
 
 const onDrawDone = ({ svg, container }: any) => {
   svg.on("click", () => {
-    hierarchyRef.value?.hideCustomView();
+    hierarchyRef.value?.hiddenCustomView();
   });
 };
 
@@ -183,12 +179,12 @@ const onAdd = () => {
     ],
     -1
   );
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 
 const onRemove = () => {
   hierarchyRef.value?.removeNodeById(currentNode.value[treeOptions.value.id]);
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 
 const onUpdate = () => {
@@ -197,7 +193,7 @@ const onUpdate = () => {
     name: currentNode.value.name + "(已更新)",
     children: [],
   });
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 </script>
 

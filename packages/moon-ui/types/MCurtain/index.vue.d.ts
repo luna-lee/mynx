@@ -26,13 +26,13 @@ type __VLS_Slots = {} & {
 declare const __VLS_component: import("vue").DefineComponent<MCurtainProps, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {} & {
     "update:modelValue": (value: boolean) => any;
 }, string, import("vue").PublicProps, Readonly<MCurtainProps> & Readonly<{
-    "onUpdate:modelValue"?: ((value: boolean) => any) | undefined;
+    "onUpdate:modelValue"?: (value: boolean) => any;
 }>, {
     modelValue: boolean;
     foldStyle: Record<string, any>;
     openStyle: Record<string, any>;
     triggerPosition: "left" | "right" | "top" | "bottom";
-}, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
+}, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
 declare const _default: __VLS_WithSlots<typeof __VLS_component, __VLS_Slots>;
 export default _default;
 type __VLS_WithSlots<T, S> = T & {

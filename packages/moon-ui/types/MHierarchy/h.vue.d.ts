@@ -25,7 +25,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
     setLimtNode(): void;
     initLayoutData(): void;
     onLimitNodeExpendOrFold(sourceData: any): void;
-    onNodeExpendTranslate(d: any): string | undefined;
+    onNodeExpendTranslate(d: any): string;
     onNodeFoldTranslate(d: any, source: any): string;
     addLinks(links: any): void;
     updateLinks(links: any): void;
@@ -48,55 +48,55 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
 }, {
     props: {
         treeData: {
-            type: ArrayConstructor;
-            default: () => never[];
+            type: () => import("./types").TreeNodeData[];
+            default: () => import("./types").TreeNodeData[];
         };
         treeOptions: {
-            type: ObjectConstructor;
-            default: () => {};
+            type: () => import("./types").TreeOptions;
+            default: () => import("./types").TreeOptions;
         };
         defaultOpenLevel: {
             type: NumberConstructor;
             default: number;
         };
         duration: {
-            type: NumberConstructor;
+            type: () => number;
             default: number;
         };
         negativeIds: {
-            type: ArrayConstructor;
-            default: () => never[];
+            type: () => string[];
+            default: () => string[];
         };
         config: {
-            type: ObjectConstructor;
-            default: () => {};
+            type: () => import("./types").HierarchyConfig;
+            default: () => import("./types").HierarchyConfig;
         };
         canExpendFold: {
             type: (BooleanConstructor | FunctionConstructor)[];
             default: boolean;
         };
         expendShape: {
-            type: StringConstructor;
+            type: () => string;
         };
         foldShape: {
-            type: StringConstructor;
+            type: () => string;
         };
     };
     mounted(): void;
     data(): {
-        svg: null;
-        zoom: null;
-        container: null;
-        hierarchyLayoutData: null;
-        lastClickNode: null;
-        nodesContainer: null;
-        linksContainer: null;
+        svg: any;
+        zoom: any;
+        container: any;
+        hierarchyLayoutData: any;
+        lastClickNode: any;
+        nodesContainer: any;
+        linksContainer: any;
         currentScale: number;
         treeDataFactory: {
-            treeData: never[];
-            leafs: never[];
+            treeData: any[];
+            leafs: any[];
             objById: {};
-            flatData: never[];
+            flatData: any[];
         };
         exceptListener: string[];
         showCustomView: boolean;
@@ -108,7 +108,10 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
         nodeListener(): any;
         symbolKey(): any;
         inner_treeOptions(): any;
-        centerPosition(): any;
+        centerPosition(): {
+            x: number;
+            y: number;
+        };
         linkConifg(): any;
         defsNodeConfig(): {
             loadingSize: number;
@@ -141,7 +144,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
         removeNode(targetNodeId: any, redraw?: boolean, canRemoveExpendNode?: boolean): void;
         removeNodeById(ids: any): void;
         addShapEexpendFold(selectionNode: any, qt: any): void;
-        addListener(selectionNode: any, listener: {} | undefined, except: never[] | undefined, qd: any): void;
+        addListener(selectionNode: any, listener: {}, except: any[], qd: any): void;
         addOrUpdateNode(): void;
         onNodeClick(d: any): Promise<void>;
         onNodeExpendOrFold(node: any, expend?: boolean): Promise<void>;
@@ -165,10 +168,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
             data: any;
             el: any;
         };
-        getAllNode(): {
-            data: any;
-            el: any;
-        }[];
+        getAllNode(): any[];
         getNodeId(id: any): string;
         getLinkId(sId: any, tId: any): string;
         setPaddingFormat(inputValue: any): () => number[];
@@ -180,7 +180,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
         expendAllNode(): void;
         foldAllNode(): void;
         expendToNode(sourceData: any): void;
-        moveToNode(targetNodeId: any, eventList?: never[]): void;
+        moveToNode(targetNodeId: any, eventList?: any[]): void;
     };
 }, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<{
     layout: {

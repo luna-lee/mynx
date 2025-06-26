@@ -13,7 +13,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
      */
     modelValue: {
         type: PropType<number | string | null>;
-        default: null;
+        default: any;
     };
     /**
      * 选中状态的CSS类名
@@ -120,7 +120,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
      */
     modelValue: {
         type: PropType<number | string | null>;
-        default: null;
+        default: any;
     };
     /**
      * 选中状态的CSS类名
@@ -165,13 +165,13 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
         default: boolean;
     };
 }>> & Readonly<{
-    "onUpdate:modelValue"?: ((value: string | number | null) => any) | undefined;
-    onSliceIndex?: ((index: number) => any) | undefined;
-    onMoreVnodeList?: ((vnodeList: VNode<import("vue").RendererNode, import("vue").RendererElement, {
+    "onUpdate:modelValue"?: (value: string | number) => any;
+    onSliceIndex?: (index: number) => any;
+    onMoreVnodeList?: (vnodeList: VNode<import("vue").RendererNode, import("vue").RendererElement, {
         [key: string]: any;
-    }>[]) => any) | undefined;
+    }>[]) => any;
 }>, {
-    modelValue: string | number | null;
+    modelValue: string | number;
     activeClass: string;
     activeClassHalf: string;
     disabled: boolean;

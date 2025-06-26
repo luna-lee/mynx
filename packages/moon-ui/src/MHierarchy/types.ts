@@ -108,8 +108,8 @@ export interface HierarchyComponentInstance extends ComponentPublicInstance {
   removeNodeById: (id: string | string[]) => void
   pauseZoom: () => void
   continueZoom: () => void
-  showCustomView: (e: Event, d: any, width?: number, height?: number, priority?: number) => void
-  hideCustomView: () => void
+  drawCustomView: (e: Event, d: any, width?: number, height?: number, priority?: number) => void
+  hiddenCustomView: () => void
   updateNodesByData: (data: any | any[]) => void
   moveToNode: (targetNodeId: string, eventList?: string[]) => void
   expandAllNodes: () => void

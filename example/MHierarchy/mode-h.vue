@@ -53,10 +53,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import type { LayoutDirection } from "moon-ui/types/MHierarchy/types";
 
 const hierarchyRef = ref();
 const currentNode = ref<any>({});
-const layout = ref("lr");
+const layout = ref<LayoutDirection>("lr");
 
 // 使用与原示例相同的数据结构，包含更多节点用于蝴蝶布局演示
 const treeData = ref([]);
@@ -68,7 +69,7 @@ const config = ref({
         svg.selectAll(".active-node").classed("active-node", false);
         el.classed("active-node", true);
         console.log("节点点击:", d.data);
-        hierarchyRef.value?.hideCustomView();
+        hierarchyRef.value?.hiddenCustomView();
       },
       contextmenu: (e: any, d: any, node: any, svg: any) => {
         e.preventDefault();
@@ -120,7 +121,7 @@ const fetchTreeData = async () => {
 
 const onDrawDone = ({ svg }: any) => {
   svg.on("click", () => {
-    hierarchyRef.value?.hideCustomView();
+    hierarchyRef.value?.hiddenCustomView();
   });
 };
 
@@ -136,12 +137,12 @@ const onAdd = () => {
       pcode: currentNode.value.code,
     },
   ]);
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 
 const onRemove = () => {
   hierarchyRef.value?.removeNodeById(currentNode.value.code);
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 
 const onUpdate = () => {
@@ -149,7 +150,7 @@ const onUpdate = () => {
     ...currentNode.value,
     name: currentNode.value.name + "(已更新)",
   });
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 </script>
 

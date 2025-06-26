@@ -24,7 +24,7 @@ declare const __VLS_component: import("vue").DefineComponent<Props, {}, {}, {}, 
     designHeight: number | string;
     containCenter: boolean;
     fit: FitMode;
-}, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
+}, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
 declare const _default: __VLS_WithSlots<typeof __VLS_component, __VLS_Slots>;
 export default _default;
 type __VLS_WithSlots<T, S> = T & {

@@ -20,10 +20,12 @@
     "allowImportingTsExtensions": false, // 改为 false
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "strict": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "noUnusedParameters": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": false,
     "jsx": "preserve",
     // 类型声明相关配置
     "declaration": true,

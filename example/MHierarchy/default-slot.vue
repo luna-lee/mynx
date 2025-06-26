@@ -23,7 +23,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-
 const hierarchyRef = ref();
 const currentNode = ref<any>({});
 
@@ -36,7 +35,7 @@ const config = ref({
       click: (e: any, d: any, el: any, svg: any) => {
         svg.selectAll(".active-node").classed("active-node", false);
         el.classed("active-node", true);
-        hierarchyRef.value?.hideCustomView();
+        hierarchyRef.value?.hiddenCustomView();
       },
       contextmenu: (e: any, d: any, node: any, svg: any) => {
         e.preventDefault();
@@ -70,7 +69,7 @@ const fetchTreeData = async () => {
 };
 const onDrawDone = ({ svg }: any) => {
   svg.on("click", () => {
-    hierarchyRef.value?.hideCustomView();
+    hierarchyRef.value?.hiddenCustomView();
   });
 };
 
@@ -82,12 +81,12 @@ const onAdd = () => {
       pcode: currentNode.value.code,
     },
   ]);
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 
 const onRemove = () => {
   hierarchyRef.value?.removeNodeById(currentNode.value.code);
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 
 const onUpdate = () => {
@@ -95,7 +94,7 @@ const onUpdate = () => {
     ...currentNode.value,
     name: currentNode.value.name + "(已更新)",
   });
-  hierarchyRef.value?.hideCustomView();
+  hierarchyRef.value?.hiddenCustomView();
 };
 </script>
 

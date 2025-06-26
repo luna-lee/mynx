@@ -93,12 +93,12 @@
     // 左边框拖拽
     if (props.dragPosition.includes('left') && leftBorderRef.value) {
       leftBorderRef.value.onmousedown = (ev: MouseEvent) => {
-        ev = ev || window.event;
+        ev = ev || (window.event as MouseEvent);
         const disX = ev.clientX;
         const disW = box.offsetWidth;
 
         document.onmousemove = (ev: MouseEvent) => {
-          ev = ev || window.event;
+          ev = ev || (window.event as MouseEvent);
           const W = disW - (ev.clientX - disX);
           style.width = W + 'px';
         };
@@ -113,12 +113,12 @@
     // 右边框拖拽
     if (props.dragPosition.includes('right') && rightBorderRef.value) {
       rightBorderRef.value.onmousedown = (ev: MouseEvent) => {
-        ev = ev || window.event;
+        ev = ev || (window.event as MouseEvent);
         const disX = ev.clientX;
         const disW = box.offsetWidth;
 
         document.onmousemove = (ev: MouseEvent) => {
-          ev = ev || window.event;
+          ev = ev || (window.event as MouseEvent);
           const W = disW + ev.clientX - disX;
           style.width = W + 'px';
         };
@@ -133,12 +133,12 @@
     // 底部边框拖拽
     if (props.dragPosition.includes('bottom') && bottomBorderRef.value) {
       bottomBorderRef.value.onmousedown = (ev: MouseEvent) => {
-        ev = ev || window.event;
+        ev = ev || (window.event as MouseEvent);
         const disY = ev.clientY;
         const disH = box.offsetHeight;
 
         document.onmousemove = (ev: MouseEvent) => {
-          ev = ev || window.event;
+          ev = ev || (window.event as MouseEvent);
           const H = disH + ev.clientY - disY;
           style.height = H + 'px';
         };
@@ -153,12 +153,12 @@
     // 顶部边框拖拽
     if (props.dragPosition.includes('top') && topBorderRef.value) {
       topBorderRef.value.onmousedown = (ev: MouseEvent) => {
-        ev = ev || window.event;
+        ev = ev || (window.event as MouseEvent);
         const disY = ev.clientY;
         const disH = box.offsetHeight;
 
         document.onmousemove = (ev: MouseEvent) => {
-          ev = ev || window.event;
+          ev = ev || (window.event as MouseEvent);
           const H = disH - (ev.clientY - disY);
           style.height = H + 'px';
         };
@@ -173,14 +173,14 @@
     // 右下角拖拽
     if (props.dragPosition.includes('br') && cornerBrRef.value) {
       cornerBrRef.value.onmousedown = (ev: MouseEvent) => {
-        ev = ev || window.event;
+        ev = ev || (window.event as MouseEvent);
         const disX = ev.clientX;
         const disY = ev.clientY;
         const disW = box.offsetWidth;
         const disH = box.offsetHeight;
 
         document.onmousemove = (ev: MouseEvent) => {
-          ev = ev || window.event;
+          ev = ev || (window.event as MouseEvent);
           const W = disW + ev.clientX - disX;
           const H = disH + ev.clientY - disY;
           style.width = W + 'px';
@@ -197,14 +197,14 @@
     // 左下角拖拽
     if (props.dragPosition.includes('bl') && cornerBlRef.value) {
       cornerBlRef.value.onmousedown = (ev: MouseEvent) => {
-        ev = ev || window.event;
+        ev = ev || (window.event as MouseEvent);
         const disX = ev.clientX;
         const disY = ev.clientY;
         const disW = box.offsetWidth;
         const disH = box.offsetHeight;
 
         document.onmousemove = (ev: MouseEvent) => {
-          ev = ev || window.event;
+          ev = ev || (window.event as MouseEvent);
           const W = disW - (ev.clientX - disX);
           const H = disH + ev.clientY - disY;
           style.width = W + 'px';
@@ -221,14 +221,14 @@
     // 左上角拖拽
     if (props.dragPosition.includes('tl') && cornerTlRef.value) {
       cornerTlRef.value.onmousedown = (ev: MouseEvent) => {
-        ev = ev || window.event;
+        ev = ev || (window.event as MouseEvent);
         const disX = ev.clientX;
         const disY = ev.clientY;
         const disW = box.offsetWidth;
         const disH = box.offsetHeight;
 
         document.onmousemove = (ev: MouseEvent) => {
-          ev = ev || window.event;
+          ev = ev || (window.event as MouseEvent);
           const W = disW - (ev.clientX - disX);
           const H = disH - (disY - ev.clientY);
           style.width = W + 'px';
@@ -245,14 +245,14 @@
     // 右上角拖拽
     if (props.dragPosition.includes('tr') && cornerTrRef.value) {
       cornerTrRef.value.onmousedown = (ev: MouseEvent) => {
-        ev = ev || window.event;
+        ev = ev || (window.event as MouseEvent);
         const disX = ev.clientX;
         const disY = ev.clientY;
         const disW = box.offsetWidth;
         const disH = box.offsetHeight;
 
         document.onmousemove = (ev: MouseEvent) => {
-          ev = ev || window.event;
+          ev = ev || (window.event as MouseEvent);
           const W = disW + ev.clientX - disX;
           const H = disH - (disY - ev.clientY);
           style.width = W + 'px';
