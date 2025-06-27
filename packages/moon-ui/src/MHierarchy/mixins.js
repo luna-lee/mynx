@@ -1,45 +1,44 @@
 import * as d3 from 'd3';
 import { arrayRemoveItem, treeDataFactory } from 'moon-utils';
-import type { TreeNodeData, TreeOptions, HierarchyConfig } from './types';
-function isNonEmptyArray(arr: any[]): boolean {
-  return arr && !!arr.length;
+function isNonEmptyArray(arr) {
+  return arr && arr.length;
 }
 export default {
   props: {
     treeData: {
-      type: Array as () => TreeNodeData[],
-      default: () => [] as TreeNodeData[],
+      type: Array,
+      default: () => [],
     },
     treeOptions: {
-      type: Object as () => TreeOptions,
-      default: () => ({}) as TreeOptions,
+      type: Object,
+      default: () => ({}),
     },
     defaultOpenLevel: {
       type: Number,
       default: 2,
     },
     duration: {
-      type: Number as () => number,
+      type: Number,
       default: 400,
     },
     //蝴蝶模型，指定负向数据对应的id 必须是根节点的直接子节点
     negativeIds: {
-      type: Array as () => string[],
-      default: () => [] as string[],
+      type: Array,
+      default: () => [],
     },
     config: {
-      type: Object as () => HierarchyConfig,
-      default: () => ({}) as HierarchyConfig,
+      type: Object,
+      default: () => ({}),
     },
     canExpendFold: {
       type: [Boolean, Function],
       default: true,
     },
     expendShape: {
-      type: String as () => string,
+      type: String,
     },
     foldShape: {
-      type: String as () => string,
+      type: String,
     },
   },
   mounted() {
@@ -70,8 +69,6 @@ export default {
       exceptListener: ['click', 'clickFetchChildren', 'mouseover', 'mouseout'],
       showCustomView: false,
       InnerChangeTreeData: false, //为true时，下次更新不触发重绘
-      width: 0,
-      height: 0,
     };
   },
   computed: {
@@ -96,8 +93,8 @@ export default {
       return {
         fill: 'none',
         ...(this.config?.link || {}),
-        class: 'moon-hierarchy-link',
-        'marker-end': this.config?.arrow?.show === false ? 'none' : 'url(#moon-hierarchy-arrow)',
+        class: 'm-hierarchy-link',
+        'marker-end': this.config?.arrow?.show === false ? 'none' : 'url(#m-hierarchy-arrow)',
       };
     },
     defsNodeConfig() {
@@ -115,8 +112,8 @@ export default {
               markerHeight: '6',
               orient: 'auto-start-reverse',
               ...(this.config.arrow?.attrs || {}),
-              id: 'moon-hierarchy-arrow',
-              class: 'moon-hierarchy-arrow',
+              id: 'm-hierarchy-arrow',
+              class: 'm-hierarchy-arrow',
             },
             children: [
               {
@@ -157,9 +154,17 @@ export default {
       } else return [];
     },
     initTreeData() {
-      this.treeDataFactory = treeDataFactory({ source: this.treeData, id: this.inner_treeOptions.id, pId: this.inner_treeOptions.pId }, (item) => {
-        Object.assign(item, item.data);
-      });
+      this.treeDataFactory = treeDataFactory(
+        {
+          source: this.treeData,
+          id: this.inner_treeOptions.id,
+          pId: this.inner_treeOptions.pId,
+        },
+        (item) => {
+          Object.assign(item, item.data);
+        },
+      );
+
       // 移除treeDataFactory.flatData,treeDataFactory.objById中的所有非root子节点的数据
       let removedId = [];
       if (this.treeDataFactory.treeData.length > 1) {
@@ -176,12 +181,12 @@ export default {
       this.setSign();
     },
     createSvg() {
-      this.svg = d3.create('svg').attr('class', 'moon-hierarchy-svg').attr('cursor', 'move');
+      this.svg = d3.create('svg').attr('class', 'm-hierarchy-svg').attr('width', this.width).attr('height', this.height).attr('cursor', 'move');
     },
     createContainDom() {
       this.container = this.svg
         .append('g')
-        .attr('class', 'moon-hierarchy-container')
+        .attr('class', 'm-hierarchy-container')
         .attr('font-family', 'sans-serif')
         .attr('transform', `translate(${this.width / 2},${this.height / 2}) scale(1)`);
     },
@@ -251,12 +256,12 @@ export default {
       selectionNode.attr('class', function (d) {
         const currentClass = d3.select(this).attr('class') || '';
         const classList = currentClass.split(' ');
-        classList.push('moon-hierarchy-node');
-        if (d.data.track.length == 1) classList.push('moon-hierarchy-node-root');
-        if (typeof d.data._isexpend == 'boolean') classList.push('moon-hierarchy-node-limit-button');
-        if (isNonEmptyArray(d.data.children)) classList.push('moon-hierarchy-node-expend');
-        else arrayRemoveItem(classList, (item) => item == 'moon-hierarchy-node-expend');
-        if (isNonEmptyArray(d.data.children) || isNonEmptyArray(d.data._children) || d.data._hasChildren) classList.push('moon-hierarchy-node-haschildren');
+        classList.push('m-hierarchy-node');
+        if (d.data.track.length == 1) classList.push('m-hierarchy-node-root');
+        if (typeof d.data._isexpend == 'boolean') classList.push('m-hierarchy-node-limit-button');
+        if (isNonEmptyArray(d.data.children)) classList.push('m-hierarchy-node-expend');
+        else arrayRemoveItem(classList, (item) => item == 'm-hierarchy-node-expend');
+        if (isNonEmptyArray(d.data.children) || isNonEmptyArray(d.data._children) || d.data._hasChildren) classList.push('m-hierarchy-node-haschildren');
         let classContent = customNodeAttrs.class;
         if (classContent) {
           if (typeof classContent == 'function') {
@@ -290,7 +295,7 @@ export default {
       this.setNodeClassAttr(selectionNode);
     },
     addNode(nodeList) {
-      if (!this.nodesContainer) this.nodesContainer = this.container.append('g').attr('stroke-linejoin', 'round').attr('stroke-width', 3).attr('class', 'moon-hierarchy-nodes');
+      if (!this.nodesContainer) this.nodesContainer = this.container.append('g').attr('stroke-linejoin', 'round').attr('stroke-width', 3).attr('class', 'm-hierarchy-nodes');
       const selectionNode = this.nodesContainer
         .selectAll()
         .data(nodeList)
@@ -344,7 +349,7 @@ export default {
       dataList.forEach((data) => {
         let old = this.treeDataFactory.objById[data[this.symbolKey]];
         if (!old) {
-          throw `moon-hierarchy组件：画布中没有匹配到${this.symbolKey}=${data[this.symbolKey]}的节点`;
+          throw `m-hierarchy组件：画布中没有匹配到${this.symbolKey}=${data[this.symbolKey]}的节点`;
         }
         let backup = Object.keys(old).reduce((obj, key) => {
           if (exAttrs.includes(key) || key.startsWith('_')) obj[key] = old[key];
@@ -402,19 +407,19 @@ export default {
       }
     },
     removeNode(targetNodeId, redraw = true, canRemoveExpendNode = false) {
-      if (!targetNodeId) throw `moon-hierarchy组件：请传入目标节点数据中${this.symbolKey}的值`;
+      if (!targetNodeId) throw `m-hierarchy组件：请传入目标节点数据中${this.symbolKey}的值`;
 
       let rootId = this.hierarchyLayoutData.data[this.symbolKey];
       if (targetNodeId == rootId) {
-        throw `moon-hierarchy组件：根节点不能删除`;
+        throw `m-hierarchy组件：根节点不能删除`;
       }
       const sourceData = this.treeDataFactory.objById[targetNodeId];
       if (!sourceData) {
-        throw `moon-hierarchy组件：画布中没有匹配到${this.symbolKey}=${targetNodeId}的节点`;
+        throw `m-hierarchy组件：画布中没有匹配到${this.symbolKey}=${targetNodeId}的节点`;
       }
 
       if (typeof sourceData._isexpend == 'boolean' && !canRemoveExpendNode) {
-        throw `moon-hierarchy组件：展开/收起节点不能手动删除！`;
+        throw `m-hierarchy组件：展开/收起节点不能手动删除！`;
       }
 
       let toRemoveId = [...sourceData.trigger, targetNodeId];
@@ -578,7 +583,6 @@ export default {
       const sourceData = this.treeDataFactory.objById[this.lastClickNode.data[symbolKey]];
       if (typeof this.canExpendFold == 'boolean' && !this.canExpendFold) return;
       if (typeof this.canExpendFold == 'function' && !this.canExpendFold(sourceData)) return;
-
       if (expend) {
         // 展开
         if (isNonEmptyArray(sourceData._children)) {
@@ -616,7 +620,7 @@ export default {
     onNodeMouseOver(node) {
       node.links().forEach((link) => {
         const id = this.getLinkId(link.source.data[this.symbolKey], link.target.data[this.symbolKey]);
-        this.svg.select(`#${id}`).classed('moon-hierarchy-node-hover-link', true);
+        this.svg.select(`#${id}`).classed('m-hierarchy-node-hover-link', true);
       });
     },
     onNodeMouseOut(node) {
@@ -624,15 +628,15 @@ export default {
         const id = this.getLinkId(link.source.data[this.symbolKey], link.target.data[this.symbolKey]);
         let line = this.svg.select(`#${id}`);
         // 获取虚线的总长度
-        line.classed('moon-hierarchy-node-hover-link', false); // 过渡的持续时间，单位毫秒
+        line.classed('m-hierarchy-node-hover-link', false); // 过渡的持续时间，单位毫秒
       });
     },
     // 向目标节点添加子节点，childrenList是一个扁平化的树数据
     addNodeToTargetNode(targetNodeId, childrenList, _sign) {
-      if (!targetNodeId) throw `moon-hierarchy组件：请传入目标节点数据中${this.symbolKey}的值`;
+      if (!targetNodeId) throw `m-hierarchy组件：请传入目标节点数据中${this.symbolKey}的值`;
       const sourceData = this.treeDataFactory.objById[targetNodeId];
       if (!sourceData) {
-        throw `moon-hierarchy组件：画布中没有匹配到${this.symbolKey}=${targetNodeId}的节点`;
+        throw `m-hierarchy组件：画布中没有匹配到${this.symbolKey}=${targetNodeId}的节点`;
       }
       if (typeof sourceData._isexpend == 'boolean') {
         throw '展开/收起节点不能新增子节点！';
@@ -676,7 +680,6 @@ export default {
         let { objById, flatData } = treeDataFactory({ source: list, id: this.symbolKey, pId: this.inner_treeOptions.pId }, (item) => {
           Object.assign(item, item.data);
         });
-
         let sutTree = objById[sourceData[this.symbolKey]].children;
         if (sourceData._exChildren?.length) {
           let children = sourceData.children || sourceData._children;
@@ -708,6 +711,8 @@ export default {
             this.treeDataFactory.objById[id] = v;
             this.treeDataFactory.flatData.push(v);
           });
+
+        console.log(this.treeDataFactory.treeData);
       }
       this.onNodeExpendOrFold(node, true);
       // 内部修改数据不触发重绘
@@ -741,7 +746,6 @@ export default {
             let { objById, flatData } = treeDataFactory({ source: list, id: this.symbolKey, pId: this.inner_treeOptions.pId }, (item) => {
               Object.assign(item, item.data);
             });
-
             sourceData.children = objById[sourceData[this.symbolKey]].children;
             // 将新数据插入treeDataFactory中
             flatData
@@ -841,7 +845,7 @@ export default {
       const inverseScale = 1 / this.currentScale;
       let _x = this.centerPosition.x * inverseScale - x;
       let _y = this.centerPosition.y * inverseScale - y;
-      let xw = d3.zoomIdentity.scale(this.currentScale).translate(_x, _y) as any;
+      let xw = d3.zoomIdentity.scale(this.currentScale).translate(_x, _y);
       xw.d = d; //duration
       this.svg.call(this.zoom.transform, xw);
     },
@@ -893,7 +897,10 @@ export default {
       }, selectionNode);
     },
     getNodeById(id) {
-      return { data: this.treeDataFactory.objById[id], el: this.svg.select(`#${this.getNodeId(id)}`) };
+      return {
+        data: this.treeDataFactory.objById[id],
+        el: this.svg.select(`#${this.getNodeId(id)}`),
+      };
     },
     getAllNode() {
       const idList = Object.keys(this.treeDataFactory.objById);
@@ -901,7 +908,11 @@ export default {
       for (let i = 0; i < idList.length; i++) {
         const id = idList[i];
         let data = this.treeDataFactory.objById[id];
-        if (typeof data._isexpend != 'boolean') nodeList.push({ data, el: this.svg.select(`#${this.getNodeId(id)}`) });
+        if (typeof data._isexpend != 'boolean')
+          nodeList.push({
+            data,
+            el: this.svg.select(`#${this.getNodeId(id)}`),
+          });
       }
       return nodeList;
     },
@@ -936,7 +947,7 @@ export default {
     // 设置默认图形上的class,配置相中自定以的class以追加的方式添加。
     setShapClass(d, sharpName, nodeconfig) {
       let classContent = nodeconfig[sharpName].attrs.class;
-      let defaultClass = `moon-hierarchy-${sharpName}`;
+      let defaultClass = `m-hierarchy-${sharpName}`;
       if (typeof classContent == 'function') return `${defaultClass} ${classContent(d) || ''}`;
       if (typeof classContent == 'string' && classContent) {
         return `${defaultClass} ${classContent}`;
@@ -1007,7 +1018,7 @@ export default {
         this.foreignObject = null;
       }
     },
-    expendAllNode() {
+    expandAllNode() {
       this.lastClickNode = this.hierarchyLayoutData;
       this.treeDataFactory.flatData.forEach((item) => {
         if (item._children) {
@@ -1031,7 +1042,7 @@ export default {
       let foldTargetNode = [];
 
       this.treeDataFactory.flatData.forEach((item) => {
-        let obj: any = {};
+        let obj = {};
         if (this.defaultOpenLevel > 0) {
           if (item.level >= this.defaultOpenLevel) {
             if (item.children) {
@@ -1112,10 +1123,10 @@ export default {
     },
     // 将画布中心移动到指定节点
     moveToNode(targetNodeId, eventList = []) {
-      if (!targetNodeId) throw `moon-hierarchy组件：请传入目标节点数据中${this.symbolKey}的值`;
+      if (!targetNodeId) throw `m-hierarchy组件：请传入目标节点数据中${this.symbolKey}的值`;
       const sourceData = this.treeDataFactory.objById[targetNodeId];
       if (!sourceData) {
-        throw `moon-hierarchy组件：画布中没有匹配到${this.symbolKey}=${targetNodeId}的节点`;
+        throw `m-hierarchy组件：画布中没有匹配到${this.symbolKey}=${targetNodeId}的节点`;
       }
 
       let node = this.hierarchyLayoutData.find((item) => item.data[this.symbolKey] == sourceData[this.symbolKey]);
@@ -1144,6 +1155,7 @@ export default {
             return;
           }
           if (event == 'click') {
+            console.log('click');
             this.nodeListener['click']?.(_, node, selectionNode, this.svg);
             return;
           }

@@ -131,7 +131,7 @@ declare const _default: {
         createOrUpdateForeignObject(attrs: any): void;
         updateCustomView(): void;
         hiddenCustomView(): void;
-        expendAllNode(): void;
+        expandAllNode(): void;
         foldAllNode(): void;
         expendToNode(sourceData: any): void;
         moveToNode(targetNodeId: any, eventList?: any[]): void;

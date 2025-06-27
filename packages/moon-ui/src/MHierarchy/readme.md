@@ -1,27 +1,27 @@
-# moon-hierarchy
+# m-hierarchy
 
 ### 预览地址
 
-### https://www.fste.top/demo/html//moon-hierarchy/#/
+### https://www.fste.top/demo/html//m-hierarchy/#/
 
 ### 开发目的
 
 -   使用 d3 开发层级数据展示图。且支持各种自定义功能。
 
-### 安装 npm i moon-hierarchy -S
+### 安装 npm i m-hierarchy -S
 
 ### vue 文件中使用
 
 - #### vue2中使用
 ```javascript
-import hierarchy from 'moon-hierarchy/vue2';
-import 'moon-hierarchy/moon-hierarchy.css';
+import hierarchy from 'm-hierarchy/vue2';
+import 'm-hierarchy/m-hierarchy.css';
 components: {  hierarchy  }
 ```
 - #### vue3中使用
 ```javascript
-import hierarchy from 'moon-hierarchy';
-import 'moon-hierarchy/moon-hierarchy.css';
+import hierarchy from 'm-hierarchy';
+import 'm-hierarchy/m-hierarchy.css';
 components: {  hierarchy  }
 ```
 
@@ -310,95 +310,95 @@ exShaps = [
 | showCustomView   | 显示 slot 对应的自定义的 view 视图,e:鼠标信息，d：布局节点信息，width，height，priority，duration：参考 config.customView，优先级高于 config.customView 中的配置。          | (e, d, width, height, priority,duration)=>void            |
 | hiddenCustomView | 隐藏 slot 对应的自定义的 view 视图,                                                                                                                                         | ()=>void                                                  |
 | moveToNode       | 展开到指定节点所在的层级,将节点移动到画布中间，并且可以触发 eventList 指定的节点事件。                                                                                      | (targetNodeId:string,eventList:string[]\|string)=>void    |
-| expendAllNode    | 展开所有节点                                                                                                                                                                | ()=>void                                                  |
+| expandAllNode    | 展开所有节点                                                                                                                                                                | ()=>void                                                  |
 | foldAllNode      | 将所有节点折叠到默认层级                                                                                                                                                    | ()=>void                                                  |
 
 ### 各个节点，图形默认的 id 和 class
 
 | 名称                                       | class                            | id                                         |
 | ------------------------------------------ | -------------------------------- | ------------------------------------------ |
-| 节点                                       | moon-hierarchy-node              | 'node'+ 节点数据中的唯一标识字段对应的数据 |
-| 节点-根节点                                | moon-hierarchy-node-root         | 'node'+ 节点数据中的唯一标识字段对应的数据 |
-| 节点-有子节点的节点                        | moon-hierarchy-node-haschildren  | 'node'+ 节点数据中的唯一标识字段对应的数据 |
-| 节点-有子节点的节点，且展开                | moon-hierarchy-node-expend       | 'node'+ 节点数据中的唯一标识字段对应的数据 |
-| 节点-限制展开收起的节点                    | moon-hierarchy-node-limit-button | 'node'+ 节点数据中的唯一标识字段对应的数据 |
-| rect                                       | moon-hierarchy-rect              | -                                          |
-| text                                       | moon-hierarchy-text              | -                                          |
-| 展开收起图形                               | moon-hierarchy-plus              | -                                          |
-| 连线                                       | moon-hierarchy-link              | 'link'+"起点 id-终点 id"                   |
-| 节点鼠标悬浮，该节点对应的所有子节点间连线 | moon-hierarchy-node-hover-link   | 'link'+"起点 id-终点 id"                   |
-| 用户自定义视图节点                         | moon-hierarchy-custom-view       | -                                          |
+| 节点                                       | m-hierarchy-node              | 'node'+ 节点数据中的唯一标识字段对应的数据 |
+| 节点-根节点                                | m-hierarchy-node-root         | 'node'+ 节点数据中的唯一标识字段对应的数据 |
+| 节点-有子节点的节点                        | m-hierarchy-node-haschildren  | 'node'+ 节点数据中的唯一标识字段对应的数据 |
+| 节点-有子节点的节点，且展开                | m-hierarchy-node-expend       | 'node'+ 节点数据中的唯一标识字段对应的数据 |
+| 节点-限制展开收起的节点                    | m-hierarchy-node-limit-button | 'node'+ 节点数据中的唯一标识字段对应的数据 |
+| rect                                       | m-hierarchy-rect              | -                                          |
+| text                                       | m-hierarchy-text              | -                                          |
+| 展开收起图形                               | m-hierarchy-plus              | -                                          |
+| 连线                                       | m-hierarchy-link              | 'link'+"起点 id-终点 id"                   |
+| 节点鼠标悬浮，该节点对应的所有子节点间连线 | m-hierarchy-node-hover-link   | 'link'+"起点 id-终点 id"                   |
+| 用户自定义视图节点                         | m-hierarchy-custom-view       | -                                          |
 
 ## DefaultStyle
 
 -   可以自行依据项目修改
 
 ```CSS
-    .moon-hierarchy-svg {
-    .moon-hierarchy-node {
+    .m-hierarchy-svg {
+    .m-hierarchy-node {
         // 默认rect样式
-        .moon-hierarchy-rect {
+        .m-hierarchy-rect {
             fill: #fff;
             stroke: rgb(216, 216, 216);
             stroke-width: 0.5;
         }
         // 默认text样式
-        .moon-hierarchy-text {
+        .m-hierarchy-text {
             fill: rgb(51, 51, 51);
         }
         // 默认plus样式
-        .moon-hierarchy-plus {
+        .m-hierarchy-plus {
             stroke: rgb(153, 153, 153);
             fill: rgb(234, 242, 255);
             stroke-width: 1;
         }
 
         // 根节点样式
-        &.moon-hierarchy-node-root {
-            .moon-hierarchy-rect {
+        &.m-hierarchy-node-root {
+            .m-hierarchy-rect {
                 fill: rgb(18, 137, 239);
             }
-            .moon-hierarchy-text {
+            .m-hierarchy-text {
                 fill: #fff;
             }
-            .moon-hierarchy-plus {
+            .m-hierarchy-plus {
                 display: none;
             }
         }
         // 没有子节点的样式
-        &:not(.moon-hierarchy-node-haschildren) {
-            .moon-hierarchy-plus {
+        &:not(.m-hierarchy-node-haschildren) {
+            .m-hierarchy-plus {
                 display: none;
             }
         }
         // 非根节点的节点展开后样式
-        &.moon-hierarchy-node-expend:not(.moon-hierarchy-node-root) {
-            .moon-hierarchy-text {
+        &.m-hierarchy-node-expend:not(.m-hierarchy-node-root) {
+            .m-hierarchy-text {
                 fill: rgb(18, 139, 237);
             }
         }
         // 节点展开后样式
-        &.moon-hierarchy-node-expend {
-            .moon-hierarchy-plus {
+        &.m-hierarchy-node-expend {
+            .m-hierarchy-plus {
                 line:nth-of-type(2) {
                     display: none;
                 }
             }
         }
         //展开限制节点的按钮型节点样式
-        &.moon-hierarchy-node-limit-button {
-            .moon-hierarchy-rect {
+        &.m-hierarchy-node-limit-button {
+            .m-hierarchy-rect {
                 fill: rgb(247, 247, 247);
             }
         }
         // 非展开限制节点的按钮型节点得节点鼠标悬停样式
-        &:not(.moon-hierarchy-node-limit-button):hover {
-            .moon-hierarchy-rect {
+        &:not(.m-hierarchy-node-limit-button):hover {
+            .m-hierarchy-rect {
                 stroke: rgb(18, 137, 239);
             }
         }
     }
-    .moon-hierarchy-custom-view {
+    .m-hierarchy-custom-view {
         width: 100%;
         height: 100%;
         background-color: #fff;
@@ -407,23 +407,23 @@ exShaps = [
         box-sizing: border-box;
         cursor: pointer;
     }
-    .moon-hierarchy-arrow {
+    .m-hierarchy-arrow {
         fill: #128bed;
     }
-    .moon-hierarchy-link {
+    .m-hierarchy-link {
         stroke: #d8d8d8;
         stroke-opacity: 1;
         stroke-width: 1;
     }
-    .moon-hierarchy-node-hover-link {
+    .m-hierarchy-node-hover-link {
         stroke-dasharray: 1000;
         stroke-dashoffset: 1000;
-        animation: moon-hierarchy-link-run 20s linear infinite;
+        animation: m-hierarchy-link-run 20s linear infinite;
     }
-    .moon-hierarchy-loading {
-        animation: moon-hierarchy-rotate 3s linear infinite;
+    .m-hierarchy-loading {
+        animation: m-hierarchy-rotate 3s linear infinite;
     }
-    @keyframes moon-hierarchy-rotate {
+    @keyframes m-hierarchy-rotate {
         0% {
             transform: rotate(0deg);
         }
@@ -432,7 +432,7 @@ exShaps = [
         }
     }
 
-    @keyframes moon-hierarchy-link-run {
+    @keyframes m-hierarchy-link-run {
         from {
             stroke-dasharray: 10, 5;
         }
@@ -458,7 +458,7 @@ exShaps = [
                 <button @click="$refs.hierarchy.moveToNode('qyfxsbpggl', ['click', 'contextmenu'])">
                     移动到指定节点，并触发contextmenu
                 </button>
-                <button @click="$refs.hierarchy.expendAllNode()">展开全部节点</button>
+                <button @click="$refs.hierarchy.expandAllNode()">展开全部节点</button>
                 <button @click="$refs.hierarchy.foldAllNode()">折叠全部节点</button>
             </div>
             <div style="margin-top: 10px">
@@ -480,12 +480,12 @@ exShaps = [
         </div>
         <div class="document">
             <!-- <router-link to="/md-view" target="_blank">文档</router-link> -->
-            <a href="https://github.com/luna-lee/moon-hierarchy" target="_blank">github地址</a>
+            <a href="https://github.com/luna-lee/m-hierarchy" target="_blank">github地址</a>
         </div>
 
         <hierarchy
             ref="hierarchy"
-            class="moon-hierarchy"
+            class="m-hierarchy"
             :mode="mode"
             :treeData="treeData"
             :treeOptions="treeOptions"
@@ -494,8 +494,8 @@ exShaps = [
             :config="config"
             :width="width"
             :height="height"
-            expendShape=".moon-hierarchy-plus"
-            foldShape=".moon-hierarchy-plus"
+            expendShape=".m-hierarchy-plus"
+            foldShape=".m-hierarchy-plus"
             @draw-done="onDrawDone"
         >
             <div>
@@ -509,9 +509,9 @@ exShaps = [
     </div>
 </template>
 <script>
-//import hierarchy from 'moon-hierarchy/vue2';
-import hierarchy from 'moon-hierarchy';
-import 'moon-hierarchy/moon-hierarchy.css';
+//import hierarchy from 'm-hierarchy/vue2';
+import hierarchy from 'm-hierarchy';
+import 'm-hierarchy/m-hierarchy.css';
 export default {
     inheritAttrs: false,
     name: '',
@@ -716,7 +716,7 @@ export default {
                         }
                     },
                     attrs: {
-                        class: 'moon-hierarchy-plus',
+                        class: 'm-hierarchy-plus',
                         display: (d) => {
                             if (
                                 (!isNonEmptyArray(d.data.children) && !isNonEmptyArray(d.data._children)) ||
@@ -734,7 +734,7 @@ export default {
                         {
                             name: 'circle',
                             attrs: {
-                                class: 'moon-hierarchy-plus-circle',
+                                class: 'm-hierarchy-plus-circle',
                                 r: plusCircleWidth / 2
                             }
                         },
@@ -794,7 +794,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.moon-hierarchy {
+.m-hierarchy {
     background: #edf0fd;
     ul {
         margin: 0;
@@ -820,41 +820,41 @@ export default {
             background-color: #f5f7fa;
         }
     }
-    ::v-deep(.moon-hierarchy-node-root) {
-        .moon-hierarchy-rect {
+    ::v-deep(.m-hierarchy-node-root) {
+        .m-hierarchy-rect {
             fill: #003bc1;
         }
     }
-    ::v-deep(.moon-hierarchy-link) {
+    ::v-deep(.m-hierarchy-link) {
         stroke: #1961f5;
         stroke-opacity: 1;
         stroke-width: 1.3;
     }
-    ::v-deep(.moon-hierarchy-node) {
-        &.moon-hierarchy-node-expend:not(.moon-hierarchy-node-root):not(.active-node) {
-            .moon-hierarchy-text {
+    ::v-deep(.m-hierarchy-node) {
+        &.m-hierarchy-node-expend:not(.m-hierarchy-node-root):not(.active-node) {
+            .m-hierarchy-text {
                 fill: rgb(51, 51, 51);
             }
         }
         &.deep-1-node:not(.active-node) {
-            .moon-hierarchy-rect {
+            .m-hierarchy-rect {
                 fill: #0044fe !important;
             }
-            .moon-hierarchy-text {
+            .m-hierarchy-text {
                 fill: #fff !important;
             }
         }
         &.active-node {
-            &:not(.moon-hierarchy-node-root) {
-                .moon-hierarchy-rect {
+            &:not(.m-hierarchy-node-root) {
+                .m-hierarchy-rect {
                     fill: #003bc1;
                 }
-                .moon-hierarchy-text {
+                .m-hierarchy-text {
                     fill: #fff;
                 }
             }
         }
-        .moon-hierarchy-plus {
+        .m-hierarchy-plus {
             stroke: #1961f5;
             &:hover {
                 circle {

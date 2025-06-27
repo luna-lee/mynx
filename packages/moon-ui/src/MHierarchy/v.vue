@@ -1,6 +1,6 @@
 <template>
   <div ref="svg" class="m-hierarchy">
-    <div ref="CoustomView" v-show="showCustomView" class="moon-hierarchy-custom-view">
+    <div ref="CoustomView" v-show="showCustomView" class="m-hierarchy-custom-view">
       <slot />
     </div>
   </div>
@@ -8,15 +8,14 @@
 <script>
   import { intersection } from 'lodash-es';
   import mixins from './mixins';
-  import * as d3 from 'd3';
   import { useElementSize } from '@vueuse/core';
   import { useTemplateRef } from 'vue';
+  import * as d3 from 'd3';
   function isNonEmptyArray(arr) {
     return arr && arr.length;
   }
   export default {
     mixins: [mixins],
-    inheritAttrs: false,
     props: {
       layout: {
         type: String,
@@ -249,7 +248,7 @@
       addLinks(links) {
         const getLinkId = this.getLinkId;
         const symbolKey = this.symbolKey;
-        if (!this.linksContainer) this.linksContainer = this.container.append('g').attr('class', 'moon-hierarchy-links');
+        if (!this.linksContainer) this.linksContainer = this.container.append('g').attr('class', 'm-hierarchy-links');
         let path = this.linksContainer.selectAll().data(links).join('path');
 
         this.setAttrByOpt(path, this.linkConifg);
@@ -328,7 +327,7 @@
 
         if (flag) {
           source._loading = flag;
-          const use = d3.select(`#${nodeId}`).append('use').attr('class', 'moon-hierarchy-loading').attr('xlink:href', '#loading');
+          const use = d3.select(`#${nodeId}`).append('use').attr('class', 'm-hierarchy-loading').attr('xlink:href', '#loading');
           use
             .attr('x', x)
             .attr('y', y)
@@ -481,7 +480,7 @@
     },
   };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .m-hierarchy {
     width: 100%;
     height: 100%;

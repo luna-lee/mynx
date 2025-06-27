@@ -117,7 +117,12 @@ export const treeDataFactory = <T extends Recordable>(
           delete item.children;
         }
         // 自定义函数
-        customizer && customizer(item);
+        if (customizer) {
+          // 浅拷贝一份，确保主要的数据及其主数据结构不会被修改
+          const shallowCopy = { ...item };
+          customizer(item);
+          Object.assign(item, shallowCopy);
+        }
         return obj;
       },
       {}

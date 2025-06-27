@@ -140,7 +140,7 @@
        */
       zoom(scale: number) {
         const ref = this.$refs.MoonHierarchy as HierarchyComponentInstance;
-        ref?.setZoom(scale);
+        ref?.scale(scale);
       },
 
       /**
@@ -151,7 +151,7 @@
        */
       addNode(targetNodeId: string, childrenNode: any, _sign?: number) {
         const ref = this.$refs.MoonHierarchy as HierarchyComponentInstance;
-        ref?.addNode(targetNodeId, childrenNode, _sign);
+        ref?.addNodeToTargetNode(targetNodeId, childrenNode, _sign);
       },
 
       /**
@@ -206,7 +206,7 @@
        */
       updateNodeByData(data: any | any[]) {
         const ref = this.$refs.MoonHierarchy as HierarchyComponentInstance;
-        ref?.updateNodesByData(data);
+        ref?.updateNodeByData(data);
       },
 
       /**
@@ -222,9 +222,9 @@
       /**
        * 展开所有节点
        */
-      expendAllNode() {
+      expandAllNode() {
         const ref = this.$refs.MoonHierarchy as HierarchyComponentInstance;
-        ref?.expandAllNodes();
+        ref?.expandAllNode();
       },
 
       /**
@@ -232,64 +232,64 @@
        */
       foldAllNode() {
         const ref = this.$refs.MoonHierarchy as HierarchyComponentInstance;
-        ref?.collapseAllNodes();
+        ref?.foldAllNode();
       },
     },
   });
 </script>
 
 <style lang="scss">
-  .moon-hierarchy-svg {
-    .moon-hierarchy-node {
+  .m-hierarchy-svg {
+    .m-hierarchy-node {
       // 默认rect样式
-      .moon-hierarchy-rect {
+      .m-hierarchy-rect {
         fill: #fff;
         stroke: rgb(216, 216, 216);
         stroke-width: 0.5;
       }
 
       // 默认text样式
-      .moon-hierarchy-text {
+      .m-hierarchy-text {
         fill: rgb(51, 51, 51);
       }
 
       // 默认plus样式
-      .moon-hierarchy-plus {
+      .m-hierarchy-plus {
         stroke: rgb(153, 153, 153);
         fill: rgb(234, 242, 255);
         stroke-width: 1;
       }
 
       // 根节点样式
-      &.moon-hierarchy-node-root {
-        .moon-hierarchy-rect {
+      &.m-hierarchy-node-root {
+        .m-hierarchy-rect {
           fill: rgb(18, 137, 239);
         }
-        .moon-hierarchy-text {
+        .m-hierarchy-text {
           fill: #fff;
         }
-        .moon-hierarchy-plus {
+        .m-hierarchy-plus {
           display: none;
         }
       }
 
       // 没有子节点的样式
-      &:not(.moon-hierarchy-node-haschildren) {
-        .moon-hierarchy-plus {
+      &:not(.m-hierarchy-node-haschildren) {
+        .m-hierarchy-plus {
           display: none;
         }
       }
 
       // 非根节点的节点展开后样式
-      &.moon-hierarchy-node-expend:not(.moon-hierarchy-node-root) {
-        .moon-hierarchy-text {
+      &.m-hierarchy-node-expend:not(.m-hierarchy-node-root) {
+        .m-hierarchy-text {
           fill: rgb(18, 139, 237);
         }
       }
 
       // 节点展开后样式
-      &.moon-hierarchy-node-expend {
-        .moon-hierarchy-plus {
+      &.m-hierarchy-node-expend {
+        .m-hierarchy-plus {
           line:nth-of-type(2) {
             display: none;
           }
@@ -297,21 +297,21 @@
       }
 
       // 展开限制节点的按钮型节点样式
-      &.moon-hierarchy-node-limit-button {
-        .moon-hierarchy-rect {
+      &.m-hierarchy-node-limit-button {
+        .m-hierarchy-rect {
           fill: rgb(247, 247, 247);
         }
       }
 
       // 非展开限制节点的按钮型节点得节点鼠标悬停样式
-      &:not(.moon-hierarchy-node-limit-button):hover {
-        .moon-hierarchy-rect {
+      &:not(.m-hierarchy-node-limit-button):hover {
+        .m-hierarchy-rect {
           stroke: rgb(18, 137, 239);
         }
       }
     }
 
-    .moon-hierarchy-custom-view {
+    .m-hierarchy-custom-view {
       width: 100%;
       height: 100%;
       background-color: #fff;
@@ -321,27 +321,27 @@
       cursor: pointer;
     }
 
-    .moon-hierarchy-arrow {
+    .m-hierarchy-arrow {
       fill: #128bed;
     }
 
-    .moon-hierarchy-link {
+    .m-hierarchy-link {
       stroke: #d8d8d8;
       stroke-opacity: 1;
       stroke-width: 1;
     }
 
-    .moon-hierarchy-node-hover-link {
+    .m-hierarchy-node-hover-link {
       stroke-dasharray: 1000;
       stroke-dashoffset: 1000;
-      animation: moon-hierarchy-link-run 20s linear infinite;
+      animation: m-hierarchy-link-run 20s linear infinite;
     }
 
-    .moon-hierarchy-loading {
-      animation: moon-hierarchy-rotate 3s linear infinite;
+    .m-hierarchy-loading {
+      animation: m-hierarchy-rotate 3s linear infinite;
     }
 
-    @keyframes moon-hierarchy-rotate {
+    @keyframes m-hierarchy-rotate {
       0% {
         transform: rotate(0deg);
       }
@@ -350,7 +350,7 @@
       }
     }
 
-    @keyframes moon-hierarchy-link-run {
+    @keyframes m-hierarchy-link-run {
       from {
         stroke-dasharray: 10, 5;
       }

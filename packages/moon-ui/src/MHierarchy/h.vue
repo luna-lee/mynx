@@ -1,15 +1,15 @@
 <template>
   <div ref="svg" class="m-hierarchy">
-    <div ref="CoustomView" v-show="showCustomView" class="moon-hierarchy-custom-view">
+    <div ref="CoustomView" v-show="showCustomView" class="m-hierarchy-custom-view">
       <slot />
     </div>
   </div>
 </template>
 <script>
   import { getUUID } from 'moon-utils';
-  import { maxBy, intersection } from 'lodash-es';
   import { useElementSize } from '@vueuse/core';
   import { useTemplateRef } from 'vue';
+  import { maxBy, intersection } from 'lodash-es';
   import mixins from './mixins';
   import * as d3 from 'd3';
   function isNonEmptyArray(arr) {
@@ -17,7 +17,6 @@
   }
   export default {
     mixins: [mixins],
-    inheritAttrs: false,
     props: {
       layout: {
         type: String,
@@ -319,7 +318,7 @@
       addLinks(links) {
         const getLinkId = this.getLinkId;
         const symbolKey = this.symbolKey;
-        if (!this.linksContainer) this.linksContainer = this.container.append('g').attr('class', 'moon-hierarchy-links');
+        if (!this.linksContainer) this.linksContainer = this.container.append('g').attr('class', 'm-hierarchy-links');
         let path = this.linksContainer.selectAll().data(links).join('path');
 
         this.setAttrByOpt(path, this.linkConifg);
@@ -458,7 +457,7 @@
         const x = (d) => (d.data._sign == 1 ? d.data._nodeConfig.nodeWidth : -this.defsNodeConfig.loadingSize);
         const y = () => this.nodeConfig.nodeHeight / 2 - this.defsNodeConfig.loadingSize / 2;
         if (flag) {
-          const use = d3.select(`#${nodeId}`).append('use').attr('class', 'moon-hierarchy-loading').attr('xlink:href', '#loading');
+          const use = d3.select(`#${nodeId}`).append('use').attr('class', 'm-hierarchy-loading').attr('xlink:href', '#loading');
           use
             .attr('x', x)
             .attr('y', y)
@@ -567,7 +566,7 @@
     },
   };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .m-hierarchy {
     width: 100%;
     height: 100%;

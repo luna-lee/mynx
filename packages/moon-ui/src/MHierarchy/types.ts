@@ -103,17 +103,17 @@ export interface HierarchyComponentInstance extends ComponentPublicInstance {
   getNodeById: (id: string) => any
   getAllNodes: () => any[]
   moveToCenter: () => void
-  setZoom: (scale: number) => void
-  addNode: (targetNodeId: string, childrenNode: any, _sign?: number) => void
+  scale: (scale: number) => void
+  addNodeToTargetNode: (targetNodeId: string, childrenNode: any, _sign?: number) => void
   removeNodeById: (id: string | string[]) => void
   pauseZoom: () => void
   continueZoom: () => void
   drawCustomView: (e: Event, d: any, width?: number, height?: number, priority?: number) => void
   hiddenCustomView: () => void
-  updateNodesByData: (data: any | any[]) => void
+  updateNodeByData: (data: any | any[]) => void
   moveToNode: (targetNodeId: string, eventList?: string[]) => void
-  expandAllNodes: () => void
-  collapseAllNodes: () => void
+  expandAllNode: () => void
+  foldAllNode: () => void
 }
 
 /**

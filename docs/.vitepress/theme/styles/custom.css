@@ -69,3 +69,28 @@ mark.highlight,
 .VPDoc {
   padding: 0 !important;
 }
+
+
+.VPContent.has-sidebar {
+  padding-right: 0 !important;
+  padding-left : var(--vp-sidebar-width) !important;
+
+  .container {
+    max-width: none !important;
+
+    .content-container {
+      max-width: 1920px !important;
+
+    }
+  }
+}
+
+
+
+
+
+
+.VPSidebar {
+  padding: 32px 32px 96px !important;
+  width  : var(--vp-sidebar-width) !important;
+}
