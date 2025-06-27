@@ -213,7 +213,7 @@ export default defineConfig({
         {
           text: "组件",
           items: [
-            { text: "MHierarchy 层次结构", link: "/moon-ui/MHierarchy" },
+            { text: "MHierarchy 层次图", link: "/moon-ui/MHierarchy" },
             { text: "MCurtain 窗帘", link: "/moon-ui/MCurtain" },
             { text: "MList 清单", link: "/moon-ui/MList" },
             { text: "MDiv 可拖拽容器", link: "/moon-ui/MDiv" },

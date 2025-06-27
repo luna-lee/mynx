@@ -1,12 +1,13 @@
 {
   "name": "moon-ui",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Core UI components for Moon UI",
   "main": "dist/moon-ui.umd.js",
   "module": "dist/moon-ui.es.js",
   "types": "types/index.d.ts",
+  "homepage": "https://github.com/luna-lee/moon-ui.git",
   "exports": {
-    ".": {
+    ".": { 
       "types": "./types/index.d.ts",
       "import": "./dist/moon-ui.es.js",
       "require": "./dist/moon-ui.umd.js"
@@ -32,7 +33,9 @@
     "build": "rm -rf dist types && vite build && npm run build:types",
     "build:types": "vue-tsc --emitDeclarationOnly &&   tsx scripts/generateTypes.mts",
     "typecheck": "vue-tsc --noEmit",
+    "publish": "npm publish",
     "clean": "rm -rf dist types"
+    
   },
   "peerDependencies": {
     "vue": ">=3.0.0"
