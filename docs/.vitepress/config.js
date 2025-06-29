@@ -25,7 +25,7 @@ export default defineConfig({
   base: "/mynx/",
   description: "开发技术分享",
   title: "Mynx",
-  head: [["link", { rel: "icon", href: "/docs/logo.webp" }]],
+  head: [["link", { rel: "icon", href: "/mynx/logo.webp" }]],
   lang: "zh-CN",
   markdown: {
     config: (md) => {
