@@ -105,7 +105,6 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import MSubsection from '../../packages/moon-ui/src/MSubsection/index.vue'
 
 const activeIndex = ref(0)
 const switchCount = ref(0)

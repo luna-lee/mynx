@@ -50,7 +50,4 @@
   </div>
 </template>
 
-<script setup>
-import MScroll from "../../packages/moon-ui/src/MScroll/index.vue";
-import MDiv from "../../packages/moon-ui/src/MDiv/index.vue";
-</script>
+<script setup></script>

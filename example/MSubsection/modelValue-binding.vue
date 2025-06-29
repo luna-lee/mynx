@@ -50,7 +50,6 @@
 
 <script setup>
 import { ref } from "vue";
-import MSubsection from "../../packages/moon-ui/src/MSubsection/index.vue";
 
 const activeIndex = ref(1); // 默认激活第二个标签页
 const lastChangeTime = ref(new Date().toLocaleTimeString());

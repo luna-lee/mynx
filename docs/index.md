@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: Moon Sir
+  name: Mynx Sir
   text: 前端开发生态
   tagline: 高效工具库与组件集，助力现代 Web 开发
   # image:
@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: 开始使用
-      link: /resource/moon-utils/
+      link: /resource/mynx-utils/
     - theme: alt
       text: GitHub
       link: https://github.com/luna-lee
@@ -23,14 +23,14 @@ features:
     link: /
     linkText: 阅读文章
   - icon: 🧩
-    title: Moon UI
+    title: Mynx UI
     details: 优雅、高效的 Vue 组件库，提供丰富的交互组件与布局系统，支持自定义主题与响应式设计
-    link: /moon-ui/
+    link: /mynx-ui/
     linkText: 浏览组件
   - icon: ⚡
-    title: Moon Utils
+    title: Mynx Utils
     details: 轻量级 JavaScript 工具函数集，专注于类型检查、数据处理、树结构操作与异步控制流管理
-    link: /resource/moon-utils/
+    link: /resource/mynx-utils/
     linkText: 查看 API
   - icon: 🛠️
     title: 构建插件

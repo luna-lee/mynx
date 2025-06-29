@@ -1,13 +1,13 @@
 {
-  "name": "moon-docs",
+  "name": "mynx-docs",
   "version": "1.0.0",
-  "description": "Moon工具库文档",
+  "description": "Mynx工具库文档",
   "type": "module",
   "scripts": {
     "dev": "pnpm -r --filter=./packages/* run dev",
     "build": "pnpm -r --filter=./packages/* run build",
-    "build:utils": "pnpm --filter=moon-utils run build",
-    "build:ui": "pnpm --filter=moon-ui run build",
+    "build:utils": "pnpm --filter=mynx-utils run build",
+    "build:ui": "pnpm --filter=mynx-ui run build",
     "build:ordered": "pnpm run build:utils && pnpm run build:ui",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "format": "prettier --write \"**/*.{vue,ts,js,json,md}\"",
@@ -16,7 +16,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "keywords": [
-    "moon",
+    "mynx",
     "documentation",
     "tools",
     "utils"
@@ -33,7 +33,7 @@
     "@vueuse/core": "^13.3.0",
     "element-plus": "^2.10.1",
     "shiki": "^3.2.1",
-    "moon-utils": "workspace:*",
-    "moon-ui": "workspace:*"
+    "mynx-utils": "workspace:*",
+    "mynx-ui": "workspace:*"
   }
 }

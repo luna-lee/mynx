@@ -272,8 +272,6 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import MScroll from "../../packages/moon-ui/src/MScroll/index.vue";
-import MDiv from "../../packages/moon-ui/src/MDiv/index.vue";
 
 const containerHeight = ref("120px");
 const backgroundColor = ref("transparent");

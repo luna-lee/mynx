@@ -24,7 +24,7 @@ const demoPlugin = (md) => {
 export default defineConfig({
   base: "/docs/",
   description: "开发技术分享",
-  title: "Moon Sir",
+  title: "Mynx Sir",
   head: [["link", { rel: "icon", href: "/docs/logo.webp" }]],
   lang: "zh-CN",
   markdown: {
@@ -84,11 +84,11 @@ export default defineConfig({
     },
     nav: [
       { text: "首页", link: "/" },
-      { text: "组件", link: "/moon-ui/" },
+      { text: "组件", link: "/mynx-ui/" },
       {
         text: "资源",
         items: [
-          { text: "moon-utils", link: "/resource/moon-utils/" },
+          { text: "mynx-utils", link: "/resource/mynx-utils/" },
           { text: "npm插件", link: "/resource/plugins/" },
 
           // 这里可以添加更多模块
@@ -97,33 +97,33 @@ export default defineConfig({
       { text: "关于", link: "/about" },
     ],
     sidebar: {
-      "/resource/moon-utils/": [
+      "/resource/mynx-utils/": [
         {
-          text: "moon-utils",
+          text: "mynx-utils",
           items: [
-            { text: "简介", link: "/resource/moon-utils/" },
-            { text: "安装", link: "/resource/moon-utils/guide/installation" },
+            { text: "简介", link: "/resource/mynx-utils/" },
+            { text: "安装", link: "/resource/mynx-utils/guide/installation" },
           ],
         },
         {
           text: "类型工具",
-          items: [{ text: "isType", link: "/resource/moon-utils/api/isType" }],
+          items: [{ text: "isType", link: "/resource/mynx-utils/api/isType" }],
         },
         {
           text: "通用工具",
           items: [
-            { text: "getUUID", link: "/resource/moon-utils/api/getUUID" },
+            { text: "getUUID", link: "/resource/mynx-utils/api/getUUID" },
             {
               text: "setEventListenerVue2",
-              link: "/resource/moon-utils/api/setEventListenerVue2",
+              link: "/resource/mynx-utils/api/setEventListenerVue2",
             },
             {
               text: "mergeObject",
-              link: "/resource/moon-utils/api/mergeObject",
+              link: "/resource/mynx-utils/api/mergeObject",
             },
             {
               text: "asyncLoadElement",
-              link: "/resource/moon-utils/api/asyncLoadElement",
+              link: "/resource/mynx-utils/api/asyncLoadElement",
             },
           ],
         },
@@ -132,17 +132,17 @@ export default defineConfig({
           items: [
             {
               text: "InstanceValidate",
-              link: "/resource/moon-utils/api/InstanceValidate",
+              link: "/resource/mynx-utils/api/InstanceValidate",
             },
           ],
         },
         {
           text: "树形结构工具",
           items: [
-            { text: "treeToFlat", link: "/resource/moon-utils/api/treeToFlat" },
+            { text: "treeToFlat", link: "/resource/mynx-utils/api/treeToFlat" },
             {
               text: "treeDataFactory",
-              link: "/resource/moon-utils/api/treeDataFactory",
+              link: "/resource/mynx-utils/api/treeDataFactory",
             },
           ],
         },
@@ -151,7 +151,7 @@ export default defineConfig({
           items: [
             {
               text: "arrayRemoveItem",
-              link: "/resource/moon-utils/api/arrayRemoveItem",
+              link: "/resource/mynx-utils/api/arrayRemoveItem",
             },
           ],
         },
@@ -160,11 +160,11 @@ export default defineConfig({
           items: [
             {
               text: "addUrlParams",
-              link: "/resource/moon-utils/api/addUrlParams",
+              link: "/resource/mynx-utils/api/addUrlParams",
             },
             {
               text: "getUrlParams",
-              link: "/resource/moon-utils/api/getUrlParams",
+              link: "/resource/mynx-utils/api/getUrlParams",
             },
           ],
         },
@@ -205,24 +205,24 @@ export default defineConfig({
           ],
         },
       ],
-      "/moon-ui/": [
+      "/mynx-ui/": [
         {
           text: "指引",
-          items: [{ text: "快速上手", link: "/moon-ui/" }],
+          items: [{ text: "快速上手", link: "/mynx-ui/" }],
         },
         {
           text: "组件",
           items: [
-            { text: "MHierarchy 层次图", link: "/moon-ui/MHierarchy" },
-            { text: "MCurtain 窗帘", link: "/moon-ui/MCurtain" },
-            { text: "MList 清单", link: "/moon-ui/MList" },
-            { text: "MDiv 可拖拽容器", link: "/moon-ui/MDiv" },
-            { text: "MScale 缩放容器", link: "/moon-ui/MScale" },
-            { text: "MTextellips 文本省略", link: "/moon-ui/MTextellips" },
-            { text: "MIfShow 条件渲染", link: "/moon-ui/MIfShow" },
-            { text: "MValidator 表单验证", link: "/moon-ui/MValidator" },
-            { text: "MScroll 滚动容器", link: "/moon-ui/MScroll" },
-            { text: "MSubsection 标签页", link: "/moon-ui/MSubsection" },
+            { text: "MHierarchy 层次图", link: "/mynx-ui/MHierarchy" },
+            { text: "MCurtain 窗帘", link: "/mynx-ui/MCurtain" },
+            { text: "MList 清单", link: "/mynx-ui/MList" },
+            { text: "MDiv 可拖拽容器", link: "/mynx-ui/MDiv" },
+            { text: "MScale 缩放容器", link: "/mynx-ui/MScale" },
+            { text: "MTextellips 文本省略", link: "/mynx-ui/MTextellips" },
+            { text: "MIfShow 条件渲染", link: "/mynx-ui/MIfShow" },
+            { text: "MValidator 表单验证", link: "/mynx-ui/MValidator" },
+            { text: "MScroll 滚动容器", link: "/mynx-ui/MScroll" },
+            { text: "MSubsection 标签页", link: "/mynx-ui/MSubsection" },
           ],
         },
       ],

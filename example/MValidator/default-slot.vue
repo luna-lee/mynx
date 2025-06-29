@@ -55,7 +55,6 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import MValidator from '../../packages/moon-ui/src/MValidator/index.vue'
 
 const validatorRef = ref()
 const validationResult = ref(null)

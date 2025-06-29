@@ -64,7 +64,6 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import MSubsection from "../../packages/moon-ui/src/MSubsection/index.vue";
 
 const activeIndex = ref(0);
 const showScrollBtn = ref(true);

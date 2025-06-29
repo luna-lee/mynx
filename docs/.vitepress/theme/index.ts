@@ -9,9 +9,9 @@ import "virtual:uno.css";
 import "./styles/custom.css";
 import "virtual:uno.css";
 import "./styles/custom.css";
-// import { components } from "../../../packages/moon-ui/src/index";
-import MoonUI from "moon-ui";
-import "moon-ui/style.css";
+import { components } from "../../../packages/mynx-ui/src/index";
+import MynxUI from "mynx-ui";
+import "mynx-ui/style.css";
 // 导入自定义组件
 import Demo from "../components/Demo.vue";
 
@@ -25,16 +25,16 @@ export default {
   enhanceApp({ app, router, siteData }) {
     // 注册 Element Plus
     app.use(ElementPlus);
-    app.use(MoonUI);
+    // app.use(MynxUI);
     // 注册所有 Element Plus 图标
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component);
     }
-    /* 
-      Object.entries(components).forEach(([name, component]) => {
-        app.component(name, component);
-      }); 
-    */
+
+    Object.entries(components).forEach(([name, component]) => {
+      app.component(name, component);
+    });
+
     // 注册自定义组件
     app.component("Demo", Demo);
 

@@ -13,7 +13,7 @@
     "types": [
       "vite/client",
       "vue",
-      "moon-ui/client"
+      "mynx-ui/client"
     ],
     "skipLibCheck": true,
     "moduleResolution": "node", // 改为 node
