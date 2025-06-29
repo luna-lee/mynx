@@ -10,8 +10,8 @@ import "./styles/custom.css";
 import "virtual:uno.css";
 import "./styles/custom.css";
 import { components } from "../../../packages/mynx-ui/src/index";
-import MynxUI from "mynx-ui";
-import "mynx-ui/style.css";
+// import MynxUI from "mynx-ui";
+// import "mynx-ui/style.css";
 // 导入自定义组件
 import Demo from "../components/Demo.vue";
 
