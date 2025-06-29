@@ -22,7 +22,7 @@ const demoPlugin = (md) => {
 };
 
 export default defineConfig({
-  base: "/docs/",
+  base: "/mynx/",
   description: "开发技术分享",
   title: "Mynx",
   head: [["link", { rel: "icon", href: "/docs/logo.webp" }]],
