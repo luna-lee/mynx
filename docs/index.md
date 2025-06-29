@@ -2,16 +2,16 @@
 layout: home
 
 hero:
-  name: Mynx Sir
+  name: Mynx
   text: 前端开发生态
   tagline: 高效工具库与组件集，助力现代 Web 开发
   # image:
   #   src: /logo.webp
-  #   alt: Moon工具库
+  #   alt: Mynx工具库
   actions:
     - theme: brand
       text: 开始使用
-      link: /resource/mynx-utils/
+      link: /mynx-ui/
     - theme: alt
       text: GitHub
       link: https://github.com/luna-lee

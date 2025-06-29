@@ -24,7 +24,7 @@ const demoPlugin = (md) => {
 export default defineConfig({
   base: "/docs/",
   description: "开发技术分享",
-  title: "Mynx Sir",
+  title: "Mynx",
   head: [["link", { rel: "icon", href: "/docs/logo.webp" }]],
   lang: "zh-CN",
   markdown: {
