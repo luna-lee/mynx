@@ -99,6 +99,10 @@ mark.highlight,
   }
 }
 
+.VPNavBar:not(.home) {
+  background-color: var(--vp-nav-bg-color) !important;
+}
+
 @media (min-width: 1440px) {
   .VPNavBar.has-sidebar .title {
     padding-left: 32px !important;
