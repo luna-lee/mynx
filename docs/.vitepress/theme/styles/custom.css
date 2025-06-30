@@ -97,14 +97,14 @@ mark.highlight,
       }
     }
   }
-
-  .VPNav {
-    background-color: #fff !important;
-  }
 }
 
 @media (min-width: 1440px) {
   .VPNavBar.has-sidebar .title {
     padding-left: 32px !important;
   }
+}
+
+.vp-doc a {
+  display: inline-block;
 }

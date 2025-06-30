@@ -1,12 +1,8 @@
 # Mynx UI
 
-<div class="header-tip">
-
 [![npm version](https://img.shields.io/npm/v/mynx-ui.svg)](https://www.npmjs.com/package/mynx-ui)
 [![npm downloads](https://img.shields.io/npm/dm/mynx-ui.svg)](https://www.npmjs.com/package/mynx-ui)
 [![license](https://img.shields.io/npm/l/mynx-ui.svg)](https://github.com/yourusername/mynx-ui/blob/main/LICENSE)
-
-</div>
 
 ### 一个基于 Vue 3 + TypeScript 的现代化 UI 组件库，轻量、优雅且易于使用。
 
@@ -89,11 +85,3 @@ import "mynx-ui/style.css";
     }
 }
 ```
-
-<style>
-    .header-tip{
-        a{
-            display:inline-block;
-        }
-    }
-</style>
