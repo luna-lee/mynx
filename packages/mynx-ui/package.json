@@ -5,7 +5,7 @@
   "main": "dist/mynx-ui.umd.js",
   "module": "dist/mynx-ui.es.js",
   "types": "types/index.d.ts",
-  "homepage": "https://github.com/luna-lee/mynx-ui.git",
+  "homepage": "https://github.com/luna-lee/mynx.git",
   "exports": {
     ".": { 
       "types": "./types/index.d.ts",

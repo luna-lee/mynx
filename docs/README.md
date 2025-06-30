@@ -1,92 +1,398 @@
-# VitePress Demo 组件开发总结 
+# Mynx 
 
-## 项目概述 
+### 基于vue3的前端工具库
 
-本项目开发了一个用于 VitePress 文档的 `Demo` 组件，允许在文档中展示交互式组件示例，并提供代码查看和复制功能。该组件使开发者能够在文档中展示真实可交互的组件，同时允许读者查看组件的源代码，极大地提升了开发文档的实用性和用户体验。
+## 包含Mynx UI  Mynx Utils
 
-## 核心功能
+# Mynx UI
 
-Demo 组件实现了以下核心功能：
+<div class="header-tip">
 
-1. **动态组件加载**：根据提供的路径动态导入并渲染 Vue 组件。
-2. **代码查看**：点击按钮可切换显示/隐藏组件的源代码。
-3. **代码高亮**：使用 Shiki 提供专业的代码语法高亮。
-4. **复制功能**：一键复制源代码到剪贴板。
-5. **错误处理**：在组件加载失败时显示明确的错误信息。
-6. **加载状态**：在加载过程中显示加载提示。
-7. **主题适配**：支持亮色/暗色主题切换。
-8. **响应式设计**：组件在不同屏幕尺寸下保持良好的显示效果。
+[![npm version](https://img.shields.io/npm/v/mynx-ui.svg)](https://www.npmjs.com/package/mynx-ui)
+[![npm downloads](https://img.shields.io/npm/dm/mynx-ui.svg)](https://www.npmjs.com/package/mynx-ui)
+[![license](https://img.shields.io/npm/l/mynx-ui.svg)](https://github.com/yourusername/mynx-ui/blob/main/LICENSE)
 
-## 技术实现
+</div>
 
-### 组件结构
+### 一个基于 Vue 3 + TypeScript 的现代化 UI 组件库，轻量、优雅且易于使用。
 
-`Demo` 组件由三个主要部分组成：
+## 特性
 
-1. **组件展示区域**：渲染动态导入的组件实例。
-2. **控制条**：包含显示/隐藏代码和复制代码按钮。
-3. **代码展示区域**：展示高亮处理后的源代码。
+- 🚀 **基于 Vue 3**：充分利用 Vue 3 的 Composition API 和性能提升
+- 🔨 **TypeScript 支持**：完整的类型定义，提供极佳的开发体验
+- 📦 **按需引入**：支持组件按需引入，减小应用体积
+- 🎨 **可定制主题**：灵活的样式系统，易于定制
+- 📃 **详细文档**：每个组件都有详细的使用说明和示例
+- 🔍 **全局类型**：TypeScript 开发时提供完整的组件类型提示
 
-### 关键技术
+## 安装
 
-1. **动态组件导入**：
-   - 样例组件存放放在example目录中。支持层级嵌套使用
+```bash
+# 使用 npm
+npm install mynx-ui
 
-2. **代码高亮**：
-   - 集成 Shiki 代码高亮工具
-   - 实现高亮器实例缓存，提高多组件情况下的性能
-   - 支持多种主题，包括 Github Light 明亮主题
+# 使用 yarn
+yarn add mynx-ui
 
-3. **源代码获取与处理**：
-   - 使用 `fetch` API 获取源代码
-   - 实现格式化函数处理特殊字符和代码结构
-
-4. **用户界面**：
-   - 简洁的按钮设计，使用 SVG 图标
-   - 平滑的过渡动画
-   - 响应式布局适配各种屏幕尺寸
-
-## 使用方法
-
-在 Markdown 文件中使用 Demo 组件的示例：
-
-```vue
-<Demo path="example/demo.vue" />
+# 使用 pnpm
+pnpm add mynx-ui
 ```
 
-也可以通过自定义 Markdown 插件，实现更简洁的语法：
+## 快速开始
+
+### 完整引入
+
+```typescript
+import { createApp } from "vue";
+import App from "./App.vue";
+import MynxUI from "mynx-ui";
+import "mynx-ui/style.css";
+
+// 全局类型（TypeScript项目）
+import "mynx-ui/client";
+
+const app = createApp(App);
+app.use(MynxUI);
+app.mount("#app");
+```
+
+### 按需引入
+
+```typescript
+import { createApp } from "vue";
+import App from "./App.vue";
+import { MButton } from "mynx-ui";
+import "mynx-ui/style.css";
+
+// 全局类型（TypeScript项目）
+import "mynx-ui/client";
+
+const app = createApp(App);
+app.component("MButton", MButton);
+app.mount("#app");
+```
+
+### 样式引入
+
+Mynx UI 提供了单独的样式文件：
+
+```typescript
+// 引入全部样式
+import "mynx-ui/style.css";
+```
+
+## TypeScript 类型支持 ：
+
+<div style="background:var(--vp-code-block-bg);margin-bottom:-15px;border-bottom:1px solid #ccc; padding:5px 10px"> tsconfig.json</div>
+
+```ts
+{
+    "compilerOptions": {
+        "types": [
+            //...,
+            "mynx-ui/client"
+        ],
+    }
+}
+```
+
+<style>
+    .header-tip{
+        a{
+            display:inline-block;
+        }
+    }
+</style>
+
+
+
+### isType
+
+##### 类型：
 
 ```
-:::demo
-example/demo.vue
-:::
+(obj: any, type: string | string[]) => boolean
 ```
 
-## 样式与主题
 
-组件样式设计参考了 Element UI Ant-Design UI 等流行组件库的文档风格，实现了：
 
-1. 清晰的内容分区
-2. 悬停效果增强
-3. 直观的控制按钮
-4. 良好的代码呈现
-5. 适配暗色模式
+- 类型判断
+- @param obj 校验对象
+- @param type 校验类型，可以是字符串或数组，数组为或结果。值为所有类型的实例化名。如 Object，Number...
+- @return Boolean
 
-## 性能优化
+```javascript
+isType(obj, "Array");
+isType(obj, ["Array", "String"]);
+```
 
-1. **高亮器实例缓存**：避免重复创建高亮器实例
-2. **使用 markRaw**：防止不必要的响应式转换
-3. **按需加载**：只在需要时才获取和处理源代码
-4. **过渡动画**：使用 CSS 过渡而非 JavaScript 动画
+### getUUID
 
-## 未来改进方向
+##### 类型：
 
-1. 增加更多自定义选项（如：初始状态、高亮主题选择）
-2. 添加在线编辑功能
-3. 支持更多文件类型
-4. 增加代码片段展示能力
-5. 添加复制成功提示反馈
+```
+(prefix?: string) => string
+```
 
-## 总结
 
-本项目成功开发了一个功能完善、用户体验良好的 Demo 组件，为 VitePress 文档增添了交互式示例的能力。该组件不仅展示了组件的实际效果，还提供了源代码查看和复制功能，极大地提升了技术文档的实用性和易用性。 
+
+- 得到一个 uuid
+- @param prefix 前缀
+- @return String
+
+```javascript
+getUUID("mynx-validate-");
+```
+
+### setEventListenerVue2
+
+##### 类型：
+
+```
+(binder: any, vm: any, evtName: string, listener: (...arg: any[]) => void, options: any) => (() => void) | undefined
+```
+
+
+
+- @description 设置 window 或 document 事件监听,同时当所在的 vue 实例销毁时自动移除监听
+- @author 闰月飞鸟
+- @param binder 指定 window 或 document 必传
+- @param vm vue 实例 必传
+- @param evtName 事件名 必传
+- @param listener 监听函数 必传
+- @param options 监听本身参数
+- @return 返回一个移除监听函数
+
+```javascript
+setEventListenerVue2(window, this, "mousemove", () => {});
+```
+
+### mergeObject
+
+##### 类型：
+
+```
+(to: object, from: object)=> object
+```
+
+
+
+- @description 对象合并，相同函数合并成一个，原函数先执行,若函数有返回值:若为对象则合并，非对象的以来源函数结果为主
+- @author 闰月飞鸟
+- @param to 原对象
+- @param from 待合并的来源对象
+- @return 返回一个新的对象
+
+```javascript
+mergeObject({}, {});
+```
+
+### asyncLoadElement
+
+##### 类型：
+
+```
+(elementName: string, attrs: Recordable, appendToElement?: HTMLHeadElement) => Promise<unknown>
+```
+
+
+
+- @description 异步添加 dom 元素
+- @author 闰月飞鸟
+- @param {\*} el 元素名
+- @param {\*} attrs 元素属性
+- @param {\*} appendToElement 添加到的目标元素,默认 document.head
+- @return Boolean
+
+```javascript
+await asyncLoadElement('script',{src;'',id:'xx'});
+```
+
+### InstanceValidate
+
+##### 类型： 
+
+```
+(target: Recordable, rules: Schema["rules"], validateCallback: ValidateCallback) => boolean
+```
+
+
+
+- @description 校验目标对象是否符合输入的校验规则
+- @return function 返回回调函数
+- @param targetObject 必选，目标对象 object
+- target @param rules 必选，校验规则 object
+- target @param validateCallback 可选，校验回调返回函数,errors,fields，两个参数， （errors, fields）=>{}
+- target @return 校验结果
+
+```javascript
+const form = {
+  catalogId: "",
+};
+const rules = {
+  catalogId: [
+    {
+      required: true,
+      message: "请选择资源目录",
+    },
+  ],
+};
+const validate=InstanceValidate()
+validate({}, rules, (e) => {
+  console.log(e);
+});
+```
+
+### treeToFlat
+
+##### 类型： 
+
+```
+ <T = any>({ source, id, pId, children, }: {
+    source: T[];
+    id?: string | undefined;
+    pId?: string | undefined;
+    children?: string | undefined;
+}) => T[]
+```
+
+
+
+- @description 将普通的树形数据，转成扁平化的数据，
+- @description 若无指定层级元素如 id，pId，则自动添加， 
+- @description  不改变源数据
+- @author 闰月飞鸟
+- @param {\*} source
+- @param {\*} id
+- @param {\*} pId
+- @param {\*} children
+- @return Array
+
+```javascript
+treeToFlat({ source: data, id: "id", pId: "pId", children: "children" });
+```
+
+### treeDataFactory
+
+##### 类型
+
+```
+ type TreeFactoryItemType<T> = {
+  id: string;
+  pId: string;
+  children?: TreeFactoryItemType<T>[];
+  data: T;
+  track?: string[];
+  trigger?: string[];
+  level?: number;
+  [k: string]: any;
+};
+
+ 
+<T extends Recordable<any>>({ source, id, pId, }: {
+    source: T[];
+    id?: string | undefined;
+    pId?: string | undefined;
+}, customizer?: ((item: TreeFactoryItemType<T>) => void) | undefined) => {
+    treeData: TreeFactoryItemType<T>[];
+    leaves: TreeFactoryItemType<T>[];
+    objById :{
+    		[key: string]: TreeFactoryItemType<T>;
+			};
+    flatData: TreeFactoryItemType<T>[]
+}
+```
+
+- @description 树形数据格式化
+- @param {\*} source
+- @param {\*} id
+- @param {\*} pId
+- @param customizer 自定义节点信息，可以直接对节点对象添加自定义属性。
+- @return {treeData,leaves,objById,flatData}
+- @description treeData 格式化后的树数据
+- @description leaves 所有叶子节点
+- @description objById 以 id 为 key 的对象
+- @description flatData 扁平数组，
+- @return TreeFactoryItemType 类型
+- @param {\*} id
+- @param {\*} pId
+- @param {\*} children 子项
+- @param {\*} data 源数据
+- @param {\*} track 所有当前节点的父节点 id，包括自身 ID
+- @param {\*} trigger 所有当前节点的子节点 id，不包含自身 ID
+
+```javascript
+let { treeData } = treeDataFactory({ source: data, id: "id", pId: "pId" });
+```
+
+
+
+### arrayRemoveItem
+
+##### 类型
+
+```
+<T = any>(arr: T[], remove: (item: T, index: number) => boolean) => void
+```
+
+
+
+- *@description* — 在不修改当前引用的基础上 ，批量移除元素。数组依据条件函数，
+- @author — 闰月飞鸟
+- *@param* `arr` — 目标数组
+- *@param* `remove` — 移除函数，接受两个参数，当前项item，以及下标index。
+- *@return* — Boolean,返回true时，代表要移除该项 
+
+```javascript
+ arrayRemoveItem([],(item,index)=>{
+  ...
+  return true
+});
+```
+
+
+
+
+
+### addUrlParams
+
+类型
+
+```
+(url: string, params?: Recordable, merge?: boolean) => string
+```
+
+- @description 在 url 后面追加指定对象作为新的参数。
+- @author 闰月飞鸟
+- @param {url} 需要追加参数的 url
+- @param {params} 具体的参数对象
+- @param {merge} 对原有的 url 参数进行覆盖合并，还是保留合并，true 时为覆盖合并，以当前参数为主，false 则为保留合并，以原来的 url 参数为主 。默认为覆盖合并。即有相同参数的以后传的参数值为准
+
+```javascript
+addUrlParams("http:", { a: "b" }); ==> "http:?a=b"
+```
+
+
+
+### getUrlParams
+
+```
+(url: string, opt?: (qs.IParseOptions<qs.BooleanOptional> & {
+    decoder?: undefined;
+}) | undefined) => {
+    rootUrl: string;
+    urlParams: {};
+}
+```
+
+
+
+- @description 获取 url 中的参数 。
+- @author 闰月飞鸟
+- @param {url} url
+- @param {opt} qs.parse 第二个参数
+- @return {rootUrl,urlParams} 返回 rootUrl 以及 urlParams 对象
+
+```javascript
+getUrlParams("http:?a=b");  ==>{rootUrl:"http:",urlParams:{a:"b"}}
+```

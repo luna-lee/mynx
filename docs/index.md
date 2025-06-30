@@ -14,7 +14,7 @@ hero:
       link: /mynx-ui/
     - theme: alt
       text: GitHub
-      link: https://github.com/luna-lee
+      link: https://github.com/luna-lee/mynx.git
 
 features:
   - icon: 📝

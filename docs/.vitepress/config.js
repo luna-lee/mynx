@@ -228,7 +228,7 @@ export default defineConfig({
       ],
       // 这里可以为其他模块添加侧边栏配置
     },
-    socialLinks: [{ icon: "github", link: "https://github.com/luna-lee" }],
+    socialLinks: [{ icon: "github", link: "https://github.com/luna-lee/mynx.git" }],
     footer: {
       message: "基于MIT许可证发布",
       copyright: "版权所有 © 2023-至今 Luna Lee",
