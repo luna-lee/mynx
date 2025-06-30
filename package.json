@@ -2,7 +2,6 @@
   "name": "mynx-docs",
   "version": "1.0.0",
   "description": "Mynx工具库文档",
-  "type": "module",
   "scripts": {
     "dev": "pnpm -r --filter=./packages/* run dev",
     "build": "pnpm -r --filter=./packages/* run build",
