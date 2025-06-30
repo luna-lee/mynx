@@ -7,8 +7,6 @@ import "element-plus/theme-chalk/dark/css-vars.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import "virtual:uno.css";
 import "./styles/custom.css";
-import "virtual:uno.css";
-import "./styles/custom.css";
 import { components } from "../../../packages/mynx-ui/src/index";
 // import MynxUI from "mynx-ui";
 // import "mynx-ui/style.css";
