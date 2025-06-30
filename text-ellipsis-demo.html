@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 实现文本省略号效果</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .demo-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        
+        .demo-box {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            background: white;
+            border-radius: 4px;
+        }
+        
+        .multi-line-box {
+            width: 300px;
+            height: 60px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .controls {
+            margin: 20px 0;
+        }
+        
+        .controls input[type="range"] {
+            width: 200px;
+            margin: 0 10px;
+        }
+        
+        .controls input[type="text"] {
+            width: 300px;
+            padding: 5px;
+            margin: 5px 0;
+        }
+        
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+        
+        .method-title {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript 实现文本省略号效果</h1>
+        
+        <!-- 控制面板 -->
+        <div class="controls">
+            <label>
+                容器宽度: <input type="range" id="widthSlider" min="100" max="500" value="300"> 
+                <span id="widthValue">300px</span>
+            </label>
+            <br>
+            <label>
+                测试文本: 
+                <input type="text" id="textInput" value="这是一段很长的文本内容，用于测试各种文本省略号的实现效果，包括单行和多行的情况">
+            </label>
+        </div>
+
+        <!-- 方案1: Canvas 测量法 -->
+        <div class="demo-section">
+            <h2>方案1: Canvas 文本测量法</h2>
+            <div class="method-title">使用 Canvas API 精确测量文本宽度</div>
+            <div class="demo-box" id="canvasDemo"></div>
+        </div>
+
+        <!-- 方案2: DOM 测量法 -->
+        <div class="demo-section">
+            <h2>方案2: DOM 元素测量法</h2>
+            <div class="method-title">创建隐藏 DOM 元素进行测量</div>
+            <div class="demo-box" id="domDemo"></div>
+        </div>
+
+        <!-- 方案3: 二分查找优化法 -->
+        <div class="demo-section">
+            <h2>方案3: 二分查找优化法</h2>
+            <div class="method-title">使用二分查找算法优化性能（单行）</div>
+            <div class="demo-box" id="binaryDemo"></div>
+        </div>
+
+        <!-- 方案3b: 二分查找多行优化法 -->
+        <div class="demo-section">
+            <h2>方案3b: 二分查找多行优化法</h2>
+            <div class="method-title">使用二分查找算法实现多行文本省略</div>
+            <div class="multi-line-box" id="binaryMultiLineDemo"></div>
+            <div class="controls">
+                <label>
+                    最大行数: <input type="range" id="maxLinesSlider" min="1" max="5" value="3"> 
+                    <span id="maxLinesValue">3行</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- 方案4: 多行文本省略 -->
+        <div class="demo-section">
+            <h2>方案4: 多行文本省略</h2>
+            <div class="method-title">支持多行文本的省略号效果</div>
+            <div class="multi-line-box" id="multiLineDemo"></div>
+        </div>
+
+        <!-- 方案5: IntersectionObserver 响应式 -->
+        <div class="demo-section">
+            <h2>方案5: 响应式省略号</h2>
+            <div class="method-title">自动响应容器尺寸变化</div>
+            <div class="demo-box" id="responsiveDemo"></div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * 方案1: Canvas 文本测量法
+         * 优点: 测量精确，性能较好
+         * 缺点: 需要考虑字体样式一致性
+         */
+        class CanvasTextEllipsis {
+            constructor() {
+                this.canvas = document.createElement('canvas');
+                this.ctx = this.canvas.getContext('2d');
+            }
+            
+            /**
+             * 获取元素的字体样式
+             * @param {HTMLElement} element 
+             * @returns {string} 字体样式字符串
+             */
+            getFontStyle(element) {
+                const style = window.getComputedStyle(element);
+                return `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+            }
+            
+            /**
+             * 测量文本宽度
+             * @param {string} text 
+             * @param {string} font 
+             * @returns {number} 文本宽度
+             */
+            measureText(text, font) {
+                this.ctx.font = font;
+                return this.ctx.measureText(text).width;
+            }
+            
+            /**
+             * 获取元素的实际内容宽度（不包含padding）
+             * @param {HTMLElement} element 
+             * @returns {number} 实际内容宽度
+             */
+            getContentWidth(element) {
+                const style = window.getComputedStyle(element);
+                const paddingLeft = parseFloat(style.paddingLeft) || 0;
+                const paddingRight = parseFloat(style.paddingRight) || 0;
+                return element.clientWidth - paddingLeft - paddingRight;
+            }
+
+            /**
+             * 应用省略号效果
+             * @param {HTMLElement} element 
+             * @param {string} text 
+             */
+            applyEllipsis(element, text) {
+                const font = this.getFontStyle(element);
+                const contentWidth = this.getContentWidth(element);
+                const ellipsisWidth = this.measureText('...', font);
+                
+                if (this.measureText(text, font) <= contentWidth) {
+                    element.textContent = text;
+                    return;
+                }
+                
+                let truncatedText = '';
+                let currentWidth = 0;
+                
+                for (let i = 0; i < text.length; i++) {
+                    const char = text[i];
+                    const charWidth = this.measureText(char, font);
+                    
+                    if (currentWidth + charWidth + ellipsisWidth > contentWidth) {
+                        break;
+                    }
+                    
+                    truncatedText += char;
+                    currentWidth += charWidth;
+                }
+                
+                element.textContent = truncatedText + '...';
+            }
+        }
+
+        /**
+         * 方案2: DOM 测量法
+         * 优点: 完全符合浏览器渲染规则
+         * 缺点: 需要操作 DOM，性能相对较差
+         */
+        class DOMTextEllipsis {
+            constructor() {
+                this.measureElement = this.createMeasureElement();
+            }
+            
+            /**
+             * 创建用于测量的隐藏元素
+             * @returns {HTMLElement}
+             */
+            createMeasureElement() {
+                const element = document.createElement('span');
+                element.style.cssText = `
+                    position: absolute;
+                    visibility: hidden;
+                    white-space: nowrap;
+                    top: -9999px;
+                    left: -9999px;
+                `;
+                document.body.appendChild(element);
+                return element;
+            }
+            
+            /**
+             * 复制元素样式到测量元素
+             * @param {HTMLElement} source 
+             * @param {HTMLElement} target 
+             */
+            copyStyle(source, target) {
+                const computedStyle = window.getComputedStyle(source);
+                const stylesToCopy = [
+                    'fontSize', 'fontFamily', 'fontWeight', 'fontStyle',
+                    'letterSpacing', 'wordSpacing', 'textTransform'
+                ];
+                
+                stylesToCopy.forEach(prop => {
+                    target.style[prop] = computedStyle[prop];
+                });
+            }
+            
+            /**
+             * 测量文本宽度
+             * @param {string} text 
+             * @param {HTMLElement} referenceElement 
+             * @returns {number}
+             */
+            measureText(text, referenceElement) {
+                this.copyStyle(referenceElement, this.measureElement);
+                this.measureElement.textContent = text;
+                return this.measureElement.offsetWidth;
+            }
+            
+            /**
+             * 获取元素的实际内容宽度（不包含padding）
+             * @param {HTMLElement} element 
+             * @returns {number} 实际内容宽度
+             */
+            getContentWidth(element) {
+                const style = window.getComputedStyle(element);
+                const paddingLeft = parseFloat(style.paddingLeft) || 0;
+                const paddingRight = parseFloat(style.paddingRight) || 0;
+                return element.clientWidth - paddingLeft - paddingRight;
+            }
+
+            /**
+             * 应用省略号效果
+             * @param {HTMLElement} element 
+             * @param {string} text 
+             */
+            applyEllipsis(element, text) {
+                const contentWidth = this.getContentWidth(element);
+                
+                if (this.measureText(text, element) <= contentWidth) {
+                    element.textContent = text;
+                    return;
+                }
+                
+                const ellipsisWidth = this.measureText('...', element);
+                let truncatedText = '';
+                
+                for (let i = 0; i < text.length; i++) {
+                    const testText = text.substring(0, i + 1);
+                    const testWidth = this.measureText(testText + '...', element);
+                    
+                    if (testWidth > contentWidth) {
+                        break;
+                    }
+                    
+                    truncatedText = testText;
+                }
+                
+                element.textContent = truncatedText + '...';
+            }
+            
+            /**
+             * 清理资源
+             */
+            destroy() {
+                if (this.measureElement && this.measureElement.parentNode) {
+                    this.measureElement.parentNode.removeChild(this.measureElement);
+                }
+            }
+        }
+
+        /**
+         * 方案3: 二分查找优化法
+         * 优点: 性能优异，适合长文本，支持单行和多行
+         * 缺点: 实现复杂度较高
+         */
+        class BinarySearchEllipsis {
+            constructor() {
+                this.canvas = document.createElement('canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.measureElement = this.createMeasureElement();
+            }
+            
+            /**
+             * 创建用于测量多行文本的隐藏元素
+             * @returns {HTMLElement}
+             */
+            createMeasureElement() {
+                const element = document.createElement('div');
+                element.style.cssText = `
+                    position: absolute;
+                    visibility: hidden;
+                    top: -9999px;
+                    left: -9999px;
+                    white-space: normal;
+                    word-wrap: break-word;
+                `;
+                document.body.appendChild(element);
+                return element;
+            }
+            
+            /**
+             * 获取元素的字体样式
+             * @param {HTMLElement} element 
+             * @returns {string} 字体样式字符串
+             */
+            getFontStyle(element) {
+                const style = window.getComputedStyle(element);
+                return `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+            }
+            
+            /**
+             * 复制元素样式到测量元素
+             * @param {HTMLElement} source 
+             * @param {HTMLElement} target 
+             */
+            copyStyle(source, target) {
+                const computedStyle = window.getComputedStyle(source);
+                const stylesToCopy = [
+                    'fontSize', 'fontFamily', 'fontWeight', 'fontStyle',
+                    'letterSpacing', 'wordSpacing', 'textTransform',
+                    'lineHeight', 'wordWrap', 'whiteSpace'
+                ];
+                
+                stylesToCopy.forEach(prop => {
+                    target.style[prop] = computedStyle[prop];
+                });
+            }
+            
+            /**
+             * 使用Canvas测量单行文本宽度
+             * @param {string} text 
+             * @param {string} font 
+             * @returns {number} 文本宽度
+             */
+            measureText(text, font) {
+                this.ctx.font = font;
+                return this.ctx.measureText(text).width;
+            }
+            
+            /**
+             * 使用DOM测量多行文本高度
+             * @param {string} text 
+             * @param {HTMLElement} referenceElement 
+             * @param {number} contentWidth - 实际内容宽度（已减去padding）
+             * @returns {number} 文本高度
+             */
+            measureTextHeight(text, referenceElement, contentWidth) {
+                this.copyStyle(referenceElement, this.measureElement);
+                
+                // 获取参考元素的padding值
+                const refStyle = window.getComputedStyle(referenceElement);
+                const paddingLeft = parseFloat(refStyle.paddingLeft) || 0;
+                const paddingRight = parseFloat(refStyle.paddingRight) || 0;
+                
+                // 设置测量元素的总宽度（内容宽度 + padding）
+                const totalWidth = contentWidth + paddingLeft + paddingRight;
+                this.measureElement.style.width = totalWidth + 'px';
+                this.measureElement.style.paddingLeft = paddingLeft + 'px';
+                this.measureElement.style.paddingRight = paddingRight + 'px';
+                this.measureElement.style.boxSizing = 'border-box';
+                
+                this.measureElement.textContent = text;
+                return this.measureElement.offsetHeight;
+            }
+            
+            /**
+             * 使用二分查找找到单行文本的最适合截断位置
+             * @param {string} text 
+             * @param {number} maxWidth 
+             * @param {string} font 
+             * @returns {number} 截断位置
+             */
+            binarySearchTruncateSingleLine(text, maxWidth, font) {
+                let left = 0;
+                let right = text.length;
+                let result = 0;
+                
+                while (left <= right) {
+                    const mid = Math.floor((left + right) / 2);
+                    const testText = text.substring(0, mid) + '...';
+                    const width = this.measureText(testText, font);
+                    
+                    if (width <= maxWidth) {
+                        result = mid;
+                        left = mid + 1;
+                    } else {
+                        right = mid - 1;
+                    }
+                }
+                
+                return result;
+            }
+            
+            /**
+             * 使用二分查找找到多行文本的最适合截断位置
+             * @param {string} text 
+             * @param {HTMLElement} element 
+             * @param {number} maxLines 
+             * @returns {number} 截断位置
+             */
+            binarySearchTruncateMultiLine(text, element, maxLines) {
+                const lineHeight = parseInt(window.getComputedStyle(element).lineHeight) || 
+                                 parseInt(window.getComputedStyle(element).fontSize) * 1.2;
+                const theoreticalMaxHeight = lineHeight * maxLines;
+                const containerContentHeight = this.getContentHeight(element);
+                
+                // 实际可用高度是理论高度和容器高度的较小值
+                const maxHeight = Math.min(theoreticalMaxHeight, containerContentHeight);
+                const contentWidth = this.getContentWidth(element);
+                
+                let left = 0;
+                let right = text.length;
+                let result = 0;
+                
+                while (left <= right) {
+                    const mid = Math.floor((left + right) / 2);
+                    const testText = text.substring(0, mid) + '...';
+                    const height = this.measureTextHeight(testText, element, contentWidth);
+                    
+                    if (height <= maxHeight) {
+                        result = mid;
+                        left = mid + 1;
+                    } else {
+                        right = mid - 1;
+                    }
+                }
+                
+                return result;
+            }
+            
+            /**
+             * 获取元素的实际内容宽度（不包含padding）
+             * @param {HTMLElement} element 
+             * @returns {number} 实际内容宽度
+             */
+            getContentWidth(element) {
+                const style = window.getComputedStyle(element);
+                const paddingLeft = parseFloat(style.paddingLeft) || 0;
+                const paddingRight = parseFloat(style.paddingRight) || 0;
+                return element.clientWidth - paddingLeft - paddingRight;
+            }
+
+            /**
+             * 获取元素的实际内容高度（不包含padding）
+             * @param {HTMLElement} element 
+             * @returns {number} 实际内容高度
+             */
+            getContentHeight(element) {
+                const style = window.getComputedStyle(element);
+                const paddingTop = parseFloat(style.paddingTop) || 0;
+                const paddingBottom = parseFloat(style.paddingBottom) || 0;
+                return element.clientHeight - paddingTop - paddingBottom;
+            }
+
+            /**
+             * 应用省略号效果（支持单行和多行）
+             * @param {HTMLElement} element 
+             * @param {string} text 
+             * @param {number} maxLines - 最大行数，默认为1（单行）
+             */
+            applyEllipsis(element, text, maxLines = 1) {
+                if (maxLines === 1) {
+                    // 单行文本处理：使用基于宽度的算法
+                    const font = this.getFontStyle(element);
+                    const contentWidth = this.getContentWidth(element);
+                    
+                    console.log(`单行处理 - contentWidth: ${contentWidth}`);
+                    
+                    if (this.measureText(text, font) <= contentWidth) {
+                        element.textContent = text;
+                        return;
+                    }
+                    
+                    const truncateIndex = this.binarySearchTruncateSingleLine(text, contentWidth, font);
+                    const resultText = text.substring(0, truncateIndex) + '...';
+                    element.textContent = resultText;
+                    console.log(`单行处理 - truncateIndex: ${truncateIndex}, 最终文本: "${resultText}", 长度: ${resultText.length}`);
+                    return;
+                }
+                
+                // 多行文本处理：使用基于高度的算法
+                const contentWidth = this.getContentWidth(element);
+                const lineHeight = parseInt(window.getComputedStyle(element).lineHeight) || 
+                                 parseInt(window.getComputedStyle(element).fontSize) * 1.2;
+                const theoreticalMaxHeight = lineHeight * maxLines;
+                const containerContentHeight = this.getContentHeight(element);
+                
+                // 实际可用高度是理论高度和容器高度的较小值
+                const maxHeight = Math.min(theoreticalMaxHeight, containerContentHeight);
+                
+                // 调试信息
+                console.log(`多行处理 - maxLines: ${maxLines}, lineHeight: ${lineHeight}, theoreticalMaxHeight: ${theoreticalMaxHeight}, containerContentHeight: ${containerContentHeight}, maxHeight: ${maxHeight}`);
+                
+                // 检查原始文本是否需要截断
+                const originalHeight = this.measureTextHeight(text, element, contentWidth);
+                console.log(`多行处理 - originalHeight: ${originalHeight}`);
+                
+                if (originalHeight <= maxHeight) {
+                    element.textContent = text;
+                    return;
+                }
+                
+                // 使用多行算法处理
+                const truncateIndex = this.binarySearchTruncateMultiLine(text, element, maxLines);
+                console.log(`多行处理 - truncateIndex: ${truncateIndex}`);
+                
+                // 如果截断位置为0，至少显示省略号
+                if (truncateIndex === 0) {
+                    element.textContent = '...';
+                } else {
+                    const resultText = text.substring(0, truncateIndex) + '...';
+                    element.textContent = resultText;
+                    console.log(`多行处理 - 最终文本: "${resultText}", 长度: ${resultText.length}`);
+                }
+            }
+            
+            /**
+             * 清理资源
+             */
+            destroy() {
+                if (this.measureElement && this.measureElement.parentNode) {
+                    this.measureElement.parentNode.removeChild(this.measureElement);
+                }
+            }
+        }
+
+        /**
+         * 方案4: 多行文本省略
+         * 支持指定行数的文本省略
+         */
+        class MultiLineEllipsis {
+            /**
+             * 应用多行省略号效果
+             * @param {HTMLElement} element 
+             * @param {string} text 
+             * @param {number} maxLines 
+             */
+            applyEllipsis(element, text, maxLines = 3) {
+                element.innerHTML = '';
+                const words = text.split('');
+                const lineHeight = parseInt(window.getComputedStyle(element).lineHeight);
+                const maxHeight = lineHeight * maxLines;
+                
+                let currentText = '';
+                let testElement = element.cloneNode();
+                testElement.style.position = 'absolute';
+                testElement.style.visibility = 'hidden';
+                testElement.style.height = 'auto';
+                document.body.appendChild(testElement);
+                
+                for (let i = 0; i < words.length; i++) {
+                    const testText = currentText + words[i];
+                    testElement.textContent = testText + '...';
+                    
+                    if (testElement.offsetHeight > maxHeight) {
+                        element.textContent = currentText + '...';
+                        break;
+                    }
+                    
+                    currentText = testText;
+                    
+                    if (i === words.length - 1) {
+                        element.textContent = currentText;
+                    }
+                }
+                
+                document.body.removeChild(testElement);
+            }
+        }
+
+        /**
+         * 方案5: 响应式省略号
+         * 使用 ResizeObserver 监听容器尺寸变化
+         */
+        class ResponsiveEllipsis {
+            constructor() {
+                this.canvasEllipsis = new CanvasTextEllipsis();
+                this.observers = new Map();
+            }
+            
+            /**
+             * 监听元素并应用响应式省略号
+             * @param {HTMLElement} element 
+             * @param {string} originalText 
+             */
+            observe(element, originalText) {
+                // 初始应用
+                this.canvasEllipsis.applyEllipsis(element, originalText);
+                
+                // 创建 ResizeObserver
+                if (window.ResizeObserver) {
+                    const observer = new ResizeObserver(entries => {
+                        for (const entry of entries) {
+                            this.canvasEllipsis.applyEllipsis(entry.target, originalText);
+                        }
+                    });
+                    
+                    observer.observe(element);
+                    this.observers.set(element, { observer, originalText });
+                } else {
+                    // 降级方案：使用 window resize 事件
+                    const handleResize = () => {
+                        this.canvasEllipsis.applyEllipsis(element, originalText);
+                    };
+                    
+                    window.addEventListener('resize', handleResize);
+                    this.observers.set(element, { handleResize, originalText });
+                }
+            }
+            
+            /**
+             * 停止观察元素
+             * @param {HTMLElement} element 
+             */
+            unobserve(element) {
+                const observerData = this.observers.get(element);
+                if (observerData) {
+                    if (observerData.observer) {
+                        observerData.observer.unobserve(element);
+                    } else if (observerData.handleResize) {
+                        window.removeEventListener('resize', observerData.handleResize);
+                    }
+                    this.observers.delete(element);
+                }
+            }
+        }
+
+        // 初始化各种实现方案
+        const canvasEllipsis = new CanvasTextEllipsis();
+        const domEllipsis = new DOMTextEllipsis();
+        const binaryEllipsis = new BinarySearchEllipsis();
+        const multiLineEllipsis = new MultiLineEllipsis();
+        const responsiveEllipsis = new ResponsiveEllipsis();
+
+        // 获取 DOM 元素
+        const widthSlider = document.getElementById('widthSlider');
+        const widthValue = document.getElementById('widthValue');
+        const textInput = document.getElementById('textInput');
+        const maxLinesSlider = document.getElementById('maxLinesSlider');
+        const maxLinesValue = document.getElementById('maxLinesValue');
+        const canvasDemo = document.getElementById('canvasDemo');
+        const domDemo = document.getElementById('domDemo');
+        const binaryDemo = document.getElementById('binaryDemo');
+        const binaryMultiLineDemo = document.getElementById('binaryMultiLineDemo');
+        const multiLineDemo = document.getElementById('multiLineDemo');
+        const responsiveDemo = document.getElementById('responsiveDemo');
+
+        // 更新所有演示
+        function updateDemos() {
+            const width = parseInt(widthSlider.value);
+            const text = textInput.value;
+            const maxLines = parseInt(maxLinesSlider.value);
+            
+            // 更新宽度显示
+            widthValue.textContent = width + 'px';
+            
+            // 更新最大行数显示
+            maxLinesValue.textContent = maxLines + '行';
+            
+            // 设置容器宽度
+            [canvasDemo, domDemo, binaryDemo, responsiveDemo].forEach(demo => {
+                demo.style.width = width + 'px';
+            });
+            
+            // 设置多行容器宽度
+            binaryMultiLineDemo.style.width = width + 'px';
+            
+            // 应用各种省略号效果
+            canvasEllipsis.applyEllipsis(canvasDemo, text);
+            domEllipsis.applyEllipsis(domDemo, text);
+            binaryEllipsis.applyEllipsis(binaryDemo, text, 1); // 单行
+            binaryEllipsis.applyEllipsis(binaryMultiLineDemo, text, maxLines); // 多行
+            multiLineEllipsis.applyEllipsis(multiLineDemo, text, 2);
+            
+            // 响应式省略号需要特殊处理
+            responsiveEllipsis.unobserve(responsiveDemo);
+            responsiveDemo.style.width = width + 'px';
+            responsiveEllipsis.observe(responsiveDemo, text);
+        }
+
+        // 绑定事件监听器
+        widthSlider.addEventListener('input', updateDemos);
+        textInput.addEventListener('input', updateDemos);
+        maxLinesSlider.addEventListener('input', updateDemos);
+
+        // 初始化演示
+        updateDemos();
+
+        // 页面卸载时清理资源
+        window.addEventListener('beforeunload', () => {
+            domEllipsis.destroy();
+            binaryEllipsis.destroy();
+            responsiveEllipsis.observers.forEach((_, element) => {
+                responsiveEllipsis.unobserve(element);
+            });
+        });
+    </script>
+</body>
+</html> 
