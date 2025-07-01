@@ -71,12 +71,19 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
   if (!isType(source, "Array")) throw "treeToFlat  source必须是数组";
   let formatSource: MynxUtils.TreeFactoryItemType<T>[] = source.map(
     (item: T) => {
-      return {
+      const _item = {
         id: item[id],
         pId: item[pId],
         data: item,
         children: [],
       };
+      if (customizer) {
+        customizer(_item);
+        // 避免被修改
+        _item.id = item[id];
+        _item.pId = item[pId];
+      }
+      return _item;
     }
   );
   try {
@@ -120,13 +127,6 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
         if (!item.children?.length) {
           leaves.push(item);
           delete item.children;
-        }
-        // 自定义函数
-        if (customizer) {
-          // 浅拷贝一份，确保主要的数据及其主数据结构不会被修改
-          const shallowCopy = { ...item };
-          customizer(item);
-          Object.assign(item, shallowCopy);
         }
         return obj;
       },
