@@ -14,7 +14,7 @@
       {{ text }}
     </div>
     <div class="m-text-toggle-btn-temp" ref="toggleBtnTempRef">
-      <slot name="fold-btn">
+      <slot name="fold-btn" :isExpanded="isExpanded">
         <a href="javascript:void(0)">
           {{ isExpanded ? '收起' : '展开' }}
         </a>

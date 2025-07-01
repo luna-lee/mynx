@@ -17,7 +17,6 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, reactive, computed, onMounted, watch } from 'vue';
   import BtnFollowText from './BtnFollowText.vue';
   import Normal from './normal.vue';
   /**
@@ -37,7 +36,7 @@
   /**
    * 定义组件属性
    */
-  const props = withDefaults(defineProps<Props>(), {
+  withDefaults(defineProps<Props>(), {
     text: '',
     lineClamp: 1,
     showFoldBtn: false,

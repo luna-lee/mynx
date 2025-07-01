@@ -11,17 +11,19 @@ interface Props {
     /**  是否收起按钮紧跟内容。 */
     foldBtnInline?: boolean;
 }
-declare var __VLS_8: {
-    isExpanded: boolean;
-}, __VLS_17: {}, __VLS_19: {
+declare var __VLS_1: {}, __VLS_3: {
+    isExpanded: true;
+}, __VLS_5: {}, __VLS_7: {
     isExpanded: boolean;
 };
 type __VLS_Slots = {} & {
-    'fold-btn'?: (props: typeof __VLS_8) => any;
+    default?: (props: typeof __VLS_1) => any;
 } & {
-    default?: (props: typeof __VLS_17) => any;
+    'fold-btn'?: (props: typeof __VLS_3) => any;
 } & {
-    'fold-btn'?: (props: typeof __VLS_19) => any;
+    default?: (props: typeof __VLS_5) => any;
+} & {
+    'fold-btn'?: (props: typeof __VLS_7) => any;
 };
 declare const __VLS_component: import("vue").DefineComponent<Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     "update:showAll": (isShowAll: boolean) => any;
