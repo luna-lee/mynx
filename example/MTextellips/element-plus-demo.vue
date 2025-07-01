@@ -37,6 +37,10 @@
               />
             </el-select>
           </el-form-item>
+
+          <el-form-item label="收起按钮位置"> 
+            <el-switch v-model="form.foldBtnInline" />
+          </el-form-item>
         </el-form>
 
         <el-divider content-position="left">
@@ -63,6 +67,7 @@
               :text="currentText"
               :lineClamp="form.lineClamp"
               :showFoldBtn="form.showFoldBtn"
+              :foldBtnInline="form.foldBtnInline"
               @update:showAll="handleShowAllUpdate"
             >
               <template #fold-btn="{ isExpanded }">
@@ -99,6 +104,7 @@ import { ElMessage } from "element-plus";
 const form = ref({
   lineClamp: 2,
   showFoldBtn: true,
+  foldBtnInline: true,
 });
 
 /**

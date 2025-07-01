@@ -4,13 +4,20 @@
       <slot>
         {{ text }}
       </slot>
+      <div v-if="foldBtnInline && isExpanded && isEllipsis && showFoldBtn" class="toggle-btn" @click="toggleExpand">
+        <slot name="fold-btn" :isExpanded="isExpanded">
+          <a href="javascript:void(0)">
+            {{ isExpanded ? '收起' : '展开' }}
+          </a>
+        </slot>
+      </div>
     </div>
     <div class="m-text-ellips-text-sample" ref="contentRef" :style="sampleStyle">
       <slot>
         {{ text }}
       </slot>
     </div>
-    <div v-if="isEllipsis && showFoldBtn" class="toggle-btn" @click="toggleExpand">
+    <div v-if="isEllipsis && showFoldBtn && (!foldBtnInline || (foldBtnInline && !isExpanded))" class="toggle-btn" @click="toggleExpand">
       <slot name="fold-btn" :isExpanded="isExpanded">
         <a href="javascript:void(0)">
           {{ isExpanded ? '收起' : '展开' }}
@@ -34,6 +41,8 @@
     lineClamp?: number;
     /** 是否显示展开/收起按钮 */
     showFoldBtn?: boolean;
+    /**  是否收起按钮紧跟内容。 */
+    foldBtnInline?: boolean;
   }
 
   /**
@@ -43,6 +52,7 @@
     text: '',
     lineClamp: 1,
     showFoldBtn: false,
+    foldBtnInline: true,
   });
 
   /**
@@ -186,8 +196,8 @@
     display: flex;
     gap: 2px;
     .toggle-btn {
-      flex-shrink: 0;
-      line-height: 1.5em;
+      display: inline-flex;
+      align-items: self-start;
     }
   }
   .m-text-ellips-container {

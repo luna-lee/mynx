@@ -34,11 +34,12 @@ MTextellips/element-plus-demo.vue
 
 ### Props
 
-| 参数        | 说明                  | 类型    | 可选值 | 默认值 |
-| ----------- | --------------------- | ------- | ------ | ------ |
-| text        | 显示的文本内容        | string  | —      | ''     |
-| lineClamp   | 行数限制              | number  | —      | 1      |
-| showFoldBtn | 是否显示展开/收起按钮 | boolean | —      | false  |
+| 参数          | 说明                   | 类型    | 可选值 | 默认值 |
+| ------------- | ---------------------- | ------- | ------ | ------ |
+| text          | 显示的文本内容         | string  | —      | ''     |
+| lineClamp     | 行数限制               | number  | —      | 1      |
+| showFoldBtn   | 是否显示展开/收起按钮  | boolean | —      | false  |
+| foldBtnInline | 是否收起按钮紧跟内容。 | boolean | —      | true   |
 
 ### Slots
 
