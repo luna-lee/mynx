@@ -94,6 +94,9 @@
   watch(
     () => [props.text, props.lineClamp],
     () => {
+      isExpanded.value = false;
+      isEllipsis.value = false;
+      textShow.value = '';
       checkEllipsis();
     },
     {
