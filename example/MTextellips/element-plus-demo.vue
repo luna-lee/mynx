@@ -38,7 +38,7 @@
             </el-select>
           </el-form-item>
 
-          <el-form-item label="收起按钮位置"> 
+          <el-form-item label="按钮跟随内容"> 
             <el-switch v-model="form.foldBtnInline" />
           </el-form-item>
         </el-form>

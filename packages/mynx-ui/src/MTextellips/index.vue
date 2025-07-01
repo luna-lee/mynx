@@ -1,36 +1,25 @@
 <template>
-  <div class="m-text-ellips">
-    <div class="m-text-ellips-container" ref="boxRef" :style="lineClampStyle">
-      <slot>
-        {{ text }}
-      </slot>
-      <div v-if="foldBtnInline && isExpanded && isEllipsis && showFoldBtn" class="toggle-btn" @click="toggleExpand">
-        <slot name="fold-btn" :isExpanded="isExpanded">
-          <a href="javascript:void(0)">
-            {{ isExpanded ? '收起' : '展开' }}
-          </a>
-        </slot>
-      </div>
-    </div>
-    <div class="m-text-ellips-text-sample" ref="contentRef" :style="sampleStyle">
-      <slot>
-        {{ text }}
-      </slot>
-    </div>
-    <div v-if="isEllipsis && showFoldBtn && (!foldBtnInline || (foldBtnInline && !isExpanded))" class="toggle-btn" @click="toggleExpand">
-      <slot name="fold-btn" :isExpanded="isExpanded">
-        <a href="javascript:void(0)">
-          {{ isExpanded ? '收起' : '展开' }}
-        </a>
-      </slot>
-    </div>
-  </div>
+  <!-- 按钮跟随内容 -->
+  <BtnFollowText v-if="text.length > 0 && foldBtnInline && showFoldBtn" :text="text" :lineClamp="lineClamp" @update:showAll="onShowAll">
+    <template v-if="$slots['fold-btn']" #fold-btn="{ isExpanded }">
+      <slot name="fold-btn" :isExpanded="isExpanded"> </slot>
+    </template>
+  </BtnFollowText>
+
+  <Normal v-else :text="text" :lineClamp="lineClamp" :showFoldBtn="showFoldBtn" :foldBtnInline="foldBtnInline" @update:showAll="onShowAll">
+    <template v-if="$slots.default" #default>
+      <slot> </slot>
+    </template>
+    <template v-if="$slots['fold-btn']" #fold-btn="{ isExpanded }">
+      <slot name="fold-btn" :isExpanded="isExpanded"> </slot>
+    </template>
+  </Normal>
 </template>
 
 <script setup lang="ts">
-  import { useResizeObserver } from '@vueuse/core';
   import { ref, reactive, computed, onMounted, watch } from 'vue';
-
+  import BtnFollowText from './BtnFollowText.vue';
+  import Normal from './normal.vue';
   /**
    * 组件属性定义
    */
@@ -71,150 +60,9 @@
     'update:showAll': [isShowAll: boolean];
   }>();
 
-  // 模板引用
-  const boxRef = ref<HTMLDivElement>();
-  const contentRef = ref<HTMLSpanElement>();
-
-  // 响应式数据
-  const isEllipsis = ref(false);
-  const isExpanded = ref(false);
-  const sampleStyle = reactive<Record<string, any>>({});
-
-  // 是否展示全部内容
-  const isShowAll = computed(() => {
-    return !isEllipsis.value || isExpanded.value;
-  });
-
-  // 监听 isShowAll 变化并发出事件
-  watch(
-    isShowAll,
-    (newValue) => {
-      emit('update:showAll', newValue);
-    },
-    { immediate: true },
-  );
-
-  /**
-   * 切换展开/收起状态
-   */
-  const toggleExpand = (): void => {
-    isExpanded.value = !isExpanded.value;
+  const onShowAll = (isShowAll: boolean) => {
+    emit('update:showAll', isShowAll);
   };
-
-  /**
-   * 计算行限制样式
-   */
-  const lineClampStyle = computed((): Record<string, any> => {
-    if (isExpanded.value) {
-      return {};
-    }
-
-    if (props.lineClamp > 1) {
-      return {
-        display: '-webkit-box',
-        '-webkit-box-orient': 'vertical',
-        '-webkit-line-clamp': props.lineClamp,
-      };
-    }
-
-    return {
-      'white-space': 'nowrap',
-    };
-  });
-
-  /**
-   * 检查是否需要省略
-   */
-  const checkEllipsis = (): void => {
-    if (!contentRef.value || !boxRef.value) return;
-    // 通过比较模板元素的高度和容器元素的高度来判断是否已省略
-    const computedStyle = getComputedStyle(boxRef.value);
-    const lineHeight = parseFloat(computedStyle.lineHeight) || parseFloat(computedStyle.fontSize) * 1.5;
-    // 计算最大高度
-    const maxHeight =
-      lineHeight * props.lineClamp +
-      parseFloat(computedStyle.paddingTop) +
-      parseFloat(computedStyle.paddingBottom) +
-      parseFloat(computedStyle.borderTopWidth) +
-      parseFloat(computedStyle.borderBottomWidth);
-    // 计算实际高度
-    const actualHeight = contentRef.value.offsetHeight;
-    // 判断是否需要省略
-    isEllipsis.value = actualHeight > maxHeight;
-  };
-
-  /**
-   * 组件挂载后初始化
-   */
-  onMounted(() => {
-    if (!contentRef.value || !boxRef.value) return;
-
-    // 监听内容元素尺寸变化
-    useResizeObserver(contentRef, () => {
-      checkEllipsis();
-    });
-
-    // 监听容器元素尺寸变化
-    useResizeObserver(boxRef, () => {
-      if (boxRef.value) {
-        // 让模板元素的宽度与容器元素的宽度一致，并设置行高、内边距等样式
-        const computedStyle = getComputedStyle(boxRef.value);
-        const paddingTop = computedStyle.paddingTop;
-        const paddingBottom = computedStyle.paddingBottom;
-        const paddingLeft = computedStyle.paddingLeft;
-        const paddingRight = computedStyle.paddingRight;
-        const lineHeight = computedStyle.lineHeight;
-        const borderTopWidth = computedStyle.borderTopWidth;
-        const borderBottomWidth = computedStyle.borderBottomWidth;
-        const borderLeftWidth = computedStyle.borderLeftWidth;
-        const borderRightWidth = computedStyle.borderRightWidth;
-        const boxSizing = computedStyle.boxSizing;
-        const width = computedStyle.width;
-
-        sampleStyle.width = width;
-        sampleStyle.lineHeight = lineHeight;
-        sampleStyle.paddingTop = paddingTop;
-        sampleStyle.paddingBottom = paddingBottom;
-        sampleStyle.paddingLeft = paddingLeft;
-        sampleStyle.paddingRight = paddingRight;
-        sampleStyle.boxSizing = boxSizing;
-        sampleStyle.borderTop = 'solid ' + borderTopWidth;
-        sampleStyle.borderBottom = 'solid ' + borderBottomWidth;
-        sampleStyle.borderLeft = 'solid ' + borderLeftWidth;
-        sampleStyle.borderRight = 'solid ' + borderRightWidth;
-      }
-      checkEllipsis();
-    });
-
-    // 初始检查
-    checkEllipsis();
-  });
 </script>
 
-<style lang="scss" scoped>
-  .m-text-ellips {
-    display: flex;
-    gap: 2px;
-    .toggle-btn {
-      display: inline-flex;
-      align-items: self-start;
-    }
-  }
-  .m-text-ellips-container {
-    flex: 1;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    line-height: 1.5em;
-  }
-
-  .m-text-ellips-text-sample {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    z-index: -1;
-  }
-</style>
+<style lang="scss" scoped></style>

@@ -34,12 +34,17 @@ MTextellips/element-plus-demo.vue
 
 ### Props
 
-| 参数          | 说明                   | 类型    | 可选值 | 默认值 |
-| ------------- | ---------------------- | ------- | ------ | ------ |
-| text          | 显示的文本内容         | string  | —      | ''     |
-| lineClamp     | 行数限制               | number  | —      | 1      |
-| showFoldBtn   | 是否显示展开/收起按钮  | boolean | —      | false  |
-| foldBtnInline | 是否收起按钮紧跟内容。 | boolean | —      | true   |
+| 参数          | 说明                                                                                                                 | 类型    | 可选值 | 默认值 |
+| ------------- | -------------------------------------------------------------------------------------------------------------------- | ------- | ------ | ------ |
+| text          | 显示的文本内容                                                                                                       | string  | —      | ''     |
+| lineClamp     | 行数限制                                                                                                             | number  | —      | 1      |
+| showFoldBtn   | 是否显示展开/收起按钮                                                                                                | boolean | —      | false  |
+| foldBtnInline | 是否收起按钮紧跟内容| boolean | —      | true   |
+
+#### 注意事项
+
+- **按钮紧跟内容：** <span style='color:#4968FF'> 通过props.text传入文本，且为showFoldBtn和foldBtnInline都为true时</span>，按钮视图会渲染为自动紧跟内容。且展开状态的按钮会保持在最后一行上，即不会换行显示。
+- **若文本通过slot传入：**foldBtnInline为true时，只对按钮展开后的位置起作用。
 
 ### Slots
 
