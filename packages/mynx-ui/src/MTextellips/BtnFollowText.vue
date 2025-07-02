@@ -26,7 +26,6 @@
 <script setup lang="ts">
   import { useResizeObserver } from '@vueuse/core';
   import { ref, reactive, computed, onMounted, watch } from 'vue';
-  import { debounce } from 'lodash-es';
   /**
    * 组件属性定义
    */
