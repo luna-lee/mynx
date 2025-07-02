@@ -10,7 +10,7 @@ interface ValidateResult {
     fields: any | null;
     fieldKeys: string[];
 }
-declare function validate(showMessage?: boolean): ValidateResult;
+declare function validate(): ValidateResult;
 declare function clearValidate(): void;
 declare function reload(): void;
 declare var __VLS_1: {};
