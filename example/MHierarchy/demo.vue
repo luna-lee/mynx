@@ -103,7 +103,7 @@ export default {
   data() {
     return {
       ContextmenuViewShow: false,
-      mode: "v",
+      mode: "h",
       layout: "bf",
       treeData: [],
       currentNode: {},
