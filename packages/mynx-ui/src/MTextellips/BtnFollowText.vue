@@ -26,7 +26,7 @@
 <script setup lang="ts">
   import { useResizeObserver } from '@vueuse/core';
   import { ref, reactive, computed, onMounted, watch } from 'vue';
-
+  import { debounce } from 'lodash-es';
   /**
    * 组件属性定义
    */
@@ -149,9 +149,6 @@
       textShow.value = '';
       checkEllipsis();
     });
-
-    // 初始检查
-    // checkEllipsis();
   });
 
   function checkEllipsis() {
@@ -169,7 +166,7 @@
     temp.textContent = '...';
     const ellipsisWidth = temp.offsetWidth;
     const toggleBtnWidth = toggleBtnTempRef.value.offsetWidth;
-    const availableWidth = contentWidth - ellipsisWidth - toggleBtnWidth - 20;
+    const availableWidth = contentWidth - ellipsisWidth * 2 - toggleBtnWidth - 12;
 
     // 快速检查是否需要截取
     temp.textContent = props.text;
