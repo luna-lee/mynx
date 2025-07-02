@@ -1,6 +1,6 @@
 {
   "name": "mynx-utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -8,7 +8,7 @@
   "homepage": "https://github.com/luna-lee/mynx.git",
   "scripts": {
     "build": "pnpm unbuild && npm run copy-dts",
-    "publish": "npm publish",
+    "npm:publish": "npm publish",
     "copy-dts": "cp src/*.d.ts dist"
   },
   "keywords": [],
