@@ -144,6 +144,9 @@
           tempRef.value.style[prop] = computedStyle[prop];
         });
       }
+      isExpanded.value = false;
+      isEllipsis.value = false;
+      textShow.value = '';
       checkEllipsis();
     });
 
