@@ -43,7 +43,6 @@
   const validator = ref<Schema>();
   const oldPathValue = ref<Record<string, any>>();
   const validatePropNodeValueObj = ref<Record<string, HTMLElement[]>>({});
-  const needReload = ref(false);
 
   // 存储事件监听器引用，用于组件卸载时清理
   let mousedownHandler: ((event: Event) => void) | null = null;
@@ -98,12 +97,11 @@
   );
 
   // 方法
-  function validate(showMessage = false): ValidateResult {
+  function validate(): ValidateResult {
     // 清除class
-    clearValidate();
-    setValidatePropNodeValueObj();
+    reload();
     const { flag, errors, fields, fieldKeys } = getValidate();
-    if (!flag) seErrorView(fieldKeys, errors, showMessage);
+    if (!flag) seErrorView(fieldKeys, errors);
     return {
       flag,
       errors,
@@ -155,11 +153,9 @@
 
     oldPathValue.value = newPathValue;
 
-    // 数据新增删除，重新获取dom,needReload外部控制重载，用于数组元素交换位置的视图交互
-    if (newObj.length || deleteObj.length || needReload.value) {
-      setValidatePropNodeValueObj();
-      clearValidate();
-      needReload.value = false;
+    // 数据新增删除，重新获取dom
+    if (newObj.length || deleteObj.length) {
+      reload();
       return;
     }
 
@@ -179,7 +175,7 @@
     }
   }
 
-  function seErrorView(keys: string[], errors: ValidateError[] | null, showErrorMsg = false) {
+  function seErrorView(keys: string[], errors: ValidateError[] | null) {
     if (!errors) return;
 
     keys.forEach((key) => {
@@ -193,11 +189,6 @@
         );
       });
     });
-
-    if (showErrorMsg && errors.length > 0) {
-      // 这里需要根据您使用的UI库来调整，比如 ElMessage.error
-      console.error(errors[0].message);
-    }
   }
 
   /**
@@ -318,7 +309,8 @@
   }
 
   function reload() {
-    needReload.value = true;
+    setValidatePropNodeValueObj();
+    clearValidate();
   }
 
   function setValidatePropNodeValueObj() {
