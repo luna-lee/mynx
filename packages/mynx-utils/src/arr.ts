@@ -90,20 +90,17 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
     let treeData = formatSource.reduce(
       (arr: MynxUtils.TreeFactoryItemType<T>[], item) => {
         item.children = item.children || [];
-        //   @ts-ignore
         item.track = item.track || [item.id];
         item.trigger = item.trigger || [];
         let parent = formatSource.find((node) => node.id == item.pId);
         if (!parent) arr.push(item);
         else {
           // track:所有父id，包括自己
-          parent.track = parent.track || [parent.id];
-          //   @ts-ignore
+          parent.track = parent.track ?? [parent.id];
           item.track.push(parent.track);
           // trigger:所有子id
           parent.trigger = parent.trigger || [];
           parent.trigger.push(item.id);
-          //   @ts-ignore
           parent.trigger.push(item.trigger);
           parent.children = parent.children
             ? [...parent.children, item]
@@ -117,11 +114,17 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
     // id 为key的对象。将trigger扁平化,获取所有子节点
     let objById = formatSource.reduce(
       (obj: { [key: string]: MynxUtils.TreeFactoryItemType<T> }, item) => {
-        item.trigger = flattenDeep(item.trigger);
-        //   @ts-ignore
-        item.track = flattenDeep(item.track).reverse();
-        //   @ts-ignore
-        item.level = item.track.length;
+        if (item.trigger) {
+          const triggerFlatten: string[] = flattenDeep(item.trigger);
+          item.trigger.length = 0;
+          item.trigger.push(...triggerFlatten);
+        }
+        if (item.track) {
+          const trackFlatten: string[] = flattenDeep(item.track);
+          item.track.length = 0;
+          item.track.push(...trackFlatten);
+          item.level = item.track.length;
+        }
         obj[item.id] = item;
         // 叶子节点移除children
         if (!item.children?.length) {

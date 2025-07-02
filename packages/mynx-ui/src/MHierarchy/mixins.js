@@ -1,6 +1,5 @@
 import * as d3 from 'd3';
 import { arrayRemoveItem, treeDataFactory } from 'mynx-utils';
-import { cloneDeep } from 'lodash-es';
 function isNonEmptyArray(arr) {
   return arr && arr.length;
 }
@@ -263,6 +262,7 @@ export default {
         if (isNonEmptyArray(d.data.children)) classList.push('m-hierarchy-node-expend');
         else arrayRemoveItem(classList, (item) => item == 'm-hierarchy-node-expend');
         if (isNonEmptyArray(d.data.children) || isNonEmptyArray(d.data._children) || d.data._hasChildren) classList.push('m-hierarchy-node-haschildren');
+        else arrayRemoveItem(classList, (item) => item == 'm-hierarchy-node-haschildren');
         let classContent = customNodeAttrs.class;
         if (classContent) {
           if (typeof classContent == 'function') {
@@ -498,7 +498,6 @@ export default {
       arrayRemoveItem(this.treeData, (item) => {
         return [...sourceData.trigger, targetNodeId].includes(item[this.symbolKey]);
       });
-
       if (redraw) this.drawView();
     },
     removeNodeById(ids) {
@@ -674,7 +673,7 @@ export default {
         //有则移除
         if (rootIndex != -1) list.splice(rootIndex, 1);
         // 重新拷贝一份当前数据，清空里面的children，用做后面重新构建一个树结构数据。
-        const copySourceData = cloneDeep(sourceData);
+        const copySourceData = { ...sourceData };
         copySourceData.children = [];
         list.push(copySourceData);
         // 重新构建一个树结构数据。
