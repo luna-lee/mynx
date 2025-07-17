@@ -1,7 +1,7 @@
 <template>
   <div class="m-subsection" ref="subsectionRef">
-    <MScroll :key="scrollKey" v-bind="scrollAttrs">
-      <div class="m-subsection__tab-header">
+    <MScroll ref="scrollViewRef" :key="scrollKey" v-bind="scrollAttrs">
+      <div ref="tabHeaderRef" class="m-subsection__tab-header">
         <div
           ref="tabItemRefs"
           v-for="(tab, index) in tabs"
@@ -109,13 +109,19 @@
    * 处理标签页切换
    * @param index - 目标标签页索引
    */
+  const scrollViewRef = ref<InstanceType<typeof MScroll>>();
+  const tabHeaderRef = ref<HTMLDivElement>();
   const handleTabSwitch = (index: number): void => {
-    // 平滑滚动到视图区域
-    tabItemRefs.value[index]?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'nearest',
-    });
+    const scrollViewWidth = scrollViewRef.value?.$el.offsetWidth;
+    const tabHeaderWidth = tabHeaderRef.value?.offsetWidth;
+    //  只有需要滚动时才平滑滚动到视图区域
+    if (scrollViewWidth < tabHeaderWidth)
+      // 平滑滚动到视图区域
+      tabItemRefs.value[index]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'nearest',
+      });
 
     if (currentActiveTabIndex.value !== index) {
       currentActiveTabIndex.value = index;
