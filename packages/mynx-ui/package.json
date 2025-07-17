@@ -1,6 +1,6 @@
 {
   "name": "mynx-ui",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Core UI components for Mynx UI",
   "main": "dist/mynx-ui.umd.js",
   "module": "dist/mynx-ui.es.js",

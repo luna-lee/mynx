@@ -27,13 +27,13 @@ interface SubsectionProps {
     /** 滚动组件配置选项 */
     scrollAttrs?: scrollAttrs;
 }
-declare var __VLS_5: string, __VLS_6: {
+declare var __VLS_7: string, __VLS_8: {
     tab: TabItem;
-}, __VLS_13: string, __VLS_14: {};
+}, __VLS_15: string, __VLS_16: {};
 type __VLS_Slots = {} & {
-    [K in NonNullable<typeof __VLS_5>]?: (props: typeof __VLS_6) => any;
+    [K in NonNullable<typeof __VLS_7>]?: (props: typeof __VLS_8) => any;
 } & {
-    [K in NonNullable<typeof __VLS_13>]?: (props: typeof __VLS_14) => any;
+    [K in NonNullable<typeof __VLS_15>]?: (props: typeof __VLS_16) => any;
 };
 declare const __VLS_component: import("vue").DefineComponent<SubsectionProps, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {} & {
     "update:modelValue": (value: number) => any;
