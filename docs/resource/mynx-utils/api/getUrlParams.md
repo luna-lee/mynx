@@ -29,12 +29,12 @@ import { getUrlParams } from 'mynx-utils';
 
 // 假设当前URL是: https://example.com/?name=John&age=30&verified=true
 
-const params = getUrlParams();
-console.log(params);
+const {rootUrl,urlParams} = getUrlParams();
+console.log(urlParams);
 // 输出: { name: "John", age: "30", verified: "true" }
 
-console.log(params.name); // 输出: "John"
-console.log(params.age);  // 输出: "30"
+console.log(urlParams.name); // 输出: "John"
+console.log(urlParams.age);  // 输出: "30"
 ```
 
 ### 解析指定URL
@@ -43,9 +43,9 @@ console.log(params.age);  // 输出: "30"
 import { getUrlParams } from 'mynx-utils';
 
 const url = 'https://api.example.com/data?category=books&sort=newest&page=2';
-const params = getUrlParams(url);
+const {rootUrl,urlParams} = getUrlParams(url);
 
-console.log(params);
+console.log(urlParams);
 // 输出: { category: "books", sort: "newest", page: "2" }
 ```
 
@@ -55,7 +55,7 @@ console.log(params);
 import { getUrlParams } from 'mynx-utils';
 
 const url = 'https://example.com/search?query=javascript+framework&tags=vue,react&filter=new';
-const params = getUrlParams(url);
+const {rootUrl,urlParams:params} = getUrlParams(url);
 
 console.log(params.query); // 输出: "javascript framework"（注意+被解码为空格）
 console.log(params.tags);  // 输出: "vue,react"
@@ -67,7 +67,7 @@ console.log(params.tags);  // 输出: "vue,react"
 import { getUrlParams, addUrlParams } from 'mynx-utils';
 
 // 获取当前参数
-const currentParams = getUrlParams();
+const {rootUrl,urlParams:currentParams} = getUrlParams();
 
 // 添加或修改一些参数
 const newUrl = addUrlParams(window.location.href, {
