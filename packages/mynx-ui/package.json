@@ -1,13 +1,13 @@
 {
   "name": "mynx-ui",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Core UI components for Mynx UI",
   "main": "dist/mynx-ui.umd.js",
   "module": "dist/mynx-ui.es.js",
   "types": "types/index.d.ts",
   "homepage": "https://github.com/luna-lee/mynx.git",
   "exports": {
-    ".": { 
+    ".": {
       "types": "./types/index.d.ts",
       "import": "./dist/mynx-ui.es.js",
       "require": "./dist/mynx-ui.umd.js"
@@ -35,7 +35,6 @@
     "typecheck": "vue-tsc --noEmit",
     "npm:publish": "npm publish",
     "clean": "rm -rf dist types"
-    
   },
   "peerDependencies": {
     "vue": ">=3.0.0"
@@ -69,6 +68,6 @@
     "d3": ">=7.0.0",
     "async-validator": ">=4.2.5",
     "lodash-es": ">=3.0.0",
-    "mynx-utils": "workspace:*"
+    "mynx-utils": ">=1.0.0"
   }
 }
