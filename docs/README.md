@@ -282,8 +282,8 @@ treeToFlat({ source: data, id: "id", pId: "pId", children: "children" });
   pId: string;
   children?: TreeFactoryItemType<T>[];
   data: T;
-  track?: string[];
-  trigger?: string[];
+  parentIds?: string[];
+  childrenIds?: string[];
   level?: number;
   [k: string]: any;
 };
@@ -318,8 +318,8 @@ treeToFlat({ source: data, id: "id", pId: "pId", children: "children" });
 - @param {\*} pId
 - @param {\*} children 子项
 - @param {\*} data 源数据
-- @param {\*} track 所有当前节点的父节点 id，包括自身 ID
-- @param {\*} trigger 所有当前节点的子节点 id，不包含自身 ID
+- @param {\*} parentIds 所有当前节点的父节点 id，包括自身 ID
+- @param {\*} childrenIds 所有当前节点的子节点 id，不包含自身 ID
 
 ```javascript
 let { treeData } = treeDataFactory({ source: data, id: "id", pId: "pId" });

@@ -44,7 +44,7 @@
             if (data) {
               if (isNonEmptyArray(data.children) || isNonEmptyArray(data._children) || data._hasChildren) {
                 // 根节点不显示折叠图形
-                if (data._sign == 1 && data.track.length > 1) value[1] = plusCircleWidth + value[1];
+                if (data._sign == 1 && data.parentIds.length > 1) value[1] = plusCircleWidth + value[1];
                 if (data._sign == -1) value[3] = plusCircleWidth + value[3];
               }
             }
@@ -206,7 +206,7 @@
           }
           if (this.layout == 'bf') {
             // 对应的所有子节点，都视作一致
-            item._sign = intersection(item.track, negativeIds).length > 0 ? -1 : 1;
+            item._sign = intersection(item.parentIds, negativeIds).length > 0 ? -1 : 1;
           }
         });
         this.treeDataFactory.treeData[0]._sign = 1;
@@ -228,13 +228,13 @@
                   [this.symbolKey]: id,
                   [this.inner_treeOptions.name]: '展开',
                   [this.inner_treeOptions.pId]: item[this.symbolKey],
-                  track: [...item.track, id],
-                  trigger: [],
+                  parentIds: [...item.parentIds, id],
+                  childrenIds: [],
                   level: item.level + 1,
                   _isexpend: false,
                   _sign,
                 };
-                item.trigger.push(id);
+                item.childrenIds.push(id);
                 this.treeDataFactory.flatData.push(expendNode);
                 this.treeDataFactory.objById[id] = expendNode;
 

@@ -10,8 +10,8 @@ declare global {
       pId: string;
       children?: TreeFactoryItemType<T>[];
       data: T;
-      track?: NestedStringArray[];
-      trigger?: NestedStringArray[];
+      parentIds?: NestedStringArray[];
+      childrenIds?: NestedStringArray[];
       level?: number;
       [k: string]: any;
     };

@@ -169,7 +169,7 @@ export default {
       let removedId = [];
       if (this.treeDataFactory.treeData.length > 1) {
         this.treeDataFactory.treeData.slice(1).forEach((item) => {
-          removedId.push(item[this.symbolKey], ...item.trigger);
+          removedId.push(item[this.symbolKey], ...item.childrenIds);
         });
       }
       arrayRemoveItem(this.treeDataFactory.flatData, (item) => {
@@ -257,7 +257,7 @@ export default {
         const currentClass = d3.select(this).attr('class') || '';
         const classList = currentClass.split(' ');
         classList.push('m-hierarchy-node');
-        if (d.data.track.length == 1) classList.push('m-hierarchy-node-root');
+        if (d.data.parentIds.length == 1) classList.push('m-hierarchy-node-root');
         if (typeof d.data._isexpend == 'boolean') classList.push('m-hierarchy-node-limit-button');
         if (isNonEmptyArray(d.data.children)) classList.push('m-hierarchy-node-expend');
         else arrayRemoveItem(classList, (item) => item == 'm-hierarchy-node-expend');
@@ -345,7 +345,7 @@ export default {
     updateNodeByData(dataList) {
       dataList = this.formatToArray(dataList);
       // 不更新的属性项
-      let exAttrs = [this.inner_treeOptions.id, this.inner_treeOptions.pId, 'children', 'level', 'track', 'trigger'];
+      let exAttrs = [this.inner_treeOptions.id, this.inner_treeOptions.pId, 'children', 'level', 'parentIds', 'childrenIds'];
 
       dataList.forEach((data) => {
         let old = this.treeDataFactory.objById[data[this.symbolKey]];
@@ -423,7 +423,7 @@ export default {
         throw `m-hierarchy组件：展开/收起节点不能手动删除！`;
       }
 
-      let toRemoveId = [...sourceData.trigger, targetNodeId];
+      let toRemoveId = [...sourceData.childrenIds, targetNodeId];
       for (let i = 0; i < toRemoveId.length; i++) {
         let n = this.treeDataFactory.objById[toRemoveId[i]];
         this.svg.select(`#${this.getNodeId(n[this.symbolKey])}`).remove();
@@ -480,23 +480,23 @@ export default {
 
       // 移除treeDataFactory中所有节点 以及所有子节点
       arrayRemoveItem(this.treeDataFactory.flatData, (item) => {
-        return [...sourceData.trigger, targetNodeId].includes(item[this.symbolKey]);
+        return [...sourceData.childrenIds, targetNodeId].includes(item[this.symbolKey]);
       });
-      [...sourceData.trigger, targetNodeId].forEach((id) => {
+      [...sourceData.childrenIds, targetNodeId].forEach((id) => {
         delete this.treeDataFactory.objById[id];
       });
 
-      // 所有的父节点trigger中都需要移除对应的id
-      parentNode.track.map((id) => {
-        arrayRemoveItem(this.treeDataFactory.objById[id].trigger, (_id) => {
-          return [...sourceData.trigger, targetNodeId].includes(_id);
+      // 所有的父节点childrenIds中都需要移除对应的id
+      parentNode.parentIds.map((id) => {
+        arrayRemoveItem(this.treeDataFactory.objById[id].childrenIds, (_id) => {
+          return [...sourceData.childrenIds, targetNodeId].includes(_id);
         });
       });
 
       // 内部修改数据不触发重绘
       this.InnerChangeTreeData = true;
       arrayRemoveItem(this.treeData, (item) => {
-        return [...sourceData.trigger, targetNodeId].includes(item[this.symbolKey]);
+        return [...sourceData.childrenIds, targetNodeId].includes(item[this.symbolKey]);
       });
       if (redraw) this.drawView();
     },
@@ -658,9 +658,9 @@ export default {
       // 不是数组时构造一个数组
       childrenList = this.formatToArray(childrenList);
       if (childrenList.length) {
-        // 所有的父节点trigger中都需要添加新增的字节id
-        sourceData.track.map((id) => {
-          this.treeDataFactory.objById[id].trigger.push(...childrenList.map((v) => v[this.symbolKey]));
+        // 所有的父节点childrenIds中都需要添加新增的字节id
+        sourceData.parentIds.map((id) => {
+          this.treeDataFactory.objById[id].childrenIds.push(...childrenList.map((v) => v[this.symbolKey]));
         });
 
         let list = childrenList.map((v) => {
@@ -724,9 +724,9 @@ export default {
           let childrenList = await this.nodeListener['clickFetchChildren']?.(sourceData, this.svg.select(`#${this.getNodeId(sourceData[this.symbolKey])}`), this.svg);
           childrenList = this.formatToArray(childrenList);
           if (childrenList.length) {
-            // 所有的父节点trigger中都需要添加新增的字节id
-            sourceData.track.map((id) => {
-              this.treeDataFactory.objById[id].trigger.push(...childrenList.map((v) => v[this.symbolKey]));
+            // 所有的父节点childrenIds中都需要添加新增的字节id
+            sourceData.parentIds.map((id) => {
+              this.treeDataFactory.objById[id].childrenIds.push(...childrenList.map((v) => v[this.symbolKey]));
             });
 
             let list = childrenList.map((v) => {
@@ -1085,7 +1085,7 @@ export default {
       this.moveToCenter();
     },
     expendToNode(sourceData) {
-      sourceData.track.forEach((id, index) => {
+      sourceData.parentIds.forEach((id, index) => {
         if (id != sourceData[this.symbolKey]) {
           let node = this.treeDataFactory.objById[id]; // this.hierarchyLayoutData.find((item) => item.data[this.symbolKey] == id);
           if (!this.lastClickNode) {
@@ -1099,9 +1099,9 @@ export default {
             node.children = node._children;
             node._children = undefined;
           }
-          if (index < sourceData.track.length - 1) {
+          if (index < sourceData.parentIds.length - 1) {
             // 若下个节点在_exChildren中时
-            let nextId = sourceData.track[index + 1];
+            let nextId = sourceData.parentIds[index + 1];
             let children = node.children || node._children;
             // 若在限制收起节点中找到，则当前节点需要处于展开状态
             let ifInExChildren = node?._exChildren?.find((v) => v[this.symbolKey] == nextId);

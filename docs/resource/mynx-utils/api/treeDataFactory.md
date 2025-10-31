@@ -29,8 +29,8 @@ interface TreeFactoryItemType<T> {
   pId: string;
   children?: TreeFactoryItemType<T>[];
   data: T;
-  track?: string[];
-  trigger?: string[];
+  parentIds?: string[];
+  childrenIds?: string[];
   level?: number;
   [k: string]: any;
 }
@@ -56,8 +56,8 @@ interface TreeFactoryItemType<T> {
 
 `treeDataFactory` 函数提供了全面的树形数据处理工具。它不会修改源数据，而是创建新的数据结构，并为每个节点增加以下有用的元数据：
 
-- `track`: 从根到当前节点的所有ID路径（包括当前节点ID），按层级从顶到底排列
-- `trigger`: 当前节点的所有后代节点ID（不包括自身ID）
+- `parentIds`: 从根到当前节点的所有ID路径（包括当前节点ID），按层级从顶到底排列
+- `childrenIds`: 当前节点的所有后代节点ID（不包括自身ID）
 - `level`: 节点在树中的深度级别
 - `data`: 原始源数据对象
 - `children`: 子节点数组
@@ -94,8 +94,8 @@ console.log('树结构:', treeData);
     pId: '0',
     data: { id: '1', pId: '0', name: '父节点 1' },
     children: [ ... ],
-    track: ['1'],
-    trigger: ['1-1', '1-2', '1-1-1'],
+    parentIds: ['1'],
+    childrenIds: ['1-1', '1-2', '1-1-1'],
     level: 1
   },
   {
@@ -103,8 +103,8 @@ console.log('树结构:', treeData);
     pId: '0',
     data: { id: '2', pId: '0', name: '父节点 2' },
     children: [ ... ],
-    track: ['2'],
-    trigger: ['2-1'],
+    parentIds: ['2'],
+    childrenIds: ['2-1'],
     level: 1
   }
 ]
@@ -113,9 +113,9 @@ console.log('树结构:', treeData);
 console.log('叶子节点:', leaves);
 /*
 [
-  { id: '1-1-1', pId: '1-1', data: {...}, track: ['1-1-1', '1-1', '1'], trigger: [], level: 3 },
-  { id: '1-2', pId: '1', data: {...}, track: ['1-2', '1'], trigger: [], level: 2 },
-  { id: '2-1', pId: '2', data: {...}, track: ['2-1', '2'], trigger: [], level: 2 }
+  { id: '1-1-1', pId: '1-1', data: {...}, parentIds: ['1-1-1', '1-1', '1'], childrenIds: [], level: 3 },
+  { id: '1-2', pId: '1', data: {...}, parentIds: ['1-2', '1'], childrenIds: [], level: 2 },
+  { id: '2-1', pId: '2', data: {...}, parentIds: ['2-1', '2'], childrenIds: [], level: 2 }
 ]
 */
 
@@ -126,8 +126,8 @@ console.log('ID为"1-1"的节点:', objById['1-1']);
   pId: '1',
   data: { id: '1-1', pId: '1', name: '子节点 1-1' },
   children: [ ... ],
-  track: ['1-1', '1'],
-  trigger: ['1-1-1'],
+  parentIds: ['1-1', '1'],
+  childrenIds: ['1-1-1'],
   level: 2
 }
 */
@@ -156,7 +156,7 @@ const { treeData, objById } = treeDataFactory(
   (item) => {
     // 为每个节点添加自定义属性
     item.fullPath = item.data.url;
-    item.breadcrumb = item.track.map(id => objById[id]?.data.title).filter(Boolean);
+    item.breadcrumb = item.parentIds.map(id => objById[id]?.data.title).filter(Boolean);
     item.isActive = false;
     
     // 根据节点类型添加图标
@@ -192,7 +192,7 @@ const { objById, flatData } = treeDataFactory({ source: employees });
 
 // 查找初级开发者的所有上级
 const juniorDev = objById['e6'];
-const managerChain = juniorDev.track
+const managerChain = juniorDev.parentIds
   .filter(id => id !== 'e6') // 排除自己
   .map(id => objById[id].data.name);
 
@@ -201,7 +201,7 @@ console.log('初级开发者汇报给:', managerChain);
 
 // 查找CTO的所有下属
 const cto = objById['e2'];
-const ctoSubordinates = cto.trigger
+const ctoSubordinates = cto.childrenIds
   .map(id => objById[id].data.name);
 
 console.log('CTO管理:', ctoSubordinates);
@@ -240,24 +240,24 @@ export default {
     },
     breadcrumbs() {
       if (!this.currentNode) return [];
-      return this.currentNode.track.map(id => this.treeInfo.objById[id].data);
+      return this.currentNode.parentIds.map(id => this.treeInfo.objById[id].data);
     }
   },
   methods: {
     selectMenuItem(id) {
       this.activeId = id;
       // 可以直接访问选中节点的所有父节点
-      console.log('父节点路径:', this.currentNode.track);
+      console.log('父节点路径:', this.currentNode.parentIds);
       // 可以直接访问选中节点的所有子节点
-      console.log('子节点IDs:', this.currentNode.trigger);
+      console.log('子节点IDs:', this.currentNode.childrenIds);
     },
     isParentOf(nodeId, possibleChildId) {
       const node = this.treeInfo.objById[nodeId];
-      return node && node.trigger.includes(possibleChildId);
+      return node && node.childrenIds.includes(possibleChildId);
     },
     isChildOf(nodeId, possibleParentId) {
       const node = this.treeInfo.objById[nodeId];
-      return node && node.track.includes(possibleParentId);
+      return node && node.parentIds.includes(possibleParentId);
     }
   }
 }

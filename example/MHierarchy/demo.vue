@@ -290,7 +290,7 @@ export default {
               if (
                 (!isNonEmptyArray(d.data.children) &&
                   !isNonEmptyArray(d.data._children)) ||
-                d.data.track.length == 1
+                d.data.parentIds.length == 1
               ) {
                 return "none";
               }

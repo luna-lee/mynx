@@ -216,7 +216,7 @@
           }
           if (this.layout == 'bf') {
             // 对应的所有子节点，都视作一致
-            item._sign = intersection(item.track, negativeIds).length > 0 ? -1 : 1;
+            item._sign = intersection(item.parentIds, negativeIds).length > 0 ? -1 : 1;
           }
         });
         this.treeDataFactory.treeData[0]._sign = 1;

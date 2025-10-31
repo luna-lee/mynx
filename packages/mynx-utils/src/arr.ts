@@ -52,8 +52,8 @@ export const treeToFlat = <T = any>({
  * @param {*} pId
  * @param {*} children 子项
  * @param {*} data 源数据
- * @param {*} track 所有当前节点的父节点id，包括自身ID
- * @param {*} trigger 所有当前节点的子节点id，不包含自身ID
+ * @param {*} parentIds 所有当前节点的父节点id，包括自身ID
+ * @param {*} childrenIds 所有当前节点的子节点id，不包含自身ID
  */
 
 export const treeDataFactory = <T extends MynxUtils.Recordable>(
@@ -90,18 +90,18 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
     let treeData = formatSource.reduce(
       (arr: MynxUtils.TreeFactoryItemType<T>[], item) => {
         item.children = item.children || [];
-        item.track = item.track || [item.id];
-        item.trigger = item.trigger || [];
+        item.parentIds = item.parentIds || [item.id];
+        item.childrenIds = item.childrenIds || [];
         let parent = formatSource.find((node) => node.id == item.pId);
         if (!parent) arr.push(item);
         else {
-          // track:所有父id，包括自己
-          parent.track = parent.track ?? [parent.id];
-          item.track.push(parent.track);
-          // trigger:所有子id
-          parent.trigger = parent.trigger || [];
-          parent.trigger.push(item.id);
-          parent.trigger.push(item.trigger);
+          // parentIds:所有父id，包括自己
+          parent.parentIds = parent.parentIds ?? [parent.id];
+          item.parentIds.push(parent.parentIds);
+          // childrenIds:所有子id
+          parent.childrenIds = parent.childrenIds || [];
+          parent.childrenIds.push(item.id);
+          parent.childrenIds.push(item.childrenIds);
           parent.children = parent.children
             ? [...parent.children, item]
             : [item];
@@ -111,19 +111,19 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
       []
     );
     let leaves: MynxUtils.TreeFactoryItemType<T>[] = [];
-    // id 为key的对象。将trigger扁平化,获取所有子节点
+    // id 为key的对象。将childrenIds扁平化,获取所有子节点
     let objById = formatSource.reduce(
       (obj: { [key: string]: MynxUtils.TreeFactoryItemType<T> }, item) => {
-        if (item.trigger) {
-          const triggerFlatten: string[] = flattenDeep(item.trigger);
-          item.trigger.length = 0;
-          item.trigger.push(...triggerFlatten);
+        if (item.childrenIds) {
+          const childrenIdsFlatten: string[] = flattenDeep(item.childrenIds);
+          item.childrenIds.length = 0;
+          item.childrenIds.push(...childrenIdsFlatten);
         }
-        if (item.track) {
-          const trackFlatten: string[] = flattenDeep(item.track);
-          item.track.length = 0;
-          item.track.push(...trackFlatten);
-          item.level = item.track.length;
+        if (item.parentIds) {
+          const parentIdsFlatten: string[] = flattenDeep(item.parentIds);
+          item.parentIds.length = 0;
+          item.parentIds.push(...parentIdsFlatten);
+          item.level = item.parentIds.length;
         }
         obj[item.id] = item;
         // 叶子节点移除children
