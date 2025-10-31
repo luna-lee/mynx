@@ -8,11 +8,16 @@ declare global {
       pId: string;
       children?: TreeFactoryItemType<T>[];
       data: T;
-      parentIds?: string[];
-      childrenIds?: string[];
-      level?: number;
+      parentIds: string[];
+      childrenIds: string[];
+      level: number;
       [k: string]: any;
     };
+
+    type PartialTreeFactoryItemType<T> = Omit<
+      MynxUtils.TreeFactoryItemType<T>,
+      "parentIds" | "childrenIds" | "level"
+    >;
   }
 }
 

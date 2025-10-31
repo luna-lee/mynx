@@ -66,10 +66,11 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
     id?: string;
     pId?: string;
   },
-  customizer?: (item: MynxUtils.TreeFactoryItemType<T>) => void
+  customizer?: (item: MynxUtils.PartialTreeFactoryItemType<T>) => void
 ) => {
   if (!isType(source, "Array")) throw "treeToFlat  source必须是数组";
-  let formatSource: MynxUtils.TreeFactoryItemType<T>[] = source.map(
+
+  let formatSource: MynxUtils.PartialTreeFactoryItemType<T>[] = source.map(
     (item: T) => {
       const _item = {
         id: item[id],
@@ -88,7 +89,7 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
   );
   try {
     let treeData = formatSource.reduce(
-      (arr: MynxUtils.TreeFactoryItemType<T>[], item) => {
+      (arr: MynxUtils.PartialTreeFactoryItemType<T>[], item) => {
         item.children = item.children || [];
         item.parentIds = item.parentIds || [item.id];
         item.childrenIds = item.childrenIds || [];
@@ -127,10 +128,10 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
           item.parentIds.push(...parentIdsFlatten);
           item.level = item.parentIds.length;
         }
-        obj[item.id] = item;
+        obj[item.id] = item as MynxUtils.TreeFactoryItemType<T>;
         // 叶子节点移除children
         if (!item.children?.length) {
-          leaves.push(item);
+          leaves.push(item as MynxUtils.TreeFactoryItemType<T>);
           delete item.children;
         }
         return obj;
