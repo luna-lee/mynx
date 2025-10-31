@@ -97,10 +97,12 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
         else {
           // parentIds:所有父id，包括自己
           parent.parentIds = parent.parentIds ?? [parent.id];
+          // @ts-ignore
           item.parentIds.push(parent.parentIds);
           // childrenIds:所有子id
           parent.childrenIds = parent.childrenIds || [];
           parent.childrenIds.push(item.id);
+          // @ts-ignore
           parent.childrenIds.push(item.childrenIds);
           parent.children = parent.children
             ? [...parent.children, item]
