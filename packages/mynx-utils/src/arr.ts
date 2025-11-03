@@ -99,7 +99,7 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
           // parentIds:所有父id，包括自己
           parent.parentIds = parent.parentIds ?? [parent.id];
           // @ts-ignore
-          item.parentIds.push(parent.parentIds);
+          item.parentIds.unshift(parent.parentIds);
           // childrenIds:所有子id
           parent.childrenIds = parent.childrenIds || [];
           parent.childrenIds.push(item.id);
@@ -125,7 +125,7 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
         if (item.parentIds) {
           const parentIdsFlatten: string[] = flattenDeep(item.parentIds);
           item.parentIds.length = 0;
-          item.parentIds.push(...parentIdsFlatten.reverse());
+          item.parentIds.push(...parentIdsFlatten);
           item.level = item.parentIds.length;
         }
         obj[item.id] = item as MynxUtils.TreeFactoryItemType<T>;
