@@ -125,7 +125,7 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
         if (item.parentIds) {
           const parentIdsFlatten: string[] = flattenDeep(item.parentIds);
           item.parentIds.length = 0;
-          item.parentIds.push(...parentIdsFlatten);
+          item.parentIds.push(...parentIdsFlatten.reverse());
           item.level = item.parentIds.length;
         }
         obj[item.id] = item as MynxUtils.TreeFactoryItemType<T>;
