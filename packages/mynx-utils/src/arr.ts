@@ -66,17 +66,20 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
     id?: string;
     pId?: string;
   },
-  customizer?: (item: MynxUtils.PartialTreeFactoryItemType<T>) => void
+  customizer?: (item: MynxUtils.TreeFactoryItemType<T>) => void
 ) => {
   if (!isType(source, "Array")) throw "treeToFlat  source必须是数组";
 
-  let formatSource: MynxUtils.PartialTreeFactoryItemType<T>[] = source.map(
+  let formatSource: MynxUtils.TreeFactoryItemType<T>[] = source.map(
     (item: T) => {
       const _item = {
         id: item[id],
         pId: item[pId],
         data: item,
         children: [],
+        parentIds: [item.id],
+        childrenIds: [],
+        level: 0,
       };
       if (customizer) {
         customizer(_item);
@@ -89,25 +92,17 @@ export const treeDataFactory = <T extends MynxUtils.Recordable>(
   );
   try {
     let treeData = formatSource.reduce(
-      (arr: MynxUtils.PartialTreeFactoryItemType<T>[], item) => {
-        item.children = item.children || [];
-        item.parentIds = item.parentIds || [item.id];
-        item.childrenIds = item.childrenIds || [];
+      (arr: MynxUtils.TreeFactoryItemType<T>[], item) => {
         let parent = formatSource.find((node) => node.id == item.pId);
         if (!parent) arr.push(item);
         else {
-          // parentIds:所有父id，包括自己
-          parent.parentIds = parent.parentIds ?? [parent.id];
           // @ts-ignore
           item.parentIds.unshift(parent.parentIds);
           // childrenIds:所有子id
-          parent.childrenIds = parent.childrenIds || [];
           parent.childrenIds.push(item.id);
           // @ts-ignore
           parent.childrenIds.push(item.childrenIds);
-          parent.children = parent.children
-            ? [...parent.children, item]
-            : [item];
+          parent.children = [...parent.children!, item];
         }
         return arr;
       },

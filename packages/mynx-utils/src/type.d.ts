@@ -13,11 +13,6 @@ declare global {
       level: number;
       [k: string]: any;
     };
-
-    type PartialTreeFactoryItemType<T> = Omit<
-      MynxUtils.TreeFactoryItemType<T>,
-      "parentIds" | "childrenIds" | "level"
-    >;
   }
 }
 
