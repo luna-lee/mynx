@@ -1,6 +1,5 @@
 # MCurtain 组件
 
-
 ### 开发目的
 
 - 提供一个带动画的窗帘（折叠/展开）组件，可自定义内容区域和触发按钮。
@@ -9,31 +8,37 @@
 ### 用法示例
 
 #### 默认插槽内容
+
 ```demo
 MCurtain/default-slot
 ```
 
 #### 自定义触发器插槽
+
 ```demo
 MCurtain/trigger
 ```
 
 #### 自定义触发器内容插槽
+
 ```demo
 MCurtain/trigger-content
 ```
 
 #### modelValue 双向绑定
+
 ```demo
 MCurtain/model-value
 ```
 
 #### 触发器位置设置
+
 ```demo
 MCurtain/trigger-position
 ```
 
 #### 自定义折叠/展开样式
+
 ```demo
 MCurtain/fold-open-style
 ```
@@ -45,6 +50,7 @@ MCurtain/fold-open-style
 | value           | 控制展开/收起状态 | Boolean | true/false               | true                                 |
 | foldStyle       | 收起时的样式      | Object  | -                        | \{ width: '0', height: 'auto' \}     |
 | openStyle       | 展开时的样式      | Object  | -                        | \{ width: '500px', height: 'auto' \} |
+| showTrigger     | 是否显示触发按钮  | Boolean | true/false               | true                                 |
 | triggerPosition | 触发按钮的位置    | string  | top、right、bottom、left | right                                |
 
 ### Slots

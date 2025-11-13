@@ -6,6 +6,7 @@
     <slot name="trigger" :isOpen="isOpen">
       <div
         class="m-curtain-toggle"
+        v-if="showTrigger"
         :class="{
           'm-curtain-toggle-position-right': triggerPosition == 'right',
           'm-curtain-toggle-position-left': triggerPosition == 'left',
@@ -15,14 +16,7 @@
         @click="toggle"
       >
         <slot name="trigger-content" :isOpen="isOpen">
-          <svg
-            class="m-curtain-toggle-icon"
-            :class="{ 'm-curtain-toggle-icon-open': isOpen }"
-            xmlns="http://www.w3.org/2000/svg"
-            width="1em"
-            height="1em"
-            viewBox="0 0 24 24"
-          >
+          <svg class="m-curtain-toggle-icon" :class="{ 'm-curtain-toggle-icon-open': isOpen }" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m9 5l6 7l-6 7" />
           </svg>
         </slot>
@@ -53,6 +47,8 @@
     openStyle?: Record<string, any>;
     /** 触发器位置 */
     triggerPosition?: 'left' | 'right' | 'top' | 'bottom';
+    /** 是否显示触发器 */
+    showTrigger?: boolean;
   }
 
   /**
@@ -75,6 +71,7 @@
       height: '100%',
     }),
     triggerPosition: 'right',
+    showTrigger: true,
   });
 
   // 定义emits

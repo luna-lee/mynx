@@ -2,7 +2,7 @@
   <div class="demo-container">
     <div class="demo-grid">
       <div class="demo-item">
-        <h4>左侧触发器</h4>
+        <h4>左侧伸缩</h4>
         <div class="relative">
           <MCurtain
             class="absolute! right-0 top-0"
@@ -17,7 +17,7 @@
       </div>
 
       <div class="demo-item">
-        <h4>右侧触发器</h4>
+        <h4>右侧伸缩</h4>
         <MCurtain
           v-model="isOpenRight"
           :foldStyle="{ width: '0', height: '120px' }"
@@ -28,20 +28,22 @@
         </MCurtain>
       </div>
 
-      <div class="demo-item">
-        <h4>顶部触发器</h4>
-        <MCurtain
-          v-model="isOpenTop"
-          :foldStyle="{ width: '250px', height: '0' }"
-          :openStyle="{ width: '250px', height: '120px' }"
-          triggerPosition="top"
-        >
-          <div class="content">顶部触发器示例</div>
-        </MCurtain>
+      <div class="demo-item flex flex-col items-center justify-center">
+        <h4>顶部伸缩</h4>
+        <div class="relative h-120px w-full">
+          <MCurtain
+            class="absolute! bottom-0 left-0"
+            v-model="isOpenTop"
+            :foldStyle="{ width: '250px', height: '0' }"
+            :openStyle="{ width: '250px', height: '120px' }"
+            triggerPosition="top"
+          >
+            <div class="content">顶部触发器示例</div>
+          </MCurtain>
+        </div>
       </div>
-
       <div class="demo-item">
-        <h4>底部触发器</h4>
+        <h4>底部伸缩</h4>
         <MCurtain
           v-model="isOpenBottom"
           :foldStyle="{ width: '250px', height: '0' }"

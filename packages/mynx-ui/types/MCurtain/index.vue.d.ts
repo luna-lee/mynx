@@ -10,6 +10,8 @@ interface MCurtainProps {
     openStyle?: Record<string, any>;
     /** 触发器位置 */
     triggerPosition?: 'left' | 'right' | 'top' | 'bottom';
+    /** 是否显示触发器 */
+    showTrigger?: boolean;
 }
 declare var __VLS_1: {}, __VLS_3: {
     isOpen: boolean;
@@ -32,6 +34,7 @@ declare const __VLS_component: import("vue").DefineComponent<MCurtainProps, {}, 
     foldStyle: Record<string, any>;
     openStyle: Record<string, any>;
     triggerPosition: "left" | "right" | "top" | "bottom";
+    showTrigger: boolean;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
 declare const _default: __VLS_WithSlots<typeof __VLS_component, __VLS_Slots>;
 export default _default;
