@@ -4,6 +4,7 @@
 interface TabItem {
     /** 标签页标题 */
     title: string;
+    disabled?: boolean;
     /** 其他扩展属性 */
     [key: string]: any;
 }
@@ -26,6 +27,7 @@ interface SubsectionProps {
     modelValue?: number;
     /** 滚动组件配置选项 */
     scrollAttrs?: scrollAttrs;
+    disabled?: boolean;
 }
 declare var __VLS_7: string, __VLS_8: {
     tab: TabItem;
@@ -41,6 +43,7 @@ declare const __VLS_component: import("vue").DefineComponent<SubsectionProps, {}
     "onUpdate:modelValue"?: (value: number) => any;
 }>, {
     modelValue: number;
+    disabled: boolean;
     tabs: TabItem[];
     scrollAttrs: scrollAttrs;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;

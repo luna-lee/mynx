@@ -8,7 +8,7 @@
           :key="index"
           class="m-subsection__tab-item"
           :class="{ 'm-subsection__tab-item--active': currentActiveTabIndex === index }"
-          @click="handleTabSwitch(index)"
+          @click="handleTabSwitch(index, tab)"
         >
           <slot :name="'tab-title-' + index" :tab="tab">{{ tab.title }}</slot>
         </div>
@@ -36,6 +36,7 @@
   interface TabItem {
     /** 标签页标题 */
     title: string;
+    disabled?: boolean;
     /** 其他扩展属性 */
     [key: string]: any;
   }
@@ -60,6 +61,7 @@
     modelValue?: number;
     /** 滚动组件配置选项 */
     scrollAttrs?: scrollAttrs;
+    disabled?: boolean;
   }
 
   /**
@@ -82,6 +84,7 @@
     scrollAttrs: () => ({
       scrollBtnShow: false,
     }),
+    disabled: false,
   });
 
   // 定义事件
@@ -111,7 +114,8 @@
    */
   const scrollViewRef = ref<InstanceType<typeof MScroll>>();
   const tabHeaderRef = ref<HTMLDivElement>();
-  const handleTabSwitch = (index: number): void => {
+  const handleTabSwitch = (index: number, tab: TabItem): void => {
+    if (props.disabled || tab.disabled) return;
     const scrollViewWidth = scrollViewRef.value?.$el.offsetWidth;
     const tabHeaderWidth = tabHeaderRef.value?.offsetWidth;
     //  只有需要滚动时才平滑滚动到视图区域
