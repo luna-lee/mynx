@@ -206,10 +206,10 @@
 
 <style>
   :root {
-    --m-subsection-radius: 100px;
-    --m-subsection-tab-item-height: 40px;
-    --m-subsection-tab-item-font-size: 18px;
-    --m-subsection-tab-item-color: #3d3d3d;
+    --m-subsection-radius: 5px;
+    --m-subsection-tab-item-height: 30px;
+    --m-subsection-tab-item-font-size: 14px;
+    --m-subsection-tab-item-color: #303030;
     --m-subsection-tab-item-active-color: #fff;
     --m-subsection-tab-item-active-background-color: #4269fd;
   }
@@ -217,7 +217,10 @@
 
 <style lang="scss" scoped>
   .m-subsection {
+    display: flex;
+    flex-direction: column;
     .m-scroll {
+      height: auto;
       & > ::v-deep(.m-scroll-container) {
         border-radius: var(--m-subsection-radius);
       }
@@ -262,6 +265,7 @@
 
     &__tab-content {
       position: relative;
+      flex: 1;
     }
 
     &__tab-pane {
