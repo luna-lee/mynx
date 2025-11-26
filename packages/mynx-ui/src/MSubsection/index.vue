@@ -266,10 +266,12 @@
     &__tab-content {
       position: relative;
       flex: 1;
+      overflow: hidden;
     }
 
     &__tab-pane {
       width: 100%;
+      height: 100%;
     }
 
     // 过渡动画效果

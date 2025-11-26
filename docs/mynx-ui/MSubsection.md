@@ -74,9 +74,9 @@ MSubsection/update-modelValue-event
 
 | 变量名                                      | 说明                 | 默认值    |
 | ------------------------------------------- | -------------------- | --------- |
-| --m-subsection-radius                       | 圆角大小             | 100px     |
-| --m-subsection-tab-item-height              | 标签页高度           | 40px      |
-| --m-subsection-tab-item-font-size           | 标签页字体大小       | 18px      |
+| --m-subsection-radius                       | 圆角大小             | 5px     |
+| --m-subsection-tab-item-height              | 标签页高度           | 30px      |
+| --m-subsection-tab-item-font-size           | 标签页字体大小       | 14px      |
 | --m-subsection-tab-item-color               | 标签页文字颜色       | #3d3d3d   |
 | --m-subsection-tab-item-active-color        | 激活标签页文字颜色   | #fff      |
 | --m-subsection-tab-item-active-background-color | 激活标签页背景色 | #4269fd   |
